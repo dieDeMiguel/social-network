@@ -1,7 +1,14 @@
 import ReactDOM from "react-dom";
+import Welcome from "./components/Welcome";
 
-ReactDOM.render(<HelloWorld />, document.querySelector("main"));
-
-function HelloWorld() {
-    return <div>Hello, World!</div>;
+if (window.location.pathname === "/welcome") {
+    ReactDOM.render(<Welcome />, document.querySelector("main"));
+} else {
+    ReactDOM.render(<p>Profile</p>, document.querySelector("main"));
 }
+
+// ReactDOM.render(<HelloWorld />, document.querySelector("main"));
+
+// function HelloWorld() {
+//     return <div>Hello, World!</div>;
+// }
