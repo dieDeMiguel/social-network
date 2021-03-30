@@ -21,10 +21,10 @@ class RegistrationForm extends Component {
     onFormSubmit(event) {
         event.preventDefault();
         axios
-            .post("/users", this.state)
+            .post("/users-failing", this.state)
             .then((response) => {
                 console.log("[RegistrationForm] axios succes:", response);
-                window.location.href = "/welcome";
+                this.onSucces();
             })
             .catch((error) => {
                 console.log(
@@ -35,7 +35,7 @@ class RegistrationForm extends Component {
             });
     }
 
-    onInputChange(event) {
+    onInputChange(event, callback) {
         this.setState({
             [event.target.name]: event.target.value,
         });
@@ -47,7 +47,11 @@ class RegistrationForm extends Component {
 
         // logging this.state will NOT give you the updated state.
         // to access that right away, you can pass a callback as the second argument of this.setState, e.g.:
-        // this.setState(newState, () => console.log(this.state) ));
+        this.setState(newState, () => console.log(this.state) ));
+    }
+
+    onSucces() {
+        window.location.href = "/";
     }
 
     renderError() {
