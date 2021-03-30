@@ -6,7 +6,11 @@ class RegistrationForm extends Component {
         super(props);
 
         this.state = {
-            // the four user fields
+            firstName: "",
+            lastName: "",
+            email: "",
+            password: "",
+            error: null,
         };
 
         // this solve the 'cannot access setState of undefined method
@@ -16,14 +20,18 @@ class RegistrationForm extends Component {
     }
     onFormSubmit(event) {
         event.preventDefault();
-        // the axios req
         axios
-            .post("/users", dataToSend)
-            .then((response) => this.props.onSuccess())
+            .post("/users", this.state)
+            .then((response) => {
+                console.log("[RegistrationForm] axios succes:", response);
+                window.location.href = "/welcome";
+            })
             .catch((error) => {
-                // error.response.data holds the response body
-                // if server is sending { message: 'Email already in use' }, you know what to do
-                // here you can do this.setState({ error: errorMessageFromResponse })
+                console.log(
+                    "[RegistrationForm] axios error",
+                    error.response.data
+                );
+                this.setState({ error: error.response.data.message });
             });
     }
 
@@ -32,13 +40,26 @@ class RegistrationForm extends Component {
             [event.target.name]: event.target.value,
         });
 
+        console.log(
+            "[RegistrationForm] onInputChange this.setState",
+            this.state
+        );
+
         // logging this.state will NOT give you the updated state.
         // to access that right away, you can pass a callback as the second argument of this.setState, e.g.:
         // this.setState(newState, () => console.log(this.state) ));
     }
+
+    renderError() {
+        if (this.state.error) {
+            return <p className="error-message">{this.state.error}</p>;
+        }
+        return null;
+    }
     render() {
         return (
             <div className="registration-form">
+                {this.renderError()}
                 <form onSubmit={this.onFormSubmit}>
                     <input
                         type="text"

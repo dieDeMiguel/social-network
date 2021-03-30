@@ -29,6 +29,7 @@ app.post("/users", (request, response) => {
     response.json({
         message: "success",
     });
+    return;
 
     // your final working code after you setup the db will look like this
 
@@ -54,10 +55,10 @@ app.get("/welcome", function (request, response) {
 
 app.get("*", function (request, response) {
     if (!request.session.userId) {
-        response.redirect("/");
+        response.redirect("/welcome");
         return;
     }
-    res.sendFile(path.join(__dirname, "..", "client", "index.html"));
+    response.sendFile(path.join(__dirname, "..", "client", "index.html"));
 });
 
 //Listener
