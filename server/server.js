@@ -135,6 +135,7 @@ app.post("/password/reset/start", (request, response) => {
 
 app.post("/password/reset/verify", (request, response) => {
     const { email, code, password } = request.body;
+    console.log("dentro de server.js, password", password);
     getPasswordResetCodeByEmailAndCode({ email, code }).then((storedCode) => {
         console.log("[/password/reset/verify route] storedCode: ", storedCode);
         if (!storedCode) {
@@ -144,16 +145,14 @@ app.post("/password/reset/verify", (request, response) => {
             });
             return;
         }
-        updateUserPassword(email, password).then(() => {
-            response.sendStatus(200);
+        updateUserPassword({ email, password }).then(() => {
+            response.statusCode = 200;
             response.json({
                 message: "Success!",
             });
+            return;
         });
     });
-
-    // if no storedCode is found, set the response.statusCode to 400 and send a JSON error message (and return)
-    // else, updateUserPassword({ email, password }) then send a JSON success message
 });
 
 app.get("*", function (request, response) {

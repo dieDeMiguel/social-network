@@ -34,11 +34,6 @@ export default function onSucces() {
 
                 <Route path="/password-reset">
                     <ResetPassword></ResetPassword>
-                    <footer>
-                        <p>
-                            Do you wanna go back? <Link to="/">Register</Link>
-                        </p>
-                    </footer>
                 </Route>
             </HashRouter>
         </section>

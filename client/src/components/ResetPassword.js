@@ -1,5 +1,6 @@
 import { Component } from "react";
 import axios from "../axios";
+import { Link } from "react-router-dom";
 
 class ResetPassword extends Component {
     constructor(props) {
@@ -39,7 +40,7 @@ class ResetPassword extends Component {
         axios
             .post("/password/reset/verify", {
                 email: this.state.email,
-                passwors: this.state.password,
+                password: this.state.password,
                 code: this.state.code,
             })
             .then(() => this.setState({ step: 3 }))
