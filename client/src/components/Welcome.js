@@ -1,4 +1,6 @@
 import RegistrationForm from "./RegistrationForm";
+import LoginForm from "./LoginForm";
+import { HashRouter, Route, Link } from "react-router-dom";
 
 export default function onSucces() {
     function onSuccess() {
@@ -7,7 +9,25 @@ export default function onSucces() {
 
     return (
         <section className="welcome">
-            <RegistrationForm onSuccess={onSuccess}></RegistrationForm>
+            <HashRouter>
+                <Route exact path="/">
+                    <RegistrationForm onSuccess={onSuccess}></RegistrationForm>
+                    <footer>
+                        <p>
+                            Already registered? <Link to="/login">Login</Link>
+                        </p>
+                    </footer>
+                </Route>
+
+                <Route path="/login">
+                    <LoginForm onSuccess={onSuccess}></LoginForm>
+                    <footer>
+                        <p>
+                            New here? <Link to="/">Register</Link>
+                        </p>
+                    </footer>
+                </Route>
+            </HashRouter>
         </section>
     );
 }
