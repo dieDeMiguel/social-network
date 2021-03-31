@@ -4,11 +4,13 @@ const app = express();
 const compression = require("compression");
 const path = require("path");
 const csurf = require("csurf");
+const { compare } = require("bcryptjs");
 const cookieSession = require("cookie-session");
 const {
     createUser,
     getUserByEmail,
     createPasswordResetCode,
+    getPasswordResetCodeByEmailAndCode,
     updateUserPassword,
 } = require("./db");
 const cryptoRandomString = require("crypto-random-string");
@@ -38,11 +40,44 @@ app.use(
 
 //Routing
 app.post("/login", (request, response) => {
-    response.statusCode = 200;
-    response.json({
-        message: "Logged In",
+    const { email, password } = request.body;
+    let error;
+    if (!email || !password) {
+        error = "You forgot something";
+        response.render("login", {
+            error,
+            home: false,
+            firstHeader: "Cast a vote!",
+            title: "Login!",
+            actionPage: "login",
+        });
+        return;
+    }
+    getUserByEmail(email).then((user) => {
+        if (!user) {
+            response.statusCode = 400;
+            console.log("login error, no user with this email", error);
+            response.json({
+                message: "login error",
+            });
+            return;
+        }
+        compare(password, user.password_hash).then((match) => {
+            if (!match) {
+                response.statusCode = 400;
+                console.log("login error, wrong password", error);
+                response.json({
+                    message: "login error",
+                });
+                return;
+            }
+            request.session.userId = user.id;
+            response.json({
+                message: "succes",
+                user_id: user.id,
+            });
+        });
     });
-    return;
 });
 
 app.post("/users", (request, response) => {
