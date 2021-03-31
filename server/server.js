@@ -16,6 +16,18 @@ app.use(
     })
 );
 
+app.use(csurf());
+app.use(function (req, res, next) {
+    res.cookie("social-network-token", req.csrfToken());
+    next();
+});
+
+app.use(
+    express.urlencoded({
+        extended: false,
+    })
+);
+
 //Routing
 app.post("/users-failing", (request, response) => {
     response.statusCode = 400;
