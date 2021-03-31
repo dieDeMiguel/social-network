@@ -1,5 +1,6 @@
 import RegistrationForm from "./RegistrationForm";
 import LoginForm from "./LoginForm";
+import ResetPassword from "./ResetPassword";
 import { HashRouter, Route, Link } from "react-router-dom";
 
 export default function onSucces() {
@@ -15,6 +16,8 @@ export default function onSucces() {
                     <footer>
                         <p>
                             Already registered? <Link to="/login">Login</Link>
+                            Forgot your password?
+                            <Link to="/password-reset">Password reset</Link>
                         </p>
                     </footer>
                 </Route>
