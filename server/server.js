@@ -5,7 +5,13 @@ const compression = require("compression");
 const path = require("path");
 const csurf = require("csurf");
 const cookieSession = require("cookie-session");
-const { createUser } = require("./db");
+const {
+    createUser,
+    getUserByEmail,
+    createPasswordResetCode,
+    updateUserPassword,
+} = require("./db");
+const cryptoRandomString = require("crypto-random-string");
 
 //Middlewares
 app.use(compression());
@@ -63,6 +69,56 @@ app.get("/welcome", function (request, response) {
         return;
     }
     response.sendFile(path.join(__dirname, "..", "client", "index.html"));
+});
+
+function sendCode({ email, code }) {
+    console.log(
+        "[social:email] sending email with code, first email then code",
+        email,
+        code
+    );
+}
+
+app.post("/password/reset/start", (request, response) => {
+    const { email } = request.body;
+    getUserByEmail(email).then((user) => {
+        if (!user) {
+            response.json({
+                message: "Success!",
+            });
+            return;
+        }
+        const code = cryptoRandomString({ length: 6 });
+        createPasswordResetCode({ email, code }).then(() => {
+            sendCode({ email, code });
+            response.json({
+                message: "success",
+            });
+        });
+    });
+});
+
+app.post("/password/reset/verify", (request, response) => {
+    const { email, code, password } = request.body;
+    getPasswordResetCodeByEmailAndCode({ email, code }).then((storedCode) => {
+        console.log("[/password/reset/verify route] storedCode: ", storedCode);
+        if (!storedCode) {
+            respons.statusCode = 400;
+            response.json({
+                message: "The code is incorrect",
+            });
+            return;
+        }
+        updateUserPassword(email, password).then(() => {
+            response.sendStatus(200);
+            response.json({
+                message: "Success!",
+            });
+        });
+    });
+
+    // if no storedCode is found, set the response.statusCode to 400 and send a JSON error message (and return)
+    // else, updateUserPassword({ email, password }) then send a JSON success message
 });
 
 app.get("*", function (request, response) {

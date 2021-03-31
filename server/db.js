@@ -16,32 +16,14 @@ function getDatabaseURL() {
 const db = spicedPg(getDatabaseURL());
 
 function createUser({ firstName, lastName, email, password }) {
-    return hash(password).then((hashed_pasword) =>
+    return hash(password).then((password_hash) =>
         db
             .query(
                 "INSERT INTO users(first_name, last_name, email, password_hash) VALUES ($1, $2, $3, $4) RETURNING id",
-                [firstName, lastName, email, hashed_pasword]
+                [firstName, lastName, email, password_hash]
             )
             .then((result) => result.rows[0].id)
     );
-}
-
-function createSignature(signature, user_id) {
-    return db.query(
-        "INSERT INTO signatures(text_signature, user_id) VALUES ($1, $2)",
-        [signature, user_id]
-    );
-}
-
-function createUserProfiles(user_id, age, city, url) {
-    return db.query(
-        "INSERT INTO user_profiles(user_id, age, city, url) VALUES ($1, $2, $3, $4)",
-        [user_id, age ? age : null, city, url]
-    );
-}
-
-function getAllUsers() {
-    return db.query("SELECT * FROM users").then((result) => result.rows);
 }
 
 function getUserByEmail(email) {
@@ -50,95 +32,42 @@ function getUserByEmail(email) {
         .then((result) => result.rows[0]);
 }
 
-function getSignatureFromUser(user_id) {
+function updateUserPassword({ email, password }) {
+    return hash(password).then((password_hash) => {
+        return db.query(
+            `UPDATE users
+            SET password_hash = $1
+            WHERE email = $2`,
+            [password_hash, email]
+        );
+    });
+}
+
+function createPasswordResetCode({ email, code }) {
     return db
-        .query("SELECT * FROM signatures WHERE user_id = $1", [user_id])
+        .query(
+            `INSERT INTO password_reset_codes(email, code) VALUES ($1, $2) RETURNING *`,
+            [email, code]
+        )
         .then((result) => result.rows[0]);
 }
 
-function getSignatures() {
+function getPasswordResetCodeByEmailAndCode({ email, code }) {
     return db
         .query(
-            "SELECT users.first_name, users.last_name, user_profiles.age, user_profiles.city, user_profiles.url FROM users JOIN signatures ON signatures.user_id = users.id FULL JOIN user_profiles ON user_profiles.user_id = users.id WHERE signatures.text_signature IS NOT NULL"
+            `SELECT * FROM password_reset_codes
+            WHERE CURRENT_TIMESTAMP - created_at < INTERVAL '10 minutes'
+            AND email = $1
+            AND code = $2`,
+            [email, code]
         )
-        .then((results) => results.rows);
-}
-
-function countSignatures() {
-    return db
-        .query("SELECT COUNT (id) FROM signatures")
-        .then((results) => results.rows[0].count);
-}
-
-function getSignaturesByCity(city) {
-    return db
-        .query(
-            "SELECT users.first_name, users.last_name, user_profiles.age, user_profiles.city, user_profiles.url FROM users JOIN signatures ON signatures.user_id = users.id FULL JOIN user_profiles ON user_profiles.user_id = users.id WHERE signatures.text_signature IS NOT NULL AND user_profiles.city ILIKE $1",
-            [city]
-        )
-        .then((results) => results.rows);
-}
-
-function getUserInfoById(id) {
-    return db
-        .query(
-            "SELECT users.*, user_profiles.* FROM users FULL JOIN user_profiles ON user_profiles.user_id = users.id WHERE users.id = $1",
-            [id]
-        )
-        .then((results) => {
-            return results.rows[0];
-        });
-}
-
-function updateUser({ first_name, last_name, email, password, user_id }) {
-    if (password) {
-        return hash(password).then((password_hash) => {
-            return db.query(
-                `
-        UPDATE users
-        SET first_name = $1, last_name = $2, email = $3, password_hash = $4
-        WHERE id = $5
-        `,
-                [first_name, last_name, email, password_hash, user_id]
-            );
-        });
-    }
-    return db.query(
-        `
-        UPDATE users
-        SET first_name = $1, last_name = $2, email = $3
-        WHERE id = $4
-        `,
-        [first_name, last_name, email, user_id]
-    );
-}
-
-function upsertUserProfile({ age, city, url, user_id }) {
-    return db.query(
-        "INSERT INTO user_profiles(user_id, age, city, url) VALUES ($1, $2, $3, $4) ON CONFLICT (user_id) DO UPDATE SET age = $2, city = $3, url = $4",
-        [user_id, age ? age : null, city, url]
-    );
-}
-
-function deleteSignature(id) {
-    return db
-        .query("DELETE FROM signatures WHERE user_id = $1 RETURNING id", [id])
-        .then((result) => result);
+        .then((result) => result.rows[0]);
 }
 
 module.exports = {
-    createUserProfiles,
-    getAllUsers,
     createUser,
+    updateUserPassword,
     getUserByEmail,
-    getSignatureFromUser,
-    createSignature,
-    getSignatures,
-    getSignaturesByCity,
-    countSignatures,
-    upsertUserProfile,
-    upsertUserProfile,
-    updateUser,
-    getUserInfoById,
-    deleteSignature,
+    getPasswordResetCodeByEmailAndCode,
+    createPasswordResetCode,
 };
