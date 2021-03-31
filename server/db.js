@@ -1,27 +1,29 @@
 var spicedPg = require("spiced-pg");
-let { hash, compare } = require("../password");
+const { genSalt, hash: bcryptHash } = require("bcryptjs");
+
+function hash(password) {
+    return genSalt().then((salt) => bcryptHash(password, salt));
+}
 
 function getDatabaseURL() {
     if (process.env.DATABASE_URL) {
         return process.env.DATABASE_URL;
     }
-    const {
-        username,
-        password,
-        database,
-    } = require("./project_data/credentials.json");
+    const { username, password, database } = require("../secrets.json");
     return `postgres:${username}:${password}@localhost:5432/${database}`;
 }
 
 const db = spicedPg(getDatabaseURL());
 
-function createUser(first_name, last_name, email, password_hash) {
-    return db
-        .query(
-            "INSERT INTO users(first_name, last_name, email, password_hash) VALUES ($1, $2, $3, $4) RETURNING id",
-            [first_name, last_name, email, password_hash]
-        )
-        .then((result) => result.rows[0].id);
+function createUser({ firstName, lastName, email, password }) {
+    return hash(password).then((hashed_pasword) =>
+        db
+            .query(
+                "INSERT INTO users(first_name, last_name, email, password_hash) VALUES ($1, $2, $3, $4) RETURNING id",
+                [firstName, lastName, email, hashed_pasword]
+            )
+            .then((result) => result.rows[0].id)
+    );
 }
 
 function createSignature(signature, user_id) {

@@ -3,7 +3,9 @@ const express = require("express");
 const app = express();
 const compression = require("compression");
 const path = require("path");
+const csurf = require("csurf");
 const cookieSession = require("cookie-session");
+const { createUser } = require("./db");
 
 //Middlewares
 app.use(compression());
@@ -29,32 +31,30 @@ app.use(
 );
 
 //Routing
-app.post("/users-failing", (request, response) => {
-    response.statusCode = 400;
+app.post("/login", (request, response) => {
+    response.statusCode = 200;
     response.json({
-        message: "bad request",
+        message: "Logged In",
     });
+    return;
 });
 
 app.post("/users", (request, response) => {
-    request.session.userId = 123;
-    response.json({
-        message: "success",
-    });
-    return;
-
-    // your final working code after you setup the db will look like this
-
-    // createUser(request.body).then(createdUser => {
-    //     request.session.userId = createdUser.id;
-    //     response.json(createdUser);
-    // }).catch(error => {
-    //     response.statusCode = 400;
-    //     console.log('[social:express] createUser error', error);
-    //     response.json({
-    //         message: 'Wrong fields sent'
-    //     });
-    // });
+    createUser({ ...request.body })
+        .then((createdUser) => {
+            request.session.userId = createdUser.id;
+            response.json({
+                message: "succes",
+                user_id: createdUser.id,
+            });
+        })
+        .catch((error) => {
+            response.statusCode = 400;
+            console.log("[social:express] createUser error", error);
+            response.json({
+                message: "Wrong fields sent",
+            });
+        });
 });
 
 app.get("/welcome", function (request, response) {
