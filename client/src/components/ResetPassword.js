@@ -13,7 +13,9 @@ class ResetPassword extends Component {
         };
 
         this.onInputChange = this.onInputChange.bind(this);
-        this.onFormSubmit = this.onSendVerificationSubmit.bind(this);
+        this.onSendVerificationSubmit = this.onSendVerificationSubmit.bind(
+            this
+        );
         this.onCodeSubmit = this.onCodeSubmit.bind(this);
     }
     onSendVerificationSubmit(event) {
