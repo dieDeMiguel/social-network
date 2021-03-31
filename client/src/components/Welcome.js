@@ -1,15 +1,13 @@
 import RegistrationForm from "./RegistrationForm";
 
-export default function Welcome() {
+export default function onSucces() {
     function onSuccess() {
-        alert("Registered!");
+        window.location.href = "/";
     }
 
     return (
         <section className="welcome">
-            // title // an image perhaps
             <RegistrationForm onSuccess={onSuccess}></RegistrationForm>
-            // footer with link to /login
         </section>
     );
 }

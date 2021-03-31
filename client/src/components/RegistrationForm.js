@@ -1,5 +1,5 @@
 import { Component } from "react";
-import axios from "axios";
+import axios from "../axios";
 
 class RegistrationForm extends Component {
     constructor(props) {
@@ -24,7 +24,6 @@ class RegistrationForm extends Component {
             .post("/users-failing", this.state)
             .then((response) => {
                 console.log("[RegistrationForm] axios succes:", response);
-                this.onSucces();
             })
             .catch((error) => {
                 console.log(
@@ -48,10 +47,6 @@ class RegistrationForm extends Component {
         // logging this.state will NOT give you the updated state.
         // to access that right away, you can pass a callback as the second argument of this.setState, e.g.:
         this.setState(newState, () => console.log(this.state) ));
-    }
-
-    onSucces() {
-        window.location.href = "/";
     }
 
     renderError() {
