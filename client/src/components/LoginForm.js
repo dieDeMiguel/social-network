@@ -60,7 +60,7 @@ class LoginForm extends Component {
                         onChange={this.onInputChange}
                         required
                     />
-                    <button type="submit">Register</button>
+                    <button type="submit">Login</button>
                 </form>
             </div>
         );

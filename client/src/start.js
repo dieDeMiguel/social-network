@@ -6,9 +6,3 @@ if (window.location.pathname === "/welcome") {
 } else {
     ReactDOM.render(<p>Profile</p>, document.querySelector("main"));
 }
-
-// ReactDOM.render(<HelloWorld />, document.querySelector("main"));
-
-// function HelloWorld() {
-//     return <div>Hello, World!</div>;
-// }

@@ -19,7 +19,7 @@ class RegistrationForm extends Component {
     onFormSubmit(event) {
         event.preventDefault();
         axios
-            .post("/login", this.state)
+            .post("/users", this.state)
             .then((response) => {
                 console.log("[RegistrationForm] axios succes:", response);
             })
