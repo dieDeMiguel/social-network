@@ -16,6 +16,7 @@ export default function onSucces() {
                     <footer>
                         <p>
                             Already registered? <Link to="/login">Login</Link>
+                            <br></br>
                             Forgot your password?
                             <Link to="/password-reset">Password reset</Link>
                         </p>
@@ -27,6 +28,15 @@ export default function onSucces() {
                     <footer>
                         <p>
                             New here? <Link to="/">Register</Link>
+                        </p>
+                    </footer>
+                </Route>
+
+                <Route path="/password-reset">
+                    <ResetPassword></ResetPassword>
+                    <footer>
+                        <p>
+                            Do you wanna go back? <Link to="/">Register</Link>
                         </p>
                     </footer>
                 </Route>
