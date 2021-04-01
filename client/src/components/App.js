@@ -6,6 +6,7 @@ import ProfilePictureUploader from "./ProfilePictureUploader";
 class App extends Component {
     constructor(props) {
         super(props);
+        console.log("[dentro del consturctor]", props);
         this.state = {
             user: {
                 firstName: "",
@@ -54,7 +55,6 @@ class App extends Component {
                 profilePicURL: newProfilePicURL,
             },
         });
-        console.log("[App], onUpload: ", profilePicURL);
     }
 
     render() {
@@ -77,7 +77,8 @@ class App extends Component {
         if (this.state.showModal) {
             return (
                 <ProfilePictureUploader
-                    onUpload={this.onProfilePictureUpload}
+                    onUpload={this.onUpload}
+                    onClose={this.onModalClose}
                 />
             );
         }
