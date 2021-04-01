@@ -15,32 +15,11 @@ class App extends Component {
                 profilePicURL: "",
             },
             showModal: true,
-            isLoading: false,
         };
 
         this.onProfilePictureClick = this.onProfilePictureClick.bind(this);
         this.onUpload = this.onUpload.bind(this);
         this.onModalClose = this.onModalClose.bind(this);
-    }
-
-    onSubmit(event) {
-        event.preventDefault();
-
-        this.setState({ isLoading: true });
-
-        const formData = new FormData();
-        formData.append("file", this.state.file);
-
-        axios
-            .post("/upload-picture", formData, {
-                headers: {
-                    "Content-Type": "multipart/form-data",
-                },
-            })
-            .then((response) => {
-                this.setState({ isLoading: false });
-                this.props.onUpload(response.data.profilePicURL);
-            });
     }
 
     componentDidMount() {

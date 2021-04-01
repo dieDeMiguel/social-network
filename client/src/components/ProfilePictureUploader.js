@@ -6,31 +6,48 @@ class ProfilePictureUploader extends Component {
         super(props);
         this.state = {
             file: null,
+            isLoading: false,
         };
+        this.onCloseButtonClick = this.onCloseButtonClick.bind(this);
         this.onSubmit = this.onSubmit.bind(this);
         this.onChange = this.onChange.bind(this);
     }
     onSubmit(event) {
         event.preventDefault();
-        // refer to the imageboard project for all the FormData stuff
+
+        this.setState({ isLoading: true });
+
+        const formData = new FormData();
+        formData.append("file", this.state.file);
+
         axios
-            .post("/upload_profile", ...)
+            .post("/upload-picture", formData, {
+                headers: {
+                    "Content-Type": "multipart/form-data",
+                },
+            })
             .then((response) => {
-                // call this.props.onUpload with the right information from the response
+                this.setState({ isLoading: false });
+                this.props.onUpload(response.data.profilePicURL);
             });
     }
+
     onChange(event) {
         this.setState({ file: event.target.files[0] });
+    }
+
+    onCloseButtonClick() {
+        this.props.onClose();
     }
     render() {
         return (
             <div className="profile-picture-uploader modal">
                 <div className="modal-content form">
-                    {/* // here you will put:
-                    // a <button> that calls this.props.onClose when it is clicked
-
-                    // a <form> that calls this.onSubmit when submit
-                    // with an <input type="file"> that sets this.state.file onChange */}
+                    <button className="close" onClick={this.onCloseButtonClick}>
+                        x
+                    </button>
+                    <h2>Upload your profile picture</h2>
+                    <form onSubmit={this.onSubmit}></form>
                 </div>
             </div>
         );
