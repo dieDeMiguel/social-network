@@ -72,7 +72,6 @@ function getUserByID({ userId }) {
 }
 
 function updateUserProfile({ userId, profilePicURL }) {
-    console.log("[dentro de db.js]", userId, profilePicURL);
     return db.query(`UPDATE users SET profile_url = $1 WHERE id = $2`, [
         profilePicURL,
         userId,

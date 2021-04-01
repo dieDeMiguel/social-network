@@ -173,7 +173,7 @@ app.post(
     (request, response) => {
         const { userId } = request.session;
         const profilePicURL = getURLFromFilename(request.file.filename, Bucket);
-        updateUserProfile({ userId, profilePicURL }).then((result) => {
+        updateUserProfile({ userId, profilePicURL }).then(() => {
             response.json({ profilePicURL });
         });
     }

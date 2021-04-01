@@ -54,6 +54,7 @@ class App extends Component {
                 profilePicURL: newProfilePicURL,
             },
         });
+        console.log("[App], onUpload: ", profilePicURL);
     }
 
     render() {
