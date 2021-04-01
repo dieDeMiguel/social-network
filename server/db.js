@@ -23,6 +23,7 @@ function createUser({ firstName, lastName, email, password }) {
                 [firstName, lastName, email, password_hash]
             )
             .then((result) => result.rows[0].id)
+            .catch((error) => console.log("Error in DB.js", error))
     );
 }
 
@@ -64,10 +65,25 @@ function getPasswordResetCodeByEmailAndCode({ email, code }) {
         .then((result) => result.rows[0]);
 }
 
+function getUserByID({ id }) {
+    return db
+        .query(`SELECT * FROM users WHERE id = $1`, [id])
+        .then((results) => results.rows[0]);
+}
+
+function updateUserProfile({ user_id, profilePicURL }) {
+    return db.query(`UPDATE users (profile_url) VALUES ($1) WHERE id =$2`, [
+        profilePicURL,
+        user_id,
+    ]);
+}
+
 module.exports = {
+    getUserByID,
     createUser,
     updateUserPassword,
     getUserByEmail,
     getPasswordResetCodeByEmailAndCode,
     createPasswordResetCode,
+    updateUserProfile,
 };

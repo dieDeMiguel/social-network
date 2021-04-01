@@ -7,13 +7,17 @@ const csurf = require("csurf");
 const { compare } = require("bcryptjs");
 const cookieSession = require("cookie-session");
 const {
+    getUserByID,
     createUser,
     getUserByEmail,
     createPasswordResetCode,
     getPasswordResetCodeByEmailAndCode,
     updateUserPassword,
+    updateUserProfile,
 } = require("./db");
 const cryptoRandomString = require("crypto-random-string");
+const { s3upload, getURLFromFilename } = require("./s3");
+const { Bucket } = require("./config.json");
 
 //Middlewares
 app.use(compression());
@@ -43,20 +47,16 @@ app.post("/login", (request, response) => {
     const { email, password } = request.body;
     let error;
     if (!email || !password) {
-        error = "You forgot something";
-        response.render("login", {
-            error,
-            home: false,
-            firstHeader: "Cast a vote!",
-            title: "Login!",
-            actionPage: "login",
+        response.statusCode = 400;
+        response.json({
+            message: "You need to write email and password",
         });
         return;
     }
     getUserByEmail(email).then((user) => {
         if (!user) {
             response.statusCode = 400;
-            console.log("login error, no user with this email", error);
+            console.log("login error", error);
             response.json({
                 message: "login error",
             });
@@ -84,26 +84,25 @@ app.post("/users", (request, response) => {
     createUser({ ...request.body })
         .then((createdUser) => {
             request.session.userId = createdUser.id;
-            response.json({
-                message: "succes",
-                user_id: createdUser.id,
-            });
+            response.sendFile(
+                path.join(__dirname, "..", "client", "index.html")
+            );
         })
         .catch((error) => {
-            response.statusCode = 400;
+            if (error.constraint === "users_email_key") {
+                response.statusCode = 400;
+                console.log("[social:express] createUser error", error);
+                response.json({
+                    message: "Email taken",
+                });
+                return;
+            }
+            response.statusCode = 500;
             console.log("[social:express] createUser error", error);
             response.json({
-                message: "Wrong fields sent",
+                message: "Error while creating user",
             });
         });
-});
-
-app.get("/welcome", function (request, response) {
-    if (request.session.userId) {
-        response.redirect("/");
-        return;
-    }
-    response.sendFile(path.join(__dirname, "..", "client", "index.html"));
 });
 
 function sendCode({ email, code }) {
@@ -153,6 +152,38 @@ app.post("/password/reset/verify", (request, response) => {
             return;
         });
     });
+});
+
+app.get("/user", (request, response) => {
+    const { user_id } = request.session;
+    getUserByID(user_id).then((user) => {
+        response.json({
+            first_name: user.first_name,
+            last_name: user.last_name,
+            profile_url: user.profile_url,
+        });
+    });
+});
+
+app.post(
+    "/upload-picture",
+    uploader.single("file"),
+    s3upload,
+    (request, response) => {
+        const { user_id } = request.session;
+        const profilePicURL = getURLFromFilename(request.file.filename, Bucket);
+        updateUserProfile({ user_id, profilePicURL }).then((result) => {
+            response.json({ profilePicURL });
+        });
+    }
+);
+
+app.get("/welcome", function (request, response) {
+    if (request.session.userId) {
+        response.redirect("/");
+        return;
+    }
+    response.sendFile(path.join(__dirname, "..", "client", "index.html"));
 });
 
 app.get("*", function (request, response) {
