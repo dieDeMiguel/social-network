@@ -6,6 +6,7 @@ const path = require("path");
 const csurf = require("csurf");
 const { compare } = require("bcryptjs");
 const cookieSession = require("cookie-session");
+const uploader = require("../upload");
 const {
     getUserByID,
     createUser,
@@ -16,8 +17,8 @@ const {
     updateUserProfile,
 } = require("./db");
 const cryptoRandomString = require("crypto-random-string");
-const { s3upload, getURLFromFilename } = require("./s3");
-const { Bucket } = require("./config.json");
+const { s3upload, getURLFromFilename } = require("../s3");
+const { Bucket } = require("../config.json");
 
 //Middlewares
 app.use(compression());
