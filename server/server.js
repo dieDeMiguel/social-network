@@ -156,11 +156,11 @@ app.post("/password/reset/verify", (request, response) => {
 });
 
 app.get("/user", (request, response) => {
-    const { user_id } = request.session;
-    getUserByID(user_id).then((user) => {
+    const { userId } = request.session;
+    getUserByID({ userId }).then((user) => {
         response.json({
-            first_name: user.first_name,
-            last_name: user.last_name,
+            firstName: user.first_name,
+            lastName: user.last_name,
             profile_url: user.profile_url,
         });
     });

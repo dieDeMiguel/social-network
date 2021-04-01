@@ -47,7 +47,15 @@ class ProfilePictureUploader extends Component {
                         x
                     </button>
                     <h2>Upload your profile picture</h2>
-                    <form onSubmit={this.onSubmit}></form>
+                    <form onSubmit={this.onSubmit}>
+                        <input
+                            type="file"
+                            name="file"
+                            required
+                            onChange={this.onChange}
+                        />
+                        <button type="submit">Upload</button>
+                    </form>
                 </div>
             </div>
         );

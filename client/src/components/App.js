@@ -3,8 +3,6 @@ import axios from "../axios";
 import ProfilePicture from "./ProfilePicture";
 import ProfilePictureUploader from "./ProfilePictureUploader";
 
-import ProfilePicture from "./ProfilePicture";
-
 class App extends Component {
     constructor(props) {
         super(props);
@@ -14,7 +12,7 @@ class App extends Component {
                 lastName: "",
                 profilePicURL: "",
             },
-            showModal: true,
+            showModal: false,
         };
 
         this.onProfilePictureClick = this.onProfilePictureClick.bind(this);

@@ -65,9 +65,9 @@ function getPasswordResetCodeByEmailAndCode({ email, code }) {
         .then((result) => result.rows[0]);
 }
 
-function getUserByID({ id }) {
+function getUserByID({ userId }) {
     return db
-        .query(`SELECT * FROM users WHERE id = $1`, [id])
+        .query(`SELECT * FROM users WHERE id = $1`, [userId])
         .then((results) => results.rows[0]);
 }
 
