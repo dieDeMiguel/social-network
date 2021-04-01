@@ -1,4 +1,4 @@
-const DEFAULT_AVATAR = "./public/avatar.png";
+const DEFAULT_AVATAR = "/avatar.png";
 
 export default function ProfilePicture({
     firstName,

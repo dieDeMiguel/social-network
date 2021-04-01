@@ -6,7 +6,7 @@ let secrets;
 if (process.env.NODE_ENV) {
     secrets = process.env;
 } else {
-    secrets = require("./secrets.json");
+    secrets = require("./config.json");
 }
 
 // require the secrets the way you want
