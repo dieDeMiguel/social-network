@@ -75,7 +75,7 @@ app.post("/login", (request, response) => {
             request.session.userId = user.id;
             response.json({
                 message: "succes",
-                user_id: user.id,
+                userId: user.id,
             });
         });
     });
@@ -171,9 +171,9 @@ app.post(
     uploader.single("file"),
     s3upload,
     (request, response) => {
-        const { user_id } = request.session;
+        const { userId } = request.session;
         const profilePicURL = getURLFromFilename(request.file.filename, Bucket);
-        updateUserProfile({ user_id, profilePicURL }).then((result) => {
+        updateUserProfile({ userId, profilePicURL }).then((result) => {
             response.json({ profilePicURL });
         });
     }
