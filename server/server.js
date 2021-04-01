@@ -6,7 +6,7 @@ const path = require("path");
 const csurf = require("csurf");
 const { compare } = require("bcryptjs");
 const cookieSession = require("cookie-session");
-const uploader = require("../upload");
+const { uploader } = require("./upload");
 const {
     getUserByID,
     createUser,
