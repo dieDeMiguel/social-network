@@ -1,5 +1,7 @@
 import { Component } from "react";
 import axios from "../axios";
+import ProfilePicture from "./ProfilePicture";
+import ProfilePictureUploader from "./ProfilePictureUploader";
 
 import ProfilePicture from "./ProfilePicture";
 
@@ -12,7 +14,8 @@ class App extends Component {
                 lastName: "",
                 profilePicURL: "",
             },
-            showModal,
+            showModal: true,
+            isLoading: false,
         };
 
         this.onProfilePictureClick = this.onProfilePictureClick.bind(this);
@@ -20,9 +23,44 @@ class App extends Component {
         this.onModalClose = this.onModalClose.bind(this);
     }
 
+    onSubmit(event) {
+        event.preventDefault();
+
+        this.setState({ isLoading: true });
+
+        const formData = new FormData();
+        formData.append("file", this.state.file);
+
+        axios
+            .post("/upload-picture", formData, {
+                headers: {
+                    "Content-Type": "multipart/form-data",
+                },
+            })
+            .then((response) => {
+                this.setState({ isLoading: false });
+                this.props.onUpload(response.data.profilePicURL);
+            });
+    }
+
     componentDidMount() {
-        // GET /user
-        // .then() set the state with the according response.data
+        axios.get("/user").then((response) => {
+            console.log("[App] componentDidMount", response.data);
+            this.setState({
+                user: response.data,
+            });
+        });
+    }
+
+    onProfilePictureUpload() {
+        console.log("[App] onProfilePictureUpload", this);
+    }
+
+    onModalClose() {
+        console.log("[App] onClose", this);
+        this.setState({
+            showModal: false,
+        });
     }
 
     onProfilePictureClick() {
@@ -32,16 +70,10 @@ class App extends Component {
         });
     }
 
-    onModalClose() {
-        // hide the modal
-    }
-
     onUpload(newProfilePicURL) {
-        // set the state accordingly
-        // remember to user destructuring:
         this.setState({
             user: {
-                ...this.state.user, // what the user was before
+                ...this.state.user,
                 profilePicURL: newProfilePicURL,
             },
         });
@@ -65,7 +97,11 @@ class App extends Component {
     }
     renderModal() {
         if (this.state.showModal) {
-            // return the modal component
+            return (
+                <ProfilePictureUploader
+                    onUpload={this.onProfilePictureUpload}
+                />
+            );
         }
         return null;
     }
