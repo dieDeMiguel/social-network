@@ -66,12 +66,8 @@ class App extends Component {
         event.preventDefault();
         axios.post("/logout").then((response) => {
             console.log("[App]:", response.data.message);
-            this.onReload();
+            window.location.href = "/welcome";
         });
-    }
-
-    onReload() {
-        window.location.href = "/welcome";
     }
 
     render() {
@@ -86,12 +82,12 @@ class App extends Component {
                         onClick={this.onProfilePictureClick}
                     />
                 </header>
+                <div className="padding">{this.renderModal()}</div>
                 <footer>
                     <form onSubmit={this.onLogout}>
                         <button type="submit">Logout</button>
                     </form>
                 </footer>
-                {this.renderModal()}
             </section>
         );
     }
