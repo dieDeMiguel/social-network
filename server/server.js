@@ -19,6 +19,7 @@ const {
 const cryptoRandomString = require("crypto-random-string");
 const { s3upload, getURLFromFilename } = require("../s3");
 const { Bucket } = require("../config.json");
+const { response } = require("express");
 
 //Middlewares
 app.use(compression());
@@ -84,10 +85,13 @@ app.post("/login", (request, response) => {
 app.post("/users", (request, response) => {
     createUser({ ...request.body })
         .then((createdUser) => {
-            request.session.userId = createdUser.id;
-            response.sendFile(
-                path.join(__dirname, "..", "client", "index.html")
-            );
+            request.session.userId = createdUser;
+            response.json({
+                createdUser,
+            });
+            // response.sendFile(
+            //     path.join(__dirname, "..", "client", "index.html")
+            // );
         })
         .catch((error) => {
             if (error.constraint === "users_email_key") {
@@ -173,11 +177,21 @@ app.post(
     (request, response) => {
         const { userId } = request.session;
         const profilePicURL = getURLFromFilename(request.file.filename, Bucket);
-        updateUserProfile({ userId, profilePicURL }).then(() => {
-            response.json({ profilePicURL });
-        });
+        updateUserProfile({ userId, profilePicURL })
+            .then(() => {
+                response.json({ profilePicURL });
+            })
+            .catch((error) => {
+                response.statusCode(500);
+                console.log("Error while uploading file: ", error);
+            });
     }
 );
+
+app.post("/logout", function (request, response) {
+    request.session.userId = null;
+    response.json({ message: "logged out" });
+});
 
 app.get("/welcome", function (request, response) {
     if (request.session.userId) {

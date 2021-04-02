@@ -3,7 +3,7 @@ import LoginForm from "./LoginForm";
 import ResetPassword from "./ResetPassword";
 import { HashRouter, Route, Link } from "react-router-dom";
 
-export default function onSucces() {
+export default function Welcome() {
     function onSuccess() {
         window.location.href = "/";
     }

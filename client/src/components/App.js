@@ -19,13 +19,18 @@ class App extends Component {
         this.onProfilePictureClick = this.onProfilePictureClick.bind(this);
         this.onUpload = this.onUpload.bind(this);
         this.onModalClose = this.onModalClose.bind(this);
+        this.onLogout = this.onLogout.bind(this);
     }
 
     componentDidMount() {
         axios.get("/user").then((response) => {
             console.log("[App] componentDidMount", response.data);
             this.setState({
-                user: response.data,
+                user: {
+                    firstName: response.data.firstName,
+                    lastName: response.data.lastName,
+                    profilePicURL: response.data.profile_url,
+                },
             });
         });
     }
@@ -57,6 +62,18 @@ class App extends Component {
         });
     }
 
+    onLogout(event) {
+        event.preventDefault();
+        axios.post("/logout").then((response) => {
+            console.log("[App]:", response.data.message);
+            this.onReload();
+        });
+    }
+
+    onReload() {
+        window.location.href = "/welcome";
+    }
+
     render() {
         return (
             <section className="app">
@@ -69,6 +86,11 @@ class App extends Component {
                         onClick={this.onProfilePictureClick}
                     />
                 </header>
+                <footer>
+                    <form onSubmit={this.onLogout}>
+                        <button type="submit">Logout</button>
+                    </form>
+                </footer>
                 {this.renderModal()}
             </section>
         );

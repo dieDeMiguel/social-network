@@ -15,6 +15,7 @@ class RegistrationForm extends Component {
 
         this.onInputChange = this.onInputChange.bind(this);
         this.onFormSubmit = this.onFormSubmit.bind(this);
+        this.onSuccess = this.onSuccess.bind(this);
     }
     onFormSubmit(event) {
         event.preventDefault();
@@ -22,6 +23,7 @@ class RegistrationForm extends Component {
             .post("/users", this.state)
             .then((response) => {
                 console.log("[RegistrationForm] axios succes:", response);
+                this.onSuccess();
             })
             .catch((error) => {
                 console.log(
@@ -30,6 +32,10 @@ class RegistrationForm extends Component {
                 );
                 this.setState({ error: error.response.data.message });
             });
+    }
+
+    onSuccess() {
+        this.props.onSuccess();
     }
 
     onInputChange(event, callback) {

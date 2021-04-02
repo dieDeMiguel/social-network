@@ -13,6 +13,7 @@ class LoginForm extends Component {
 
         this.onInputChange = this.onInputChange.bind(this);
         this.onFormSubmit = this.onFormSubmit.bind(this);
+        this.onSuccess = this.onSuccess.bind(this);
     }
     onFormSubmit(event) {
         event.preventDefault();
@@ -20,11 +21,16 @@ class LoginForm extends Component {
             .post("/login", this.state)
             .then((response) => {
                 console.log("[LoginForm] axios succes:", response);
+                this.onSuccess();
             })
             .catch((error) => {
                 console.log("[LoginForm] axios error", error.response.data);
                 this.setState({ error: error.response.data.message });
             });
+    }
+
+    onSuccess() {
+        this.props.onSuccess();
     }
 
     onInputChange(event, callback) {
