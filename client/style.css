@@ -35,8 +35,12 @@ header img {
     height: 100%;
     align-items: center;
     justify-content: center;
+    background-color: rgba(0, 70, 170, 0.9);
 }
 
 .modal-content {
     text-align: initial;
+    background-color: ghostwhite;
+    padding: 10px;
+    border-radius: 5px;
 }
