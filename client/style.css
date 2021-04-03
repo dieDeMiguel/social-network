@@ -10,21 +10,40 @@ body {
     padding: 0;
     margin: 0;
     min-height: 87vh;
+    font-family: obliqua, sans-serif;
+    font-size: 16px;
 }
+
+/* Header */
 
 header {
     display: flex;
-    justify-content: space-between;
+    justify-content: space-around;
+    padding: 1.5%;
+    border: 1px solid black;
 }
 
 header img {
-    max-width: 17vw;
+    width: 120px;
+    height: 100px;
+    object-fit: contain;
     border-radius: 50%;
 }
 
-.padding {
-    min-height: 87vh;
+header span {
+    align-self: center;
 }
+
+.padding {
+    min-height: 85vh;
+}
+
+.padding-welcome {
+    min-height: 8vh;
+    background-color: ghostwhite;
+}
+
+/* Profile Picture and Modal */
 
 .profile-picture-uploader {
     display: flex;
@@ -43,4 +62,94 @@ header img {
     background-color: ghostwhite;
     padding: 10px;
     border-radius: 5px;
+}
+
+/* Registration Form */
+
+.registration-form {
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border: 2px solid red;
+    margin-top: 10%;
+    margin-bottom: 10%;
+    background-color: white;
+}
+
+.registration-form form {
+    display: flex;
+    flex-direction: column;
+    width: 32%;
+    align-items: center;
+}
+
+.registration-form form > * {
+}
+
+.c2 {
+    margin: 10% auto 5%;
+    background-color: rgb(9, 9, 69);
+    border-radius: 15px;
+    max-width: 30%;
+}
+.username {
+    font-weight: bold;
+    width: 200px;
+    margin: 0 35px 20px;
+    height: 35px;
+    padding: 6px 15px;
+    border-radius: 5px;
+    outline: none;
+    border: none;
+    background: #f6f7f9;
+    color: #748194;
+    font-size: 14px;
+}
+.btn {
+    font-weight: bold;
+    width: 230px;
+    margin: 0 35px 20px;
+    height: 45px;
+    padding: 6px 15px;
+    border-radius: 5px;
+    outline: none;
+    border: none;
+    background: #ee9ba3;
+    color: white;
+    font-size: 14px;
+}
+
+.signup {
+    border-radius: 5px;
+    width: 30%;
+}
+
+.signup1 {
+    color: #748194;
+    font-size: 30px;
+    text-align: center;
+}
+a {
+    text-decoration: none;
+}
+.signup2 {
+    color: #748194;
+    font-size: 20px;
+    text-align: center;
+}
+.signup {
+    display: initial;
+}
+.signin {
+    display: initial;
+}
+
+footer {
+    display: flex;
+    justify-content: center;
+    border: 2px solid blue;
 }

@@ -2,6 +2,7 @@ import RegistrationForm from "./RegistrationForm";
 import LoginForm from "./LoginForm";
 import ResetPassword from "./ResetPassword";
 import { HashRouter, Route, Link } from "react-router-dom";
+import ProfilePicture from "./ProfilePicture";
 
 export default function Welcome() {
     function onSuccess() {
@@ -12,7 +13,16 @@ export default function Welcome() {
         <section className="welcome">
             <HashRouter>
                 <Route exact path="/">
+                    <header>
+                        <span className="logo">Logo</span>
+                        <ProfilePicture
+                            firstName=""
+                            lastName=""
+                            profilePicURL=""
+                        />
+                    </header>
                     <RegistrationForm onSuccess={onSuccess}></RegistrationForm>
+                    <div className="padding-welcome"></div>
                     <footer>
                         <p>
                             Already registered? <Link to="/login">Login</Link>
@@ -24,6 +34,14 @@ export default function Welcome() {
                 </Route>
 
                 <Route path="/login">
+                    <header>
+                        <span className="logo">Logo</span>
+                        <ProfilePicture
+                            firstName=""
+                            lastName=""
+                            profilePicURL=""
+                        />
+                    </header>
                     <LoginForm onSuccess={onSuccess}></LoginForm>
                     <footer>
                         <p>

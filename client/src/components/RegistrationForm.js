@@ -57,15 +57,18 @@ class RegistrationForm extends Component {
     }
     render() {
         return (
-            <div className="registration-form">
+            <div className="registration-form c2">
                 {this.renderError()}
-                <form onSubmit={this.onFormSubmit}>
+                <form onSubmit={this.onFormSubmit} className="signup">
+                    <h1 class="signup1">SIGN UP</h1>
+
                     <input
                         type="text"
                         name="firstName"
                         placeholder="First name"
                         onChange={this.onInputChange}
                         required
+                        className="username"
                     />
                     <input
                         type="text"
@@ -73,6 +76,7 @@ class RegistrationForm extends Component {
                         placeholder="Last name"
                         onChange={this.onInputChange}
                         required
+                        className="username"
                     />
                     <input
                         type="email"
@@ -80,6 +84,7 @@ class RegistrationForm extends Component {
                         placeholder="Email"
                         onChange={this.onInputChange}
                         required
+                        className="username"
                     />
                     <input
                         type="password"
@@ -87,8 +92,11 @@ class RegistrationForm extends Component {
                         placeholder="Password"
                         onChange={this.onInputChange}
                         required
+                        className="username"
                     />
-                    <button type="submit">Register</button>
+                    <button type="submit" className="btn">
+                        Register
+                    </button>
                 </form>
             </div>
         );
