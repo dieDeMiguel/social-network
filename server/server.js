@@ -55,31 +55,33 @@ app.post("/login", (request, response) => {
         });
         return;
     }
-    getUserByEmail(email).then((user) => {
-        if (!user) {
-            response.statusCode = 400;
-            console.log("login error", error);
-            response.json({
-                message: "login error",
-            });
-            return;
-        }
-        compare(password, user.password_hash).then((match) => {
-            if (!match) {
+    getUserByEmail(email)
+        .then((user) => {
+            if (!user) {
                 response.statusCode = 400;
-                console.log("login error, wrong password", error);
+                console.log("login error");
                 response.json({
                     message: "login error",
                 });
                 return;
             }
-            request.session.userId = user.id;
-            response.json({
-                message: "succes",
-                userId: user.id,
+            compare(password, user.password_hash).then((match) => {
+                if (!match) {
+                    response.statusCode = 400;
+                    console.log("login error: wrong password");
+                    response.json({
+                        message: "login error",
+                    });
+                    return;
+                }
+                request.session.userId = user.id;
+                response.json({
+                    message: "succes",
+                    userId: user.id,
+                });
             });
-        });
-    });
+        })
+        .catch((error) => console.log("error.constraint", error.constraint));
 });
 
 app.post("/users", (request, response) => {
@@ -89,9 +91,6 @@ app.post("/users", (request, response) => {
             response.json({
                 createdUser,
             });
-            // response.sendFile(
-            //     path.join(__dirname, "..", "client", "index.html")
-            // );
         })
         .catch((error) => {
             if (error.constraint === "users_email_key") {

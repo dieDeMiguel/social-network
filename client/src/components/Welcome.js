@@ -14,7 +14,11 @@ export default function Welcome() {
             <HashRouter>
                 <Route exact path="/">
                     <header>
-                        <span className="logo">Logo</span>
+                        <span className="logo">
+                            <Link to="/">
+                                <img src="/logo.jpeg"></img>
+                            </Link>
+                        </span>
                         <ProfilePicture
                             firstName=""
                             lastName=""
@@ -28,14 +32,18 @@ export default function Welcome() {
                             Already registered? <Link to="/login">Login</Link>
                             <br></br>
                             Forgot your password?
-                            <Link to="/password-reset">Password reset</Link>
+                            <Link to="/password-reset"> Password reset</Link>
                         </p>
                     </footer>
                 </Route>
 
                 <Route path="/login">
                     <header>
-                        <span className="logo">Logo</span>
+                        <span className="logo">
+                            <Link to="/">
+                                <img src="/logo.jpeg"></img>
+                            </Link>
+                        </span>
                         <ProfilePicture
                             firstName=""
                             lastName=""
@@ -51,7 +59,25 @@ export default function Welcome() {
                 </Route>
 
                 <Route path="/password-reset">
+                    <header>
+                        <span className="logo">
+                            <a href="/">
+                                <img src="/logo.jpeg"></img>
+                            </a>
+                        </span>
+                        <ProfilePicture
+                            firstName=""
+                            lastName=""
+                            profilePicURL=""
+                            onClick=""
+                        />
+                    </header>
                     <ResetPassword></ResetPassword>
+                    <footer>
+                        <p>
+                            New here? <Link to="/">Register</Link>
+                        </p>
+                    </footer>
                 </Route>
             </HashRouter>
         </section>

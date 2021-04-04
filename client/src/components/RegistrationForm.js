@@ -51,7 +51,11 @@ class RegistrationForm extends Component {
 
     renderError() {
         if (this.state.error) {
-            return <p className="error-message">{this.state.error}</p>;
+            return (
+                <h1 className="signup1" id="error">
+                    {this.state.error}
+                </h1>
+            );
         }
         return null;
     }

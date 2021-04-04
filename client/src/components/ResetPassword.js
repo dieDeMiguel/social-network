@@ -1,6 +1,7 @@
 import { Component } from "react";
 import axios from "../axios";
 import { Link } from "react-router-dom";
+import ProfilePicture from "./ProfilePicture";
 
 class ResetPassword extends Component {
     constructor(props) {
@@ -71,17 +72,22 @@ class ResetPassword extends Component {
         switch (this.state.step) {
             case 1:
                 return (
-                    <div className="form">
+                    <div className="form c2 c2-login">
+                        <h1 className="signup1">Step 1: Enter your email</h1>
                         {this.renderError()}
-                        <form onSubmit={this.onSendVerificationSubmit}>
+                        <form
+                            onSubmit={this.onSendVerificationSubmit}
+                            className="signup signup-login"
+                        >
                             <input
                                 type="email"
                                 name="email"
                                 placeholder="Email"
                                 onChange={this.onInputChange}
                                 required
+                                className="username"
                             />
-                            <button type="submit">
+                            <button type="submit" className="btn">
                                 Send Verification Code
                             </button>
                         </form>
@@ -89,19 +95,22 @@ class ResetPassword extends Component {
                 );
             case 2:
                 return (
-                    <div className="form">
+                    <div className="form c2 c2-login step-2">
                         {this.renderError()}
-                        <form onSubmit={this.onCodeSubmit}>
-                            <p>
-                                We sent you an email with a code, you have 10
-                                minutes to use it
-                            </p>
+                        <form
+                            onSubmit={this.onCodeSubmit}
+                            className="signup signup-login step-2"
+                        >
+                            <h1 className="signup1">
+                                Step 2: Enter the code we sent you via email
+                            </h1>
                             <input
                                 type="text"
                                 name="code"
                                 placeholder="Please paste here the copy you received by email"
                                 onChange={this.onInputChange}
                                 required
+                                className="username"
                             />
                             <input
                                 type="password"
@@ -109,17 +118,25 @@ class ResetPassword extends Component {
                                 placeholder="Please type here your new password"
                                 onChange={this.onInputChange}
                                 required
+                                className="username"
                             />
-                            <button type="submit">Login</button>
+                            <button type="submit" className="btn">
+                                Submit
+                            </button>
                         </form>
                     </div>
                 );
             case 3:
                 return (
-                    <p>
-                        Now you can <Link to="/login">login</Link> with your new
-                        password!
-                    </p>
+                    <div className="form c2 c2-login step-2">
+                        <form className="signup signup-login step-2">
+                            <h1 className="signup1">
+                                Password changed: Now you can{" "}
+                                <Link to="/login">login</Link> with your new
+                                password!
+                            </h1>
+                        </form>
+                    </div>
                 );
             default:
                 return (

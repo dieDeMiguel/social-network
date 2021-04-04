@@ -1,12 +1,12 @@
 import { Component } from "react";
 import axios from "../axios";
 import ProfilePicture from "./ProfilePicture";
+import { Link } from "react-router-dom";
 import ProfilePictureUploader from "./ProfilePictureUploader";
 
 class App extends Component {
     constructor(props) {
         super(props);
-        console.log("[dentro del consturctor]", props);
         this.state = {
             user: {
                 firstName: "",
@@ -74,7 +74,12 @@ class App extends Component {
         return (
             <section className="app">
                 <header>
-                    <span className="logo">Logo</span>
+                    <span className="logo">
+                        <a href="/">
+                            {" "}
+                            <img src="/logo.jpeg"></img>
+                        </a>
+                    </span>
                     <ProfilePicture
                         firstName={this.state.user.firstName}
                         lastName={this.state.user.lastName}
@@ -85,7 +90,9 @@ class App extends Component {
                 <div className="padding">{this.renderModal()}</div>
                 <footer>
                     <form onSubmit={this.onLogout}>
-                        <button type="submit">Logout</button>
+                        <button type="submit" className="btn-logout">
+                            Logout
+                        </button>
                     </form>
                 </footer>
             </section>

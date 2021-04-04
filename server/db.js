@@ -23,7 +23,6 @@ function createUser({ firstName, lastName, email, password }) {
                 [firstName, lastName, email, password_hash]
             )
             .then((result) => result.rows[0].id)
-            .catch((error) => console.log("Error in DB.js", error))
     );
 }
 
