@@ -60,7 +60,7 @@ class RegistrationForm extends Component {
             <div className="registration-form c2">
                 {this.renderError()}
                 <form onSubmit={this.onFormSubmit} className="signup">
-                    <h1 class="signup1">SIGN UP</h1>
+                    <h1 className="signup1">SIGN UP</h1>
 
                     <input
                         type="text"

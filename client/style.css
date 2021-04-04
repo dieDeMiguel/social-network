@@ -14,6 +14,10 @@ body {
     font-size: 16px;
 }
 
+main {
+    min-height: 100vh;
+}
+
 /* Header */
 
 header {
@@ -38,9 +42,20 @@ header span {
     min-height: 85vh;
 }
 
+.welcome {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
 .padding-welcome {
     min-height: 8vh;
     background-color: ghostwhite;
+}
+
+.padding-login {
+    min-height: 50vh;
 }
 
 /* Profile Picture and Modal */
@@ -87,15 +102,22 @@ header span {
     align-items: center;
 }
 
-.registration-form form > * {
-}
-
 .c2 {
     margin: 10% auto 5%;
     background-color: rgb(9, 9, 69);
     border-radius: 15px;
     max-width: 30%;
 }
+
+.c2-login {
+    max-width: 24%;
+    text-align: center;
+    padding-top: 1%;
+    padding-bottom: 1%;
+    border: 2px solid red;
+    transform: translateY(-20%);
+}
+
 .username {
     font-weight: bold;
     width: 200px;
@@ -109,6 +131,7 @@ header span {
     color: #748194;
     font-size: 14px;
 }
+
 .btn {
     font-weight: bold;
     width: 230px;
@@ -123,6 +146,10 @@ header span {
     font-size: 14px;
 }
 
+.btn-login {
+    max-width: 200px;
+}
+
 .signup {
     border-radius: 5px;
     width: 30%;
@@ -133,17 +160,21 @@ header span {
     font-size: 30px;
     text-align: center;
 }
+
 a {
     text-decoration: none;
 }
+
 .signup2 {
     color: #748194;
     font-size: 20px;
     text-align: center;
 }
+
 .signup {
     display: initial;
 }
+
 .signin {
     display: initial;
 }

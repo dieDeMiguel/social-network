@@ -49,15 +49,20 @@ class LoginForm extends Component {
     }
     render() {
         return (
-            <div className="login-form">
+            <div className="login-form c2 c2-login">
                 {this.renderError()}
-                <form onSubmit={this.onFormSubmit}>
+                <form
+                    onSubmit={this.onFormSubmit}
+                    className="signup signup-login"
+                >
+                    <h1 className="signup1">Login</h1>
                     <input
                         type="email"
                         name="email"
                         placeholder="Email"
                         onChange={this.onInputChange}
                         required
+                        className="username"
                     />
                     <input
                         type="password"
@@ -65,8 +70,11 @@ class LoginForm extends Component {
                         placeholder="Password"
                         onChange={this.onInputChange}
                         required
+                        className="username"
                     />
-                    <button type="submit">Login</button>
+                    <button type="submit" className="btn btn-login">
+                        Login
+                    </button>
                 </form>
             </div>
         );
