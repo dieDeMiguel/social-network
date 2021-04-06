@@ -22,10 +22,10 @@ class TextEditor extends Component {
     }
     render() {
         return (
-            <form className="text-editor" onSubmit={this.onSubmit}>
-                <p className="original-text">
+            <form onSubmit={this.onSubmit}>
+                <h1>
                     <strong>Original text:</strong> {this.props.text}
-                </p>
+                </h1>
                 <input type="text" onChange={this.onTextChange} required />
                 <button type="submit">Save Text</button>
             </form>

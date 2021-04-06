@@ -224,3 +224,7 @@ footer {
 #error {
     color: red;
 }
+
+.bio-img {
+    max-width: 20%;
+}

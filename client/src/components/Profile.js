@@ -1,11 +1,10 @@
 import TextEditor from "./TextEditor";
 
 function Profile({ user, onTextSave }) {
-    console.log("[Profile.js]", user);
     return (
         <section className="profile">
             <p>
-                <img src={user.profilePicURL} alt="" />
+                <img src={user.profilePicURL} alt="" className="bio-img" />
             </p>
             <TextEditor text={user.bio} onTextSave={onTextSave} />
         </section>

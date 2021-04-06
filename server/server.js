@@ -15,6 +15,7 @@ const {
     getPasswordResetCodeByEmailAndCode,
     updateUserPassword,
     updateUserProfile,
+    createBioText,
 } = require("./db");
 const cryptoRandomString = require("crypto-random-string");
 const { s3upload, getURLFromFilename } = require("../s3");
@@ -190,6 +191,14 @@ app.post(
 app.post("/logout", function (request, response) {
     request.session.userId = null;
     response.json({ message: "logged out" });
+});
+
+app.post("/bio", function (request, response) {
+    const { userId } = request.session;
+    const { bioText } = request.body;
+    createBioText({ userId, bioText }).then(() =>
+        response.json({ message: "Success storing the bio in DB" })
+    );
 });
 
 app.get("/welcome", function (request, response) {
