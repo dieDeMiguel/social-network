@@ -4,6 +4,7 @@ import ProfilePicture from "./ProfilePicture";
 import { Link } from "react-router-dom";
 import Profile from "./Profile";
 import ProfilePictureUploader from "./ProfilePictureUploader";
+import { response } from "express";
 
 class App extends Component {
     constructor(props) {
@@ -75,14 +76,25 @@ class App extends Component {
     }
 
     onTextSave(newText) {
-        console.log("[App] onTextSave: ", newText);
-        this.setState({
-            user: {
-                ...this.state.user,
-                bio: newText,
-            },
-        });
-        console.log("[App] onTextSave after setSate: ", this.state.bio);
+        //this.saveBio()
+        //console.log("[App] onTextSave after setSate: ", this.state.bio);
+    }
+
+    onBioSave(newText) {
+        axios
+            .post("/bio", newText)
+            .then(() => {
+                console.log("[App] onTextSave: ", newText);
+                this.setState({
+                    user: {
+                        ...this.state.user,
+                        bio: newText,
+                    },
+                });
+            })
+            .catch((error) => {
+                console.log("[App] Error while sotring bio: ", error);
+            });
     }
 
     render() {
@@ -102,11 +114,13 @@ class App extends Component {
                         onClick={this.onProfilePictureClick}
                     />
                 </header>
-                <div className="padding">{this.renderModal()}</div>
-                <Profile
-                    user={this.state.user}
-                    onTextSave={this.onTextSave}
-                ></Profile>
+                {this.renderModal()}
+                <div>
+                    <Profile
+                        user={this.state.user}
+                        onTextSave={this.onBioSave}
+                    ></Profile>
+                </div>
                 <footer>
                     <form onSubmit={this.onLogout}>
                         <button type="submit" className="btn-logout">
