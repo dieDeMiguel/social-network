@@ -54,6 +54,9 @@ export default function Welcome() {
                     <footer>
                         <p>
                             New here? <Link to="/">Register</Link>
+                            <br></br>
+                            Forgot your password?
+                            <Link to="/password-reset"> Password reset</Link>
                         </p>
                     </footer>
                 </Route>

@@ -2,6 +2,7 @@ import { Component } from "react";
 import axios from "../axios";
 import ProfilePicture from "./ProfilePicture";
 import { Link } from "react-router-dom";
+import { Profile } from "./Profile";
 import ProfilePictureUploader from "./ProfilePictureUploader";
 
 class App extends Component {
