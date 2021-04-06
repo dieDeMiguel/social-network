@@ -1,4 +1,4 @@
-import TextEditor from "./TextEditor";
+import TextEditor from "./BioEditor";
 
 function Profile({ user, onTextSave }) {
     return (

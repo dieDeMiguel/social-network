@@ -15,7 +15,7 @@ const {
     getPasswordResetCodeByEmailAndCode,
     updateUserPassword,
     updateUserProfile,
-    createBioText,
+    updateUserBio,
 } = require("./db");
 const cryptoRandomString = require("crypto-random-string");
 const { s3upload, getURLFromFilename } = require("../s3");
@@ -166,6 +166,7 @@ app.get("/user", (request, response) => {
             firstName: user.first_name,
             lastName: user.last_name,
             profile_url: user.profile_url,
+            bio: user.bio,
         });
     });
 });
@@ -193,12 +194,19 @@ app.post("/logout", function (request, response) {
     response.json({ message: "logged out" });
 });
 
-app.post("/bio", function (request, response) {
+app.put("/user", function (request, response) {
     const { userId } = request.session;
     const { bioText } = request.body;
-    createBioText({ userId, bioText }).then(() =>
-        response.json({ message: "Success storing the bio in DB" })
-    );
+    if (bioText) {
+        updateUserBio({ userId, bioText })
+            .then((updatedUser) => response.json({ updatedUser }))
+            .catch((error) =>
+                console.log(
+                    `[Server.js] errorr in PUT route to "/user: "`,
+                    error
+                )
+            );
+    }
 });
 
 app.get("/welcome", function (request, response) {

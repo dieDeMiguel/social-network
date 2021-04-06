@@ -4,7 +4,6 @@ import ProfilePicture from "./ProfilePicture";
 import { Link } from "react-router-dom";
 import Profile from "./Profile";
 import ProfilePictureUploader from "./ProfilePictureUploader";
-import { response } from "express";
 
 class App extends Component {
     constructor(props) {
@@ -23,7 +22,7 @@ class App extends Component {
         this.onUpload = this.onUpload.bind(this);
         this.onModalClose = this.onModalClose.bind(this);
         this.onLogout = this.onLogout.bind(this);
-        this.onTextSave = this.onTextSave.bind(this);
+        this.onBioSave = this.onBioSave.bind(this);
     }
 
     componentDidMount() {
@@ -75,14 +74,9 @@ class App extends Component {
         });
     }
 
-    onTextSave(newText) {
-        //this.saveBio()
-        //console.log("[App] onTextSave after setSate: ", this.state.bio);
-    }
-
     onBioSave(newText) {
         axios
-            .post("/bio", newText)
+            .put("/user", { bioText: newText })
             .then(() => {
                 console.log("[App] onTextSave: ", newText);
                 this.setState({
