@@ -2,7 +2,7 @@ import { Component } from "react";
 import axios from "../axios";
 import ProfilePicture from "./ProfilePicture";
 import { Link } from "react-router-dom";
-import { Profile } from "./Profile";
+import Profile from "./Profile";
 import ProfilePictureUploader from "./ProfilePictureUploader";
 
 class App extends Component {
@@ -13,6 +13,7 @@ class App extends Component {
                 firstName: "",
                 lastName: "",
                 profilePicURL: "",
+                bio: "",
             },
             showModal: false,
         };
@@ -21,6 +22,7 @@ class App extends Component {
         this.onUpload = this.onUpload.bind(this);
         this.onModalClose = this.onModalClose.bind(this);
         this.onLogout = this.onLogout.bind(this);
+        this.onTextSave = this.onTextSave.bind(this);
     }
 
     componentDidMount() {
@@ -31,6 +33,7 @@ class App extends Component {
                     firstName: response.data.firstName,
                     lastName: response.data.lastName,
                     profilePicURL: response.data.profile_url,
+                    bio: response.data.bio,
                 },
             });
         });
@@ -71,6 +74,17 @@ class App extends Component {
         });
     }
 
+    onTextSave(newText) {
+        console.log("[App] onTextSave: ", newText);
+        this.setState({
+            user: {
+                ...this.state.user,
+                bio: newText,
+            },
+        });
+        console.log("[App] onTextSave after setSate: ", this.state.bio);
+    }
+
     render() {
         return (
             <section className="app">
@@ -89,6 +103,10 @@ class App extends Component {
                     />
                 </header>
                 <div className="padding">{this.renderModal()}</div>
+                <Profile
+                    user={this.state.user}
+                    onTextSave={this.onTextSave}
+                ></Profile>
                 <footer>
                     <form onSubmit={this.onLogout}>
                         <button type="submit" className="btn-logout">
