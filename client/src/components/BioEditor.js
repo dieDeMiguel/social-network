@@ -35,8 +35,8 @@ class BioEditor extends Component {
         return (
             <div>
                 {this.state.isEditing
-                    ? this.renderEditingMode
-                    : this.renderDisplayMode}
+                    ? this.renderEditingMode()
+                    : this.renderDisplayMode()}
             </div>
         );
     }
@@ -49,7 +49,7 @@ class BioEditor extends Component {
                 <h1>
                     <strong>Profile/Bio:</strong> {textContent}
                 </h1>
-                <button onClick={this.editBio}>{buttonLabel}</button>;
+                <button onClick={this.editBio}>{buttonLabel}</button>
             </>
         );
     }
