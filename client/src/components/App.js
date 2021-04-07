@@ -1,9 +1,10 @@
 import { Component } from "react";
 import axios from "../axios";
 import ProfilePicture from "./ProfilePicture";
-import { Link } from "react-router-dom";
 import Profile from "./Profile";
+import { BrowserRouter, Route, Link } from "react-router-dom";
 import ProfilePictureUploader from "./ProfilePictureUploader";
+import OtherProfile from "./OtherProfile";
 
 class App extends Component {
     constructor(props) {
@@ -93,36 +94,49 @@ class App extends Component {
 
     render() {
         return (
-            <section className="app">
-                <header>
-                    <span className="logo">
-                        <a href="/">
-                            {" "}
-                            <img src="/logo.jpeg"></img>
-                        </a>
-                    </span>
-                    <ProfilePicture
-                        firstName={this.state.user.firstName}
-                        lastName={this.state.user.lastName}
-                        profilePicURL={this.state.user.profilePicURL}
-                        onClick={this.onProfilePictureClick}
+            <BrowserRouter>
+                <section className="app">
+                    <header>
+                        <span className="logo">
+                            <a href="/">
+                                {" "}
+                                <img src="/logo.jpeg"></img>
+                            </a>
+                        </span>
+                        <ProfilePicture
+                            firstName={this.state.user.firstName}
+                            lastName={this.state.user.lastName}
+                            profilePicURL={this.state.user.profilePicURL}
+                            onClick={this.onProfilePictureClick}
+                        />
+                    </header>
+                    {this.renderModal()}
+                    <Route path="/" exact>
+                        <div>
+                            <Profile
+                                user={this.state.user}
+                                onTextSave={this.onBioSave}
+                            ></Profile>
+                        </div>
+                    </Route>
+                    <Route
+                        path="/user/:id"
+                        render={(props) => (
+                            <OtherProfile
+                                id={props.match.params.id}
+                                history={props.hisotry}
+                            />
+                        )}
                     />
-                </header>
-                {this.renderModal()}
-                <div>
-                    <Profile
-                        user={this.state.user}
-                        onTextSave={this.onBioSave}
-                    ></Profile>
-                </div>
-                <footer>
-                    <form onSubmit={this.onLogout}>
-                        <button type="submit" className="btn-logout">
-                            Logout
-                        </button>
-                    </form>
-                </footer>
-            </section>
+                    <footer>
+                        <form onSubmit={this.onLogout}>
+                            <button type="submit" className="btn-logout">
+                                Logout
+                            </button>
+                        </form>
+                    </footer>
+                </section>
+            </BrowserRouter>
         );
     }
     renderModal() {

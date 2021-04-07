@@ -110,6 +110,43 @@ app.post("/users", (request, response) => {
         });
 });
 
+app.get("/api/users/:user_id", function (request, response) {
+    const { user_id } = request.params;
+    const { userId } = request.session;
+    if (user_id == userId) {
+        response.statusCode = 400;
+        response.json({
+            message: 'Please go to "/user" to get logged user info',
+        });
+        return;
+    }
+    getUserByID({ userId: user_id }).then((user) => {
+        if (!user) {
+            response.statusCode = 404;
+            response.json({
+                message: "user not found",
+            });
+            return;
+        }
+        response.json({ user });
+    });
+});
+
+app.put("/user", function (request, response) {
+    const { userId } = request.session;
+    const { bioText } = request.body;
+    if (bioText) {
+        updateUserBio({ userId, bioText })
+            .then((updatedUser) => response.json({ updatedUser }))
+            .catch((error) =>
+                console.log(
+                    `[Server.js] errorr in PUT route to "/user: "`,
+                    error
+                )
+            );
+    }
+});
+
 function sendCode({ email, code }) {
     console.log(
         "[social:email] sending email with code, first email then code",
@@ -192,21 +229,6 @@ app.post(
 app.post("/logout", function (request, response) {
     request.session.userId = null;
     response.json({ message: "logged out" });
-});
-
-app.put("/user", function (request, response) {
-    const { userId } = request.session;
-    const { bioText } = request.body;
-    if (bioText) {
-        updateUserBio({ userId, bioText })
-            .then((updatedUser) => response.json({ updatedUser }))
-            .catch((error) =>
-                console.log(
-                    `[Server.js] errorr in PUT route to "/user: "`,
-                    error
-                )
-            );
-    }
 });
 
 app.get("/welcome", function (request, response) {
