@@ -124,7 +124,7 @@ class App extends Component {
                         render={(props) => (
                             <OtherProfile
                                 id={props.match.params.id}
-                                history={props.hisotry}
+                                history={props.history}
                             />
                         )}
                     />
