@@ -3,6 +3,7 @@ import axios from "../axios";
 import ProfilePicture from "./ProfilePicture";
 import Profile from "./Profile";
 import { BrowserRouter, Route, Link } from "react-router-dom";
+import FindPeople from "./FindPeople";
 import ProfilePictureUploader from "./ProfilePictureUploader";
 import OtherProfile from "./OtherProfile";
 
@@ -128,6 +129,7 @@ class App extends Component {
                             />
                         )}
                     />
+                    <Route path="/users" render={() => <FindPeople />} />
                     <footer>
                         <form onSubmit={this.onLogout}>
                             <button type="submit" className="btn-logout">
