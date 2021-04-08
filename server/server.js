@@ -234,14 +234,17 @@ app.get("/users/most-recent", (request, response) => {
 
 app.get("/users/search", (request, response) => {
     const { q } = request.query;
-    if(!q) {
-        response.statusCode(400);
+    if (!q) {
+        response.statusCode = 400;
         response.json({
-            message: "the request should include a 'q' parameter in the query";
-        })
+            message: "the request should include a 'q' parameter in the query",
+        });
+        return;
     }
-    //searchUsers(q).then((response)=> console.log('[server.js] serchUsers line 243', response.data))
-})
+    searchUsers(q).then((user_list) => {
+        response.json(user_list);
+    });
+});
 
 app.post("/logout", function (request, response) {
     request.session.userId = null;

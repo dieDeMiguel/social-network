@@ -25,7 +25,7 @@ export default function FindPeople() {
                     q: searchTerm,
                 },
             })
-            .then((results) => console.log("results", results));
+            .then((response) => setSearchResults(response.data));
     }, [searchTerm]);
 
     function onChange(event) {
