@@ -1,5 +1,13 @@
 var spicedPg = require("spiced-pg");
 const { genSalt, hash: bcryptHash } = require("bcryptjs");
+function serializeUser(usersList) {
+    return {
+        id: usersList.id,
+        firstName: usersList.first_name,
+        lastName: usersList.last_name,
+        profilePicURL: usersList.profilePicURL,
+    };
+}
 
 function hash(password) {
     return genSalt().then((salt) => bcryptHash(password, salt));
@@ -22,7 +30,9 @@ function createUser({ firstName, lastName, email, password }) {
                 "INSERT INTO users(first_name, last_name, email, password_hash) VALUES ($1, $2, $3, $4) RETURNING id",
                 [firstName, lastName, email, password_hash]
             )
-            .then((result) => result.rows[0].id)
+            .then((result) => {
+                result.rows[0].id;
+            })
     );
 }
 

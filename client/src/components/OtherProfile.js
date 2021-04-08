@@ -18,16 +18,16 @@ class OtherProfile extends Component {
     componentDidMount() {
         axios
             .get(`/api/users/${this.props.id}`)
-            .then((response) =>
-                this.setState({
+            .then((response) => {
+                return this.setState({
                     user: {
-                        firstName: response.data.user.first_name,
-                        lastName: response.data.user.firstName,
-                        bio: response.data.user.lastName,
-                        profilePicURL: response.data.user.profile_url,
+                        firstName: response.data.first_name,
+                        lastName: response.data.firstName,
+                        bio: response.data.lastName,
+                        profilePicURL: response.data.profile_url,
                     },
-                })
-            )
+                });
+            })
             .catch((error) => {
                 if (
                     error.response.status >= 400 &&

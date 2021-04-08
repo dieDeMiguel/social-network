@@ -15,7 +15,6 @@ export default function FindPeople() {
     }, []);
 
     useEffect(() => {
-        console.log("searchTerm.length", searchTerm.length);
         if (searchTerm.length <= 2) {
             return;
         }
@@ -25,7 +24,9 @@ export default function FindPeople() {
                     q: searchTerm,
                 },
             })
-            .then((response) => setSearchResults(response.data));
+            .then((response) => {
+                setSearchResults(response.data);
+            });
     }, [searchTerm]);
 
     function onChange(event) {
@@ -40,7 +41,7 @@ export default function FindPeople() {
                 <ul>
                     {recentUsers.map((user) => (
                         <li key={user.id}>
-                            {user.first_name} {user.last_name}
+                            {user.firstName} {user.lastName}
                         </li>
                     ))}
                 </ul>
@@ -57,7 +58,7 @@ export default function FindPeople() {
                 <ul>
                     {searchResults.map((user) => (
                         <li key={user.id}>
-                            {user.first_name} {user.last_name}
+                            {user.firstName} {user.lastName}
                         </li>
                     ))}
                 </ul>

@@ -47,6 +47,22 @@ app.use(
     })
 );
 
+//Filter functions
+function serializeUser(usersList) {
+    let _arr = [];
+    !Array.isArray(usersList) ? _arr.push(usersList) : (_arr = usersList);
+    let _result = _arr.map(function (user) {
+        return {
+            id: user.id,
+            firstName: user.first_name,
+            lastName: user.last_name,
+            profile_url: user.profile_url,
+            bio: user.bio,
+        };
+    });
+    return _result;
+}
+
 //Routing
 app.post("/login", (request, response) => {
     const { email, password } = request.body;
@@ -130,7 +146,8 @@ app.get("/api/users/:user_id", function (request, response) {
             });
             return;
         }
-        response.json({ user });
+        console.log("[serialize en server]", serializeUser(user)[0]);
+        response.json(serializeUser(user)[0]);
     });
 });
 
@@ -201,12 +218,7 @@ app.post("/password/reset/verify", (request, response) => {
 app.get("/user", (request, response) => {
     const { userId } = request.session;
     getUserByID({ userId }).then((user) => {
-        response.json({
-            firstName: user.first_name,
-            lastName: user.last_name,
-            profile_url: user.profile_url,
-            bio: user.bio,
-        });
+        response.json(serializeUser(user)[0]);
     });
 });
 
@@ -229,7 +241,9 @@ app.post(
 );
 
 app.get("/users/most-recent", (request, response) => {
-    getMoreRecentUsers().then((results) => response.json(results));
+    getMoreRecentUsers().then((results) =>
+        response.json(serializeUser(results))
+    );
 });
 
 app.get("/users/search", (request, response) => {
@@ -241,8 +255,8 @@ app.get("/users/search", (request, response) => {
         });
         return;
     }
-    searchUsers(q).then((user_list) => {
-        response.json(user_list);
+    searchUsers(q).then((users_list) => {
+        response.json(serializeUser(users_list));
     });
 });
 
