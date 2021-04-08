@@ -9,7 +9,9 @@ export default function FindPeople() {
     const [searchResults, setSearchResults] = useState([]);
 
     useEffect(() => {
-        setRecentUsers(USERS_LIST);
+        axios.get("/users/most-recent").then((response) => {
+            setRecentUsers(response.data);
+        });
     }, []);
 
     useEffect(() => {
@@ -17,7 +19,13 @@ export default function FindPeople() {
         if (searchTerm.length <= 2) {
             return;
         }
-        setSearchResults(USERS_LIST);
+        axios
+            .get("/users/search", {
+                params: {
+                    q: searchTerm,
+                },
+            })
+            .then((results) => console.log("results", results));
     }, [searchTerm]);
 
     function onChange(event) {

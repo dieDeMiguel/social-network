@@ -16,6 +16,8 @@ const {
     updateUserPassword,
     updateUserProfile,
     updateUserBio,
+    searchUsers,
+    getMoreRecentUsers,
 } = require("./db");
 const cryptoRandomString = require("crypto-random-string");
 const { s3upload, getURLFromFilename } = require("../s3");
@@ -225,6 +227,21 @@ app.post(
             });
     }
 );
+
+app.get("/users/most-recent", (request, response) => {
+    getMoreRecentUsers().then((results) => response.json(results));
+});
+
+app.get("/users/search", (request, response) => {
+    const { q } = request.query;
+    if(!q) {
+        response.statusCode(400);
+        response.json({
+            message: "the request should include a 'q' parameter in the query";
+        })
+    }
+    //searchUsers(q).then((response)=> console.log('[server.js] serchUsers line 243', response.data))
+})
 
 app.post("/logout", function (request, response) {
     request.session.userId = null;
