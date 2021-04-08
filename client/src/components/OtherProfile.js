@@ -53,11 +53,13 @@ class OtherProfile extends Component {
 
         return (
             <section className="profile">
-                <h2>
-                    {firstName} {lastName}
-                </h2>
+                <h2>{firstName}</h2>
+                <h2>{lastName}</h2>
                 <p>
-                    <img src={profilePicURL} alt={`${firstName} ${lastName}`} />
+                    <img
+                        src={profilePicURL || "/avatar.png"}
+                        alt={`${firstName} ${lastName}`}
+                    />
                 </p>
                 <p>{bio}</p>
                 <p>
@@ -76,13 +78,7 @@ export default function App() {
                     <h1>Welcome to SPICED Social Network</h1>
                     <ul>
                         <li>
-                            <Link to="/user/1">See User 1</Link>
-                        </li>
-                        <li>
-                            <Link to="/user/2">See User 2</Link>
-                        </li>
-                        <li>
-                            <Link to="/user/3">See User 3</Link>
+                            <Link to="/users">Users</Link>
                         </li>
                     </ul>
                 </Route>

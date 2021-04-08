@@ -1,7 +1,6 @@
 import axios from "../axios";
 import { BrowserRouter, Route, Link } from "react-router-dom";
 import { useState, useEffect } from "react";
-import USERS_LIST from "../../social-network.json";
 
 export default function FindPeople() {
     const [recentUsers, setRecentUsers] = useState([]);
@@ -41,7 +40,9 @@ export default function FindPeople() {
                 <ul>
                     {recentUsers.map((user) => (
                         <li key={user.id}>
-                            {user.firstName} {user.lastName}
+                            <Link to={"/user/" + user.id}>
+                                {user.firstName} {user.lastName}
+                            </Link>
                         </li>
                     ))}
                 </ul>
@@ -58,7 +59,9 @@ export default function FindPeople() {
                 <ul>
                     {searchResults.map((user) => (
                         <li key={user.id}>
-                            {user.firstName} {user.lastName}
+                            <Link to={"/user/" + user.id}>
+                                {user.firstName} {user.lastName}
+                            </Link>
                         </li>
                     ))}
                 </ul>
