@@ -4,24 +4,24 @@ import { useState, useEffect } from "react";
 import USERS_LIST from "../../social-network.json";
 
 export default function FindPeople() {
-    const [recentUsers, setSearchTerm] = useState([]);
-    const [searchTerm, setSearchedUsers] = useState("");
+    const [recentUsers, setRecentUsers] = useState([]);
+    const [searchTerm, setSearchTerm] = useState("");
     const [searchResults, setSearchResults] = useState([]);
 
     useEffect(() => {
-        setSearchTerm(USERS_LIST);
+        setRecentUsers(USERS_LIST);
     }, []);
 
-    // // this useEffect runs every time searchTerm changes
-    // useEffect(() => {
-    //     // it would be great if you make the call just if searchTerm is longer than
-    //     // a certain amount of chars - 3 is a nice number!
-    //     // make the axios call to /users/search?q={searchTerm}
-    //     // then setSearchResults to the response.data
-    // }, [searchTerm]);
+    useEffect(() => {
+        console.log("searchTerm.length", searchTerm.length);
+        if (searchTerm.length <= 2) {
+            return;
+        }
+        setSearchResults(USERS_LIST);
+    }, [searchTerm]);
 
     function onChange(event) {
-        // here you set searchTerm to the current value of the input field
+        setSearchTerm(event.target.value);
     }
 
     return (
@@ -46,7 +46,13 @@ export default function FindPeople() {
                         onChange={onChange}
                     />
                 </p>
-                <ul>{/* see after for how to render a list of results */}</ul>
+                <ul>
+                    {searchResults.map((user) => (
+                        <li key={user.id}>
+                            {user.first_name} {user.last_name}
+                        </li>
+                    ))}
+                </ul>
             </section>
         </section>
     );
