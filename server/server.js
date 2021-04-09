@@ -110,7 +110,7 @@ app.post("/login", (request, response) => {
 app.post("/users", (request, response) => {
     createUser({ ...request.body })
         .then((createdUser) => {
-            console.log("server user created", createdUser);
+            console.log("[server] User created", createdUser);
             request.session.userId = createdUser;
             response.json({
                 createdUser,
@@ -119,14 +119,14 @@ app.post("/users", (request, response) => {
         .catch((error) => {
             if (error.constraint === "users_email_key") {
                 response.statusCode = 400;
-                console.log("[social:express] createUser error", error);
+                console.log("[Server.js] createUser error", error);
                 response.json({
                     message: "Email taken",
                 });
                 return;
             }
             response.statusCode = 500;
-            console.log("[social:express] createUser error", error);
+            console.log("[Server.js] createUser error statusCode 500", error);
             response.json({
                 message: "Error while creating user",
             });
@@ -172,7 +172,7 @@ app.put("/user", function (request, response) {
 
 function sendCode({ email, code }) {
     console.log(
-        "[social:email] sending email with code, first email then code",
+        "[Server.js] Sending email with code, first email then code",
         email,
         code
     );
@@ -199,9 +199,7 @@ app.post("/password/reset/start", (request, response) => {
 
 app.post("/password/reset/verify", (request, response) => {
     const { email, code, password } = request.body;
-    console.log("dentro de server.js, password", password);
     getPasswordResetCodeByEmailAndCode({ email, code }).then((storedCode) => {
-        console.log("[/password/reset/verify route] storedCode: ", storedCode);
         if (!storedCode) {
             respons.statusCode = 400;
             response.json({
@@ -280,7 +278,7 @@ app.get("/friendships/:user_id", (request, response) => {
 });
 
 app.put("/friendships/:sender_id", (request, response) => {
-    const sender_id = request.params.user_id;
+    const sender_id = request.params.sender_id;
     const recipient_id = request.session.userId;
     const accepted = request.body.accepted;
     updateFriendship({ sender_id, recipient_id, accepted }).then(
@@ -308,7 +306,7 @@ app.delete("/friendships/:recipient_id", (request, response) => {
 });
 
 app.post("/friendships", (request, response) => {
-    const recipient_id = request.body.userId;
+    const recipient_id = request.body.recipient_id;
     const sender_id = request.session.userId;
     getFriendship({ first_id: recipient_id, second_id: sender_id }).then(
         (friendship) => {
@@ -325,12 +323,12 @@ app.post("/friendships", (request, response) => {
                 })
                 .catch((error) => {
                     console.log(
-                        `[Server.js POST/friendships] Error creating freindship ${recipient_id} and ${sender_id}: `,
+                        `[Server.js POST/friendships] Error creating friendship ${recipient_id} and ${sender_id}: `,
                         error
                     );
                     response.statusCode = 500;
                     response.json({
-                        message: `[Server.js POST/friendships] Error creating freindship ${recipient_id} and ${sender_id}`,
+                        message: `[Server.js POST/friendships error 500] Error creating friendship ${recipient_id} and ${sender_id}`,
                     });
                 });
         }

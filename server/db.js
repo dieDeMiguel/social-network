@@ -115,7 +115,9 @@ function getFriendship({ first_id, second_id }) {
             `SELECT * FROM friendships WHERE sender_id = $1 AND recipient_id = $2 OR sender_id = $2 AND recipient_id = $1`,
             [first_id, second_id]
         )
-        .then((results) => results.rows[0]);
+        .then((results) => {
+            return results.rows[0];
+        });
 }
 
 function createFriendship({ sender_id, recipient_id }) {
@@ -128,9 +130,10 @@ function createFriendship({ sender_id, recipient_id }) {
 }
 
 function updateFriendship({ sender_id, recipient_id, accepted }) {
+    console.log("[DB.js]", sender_id, recipient_id, accepted);
     return db
         .query(
-            `UPDATE friendships SET accepted = $1 WHERE sender_id = $2 recipient_id = $3 RETURNING *`,
+            `UPDATE friendships SET accepted = $1 WHERE sender_id = $2 AND recipient_id = $3 RETURNING *`,
             [accepted, sender_id, recipient_id]
         )
         .then((results) => results.rows[0]);
@@ -138,7 +141,7 @@ function updateFriendship({ sender_id, recipient_id, accepted }) {
 
 function deleteFriendship({ first_id, second_id }) {
     return db.query(
-        `DELETE * from friendships WHERE sender_id = $1 AND recipient_id = $2 OR sender_id = $2 AND recipient_id = $1`,
+        `DELETE FROM friendships WHERE sender_id = $1 AND recipient_id = $2 OR sender_id = $2 AND recipient_id = $1`,
         [first_id, second_id]
     );
 }

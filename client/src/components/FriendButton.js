@@ -13,21 +13,19 @@ export default function FriendButton({ id }) {
         axios
             .get(`/friendships/${id}`)
             .then((response) => {
-                if (response.data.accepted) {
-                    setExisting(true);
-                    setAccepted(response.data.accepted);
-                    setIncoming(response.data.sender_id == id);
-                }
+                setExisting(true);
+                setAccepted(response.data.accepted);
+                setIncoming(response.data.sender_id === parseInt(id));
             })
             .catch((error) => {
                 console.log("[FriendButton] catch", error);
                 if (error.response.status === 404) {
                     console.log(
-                        "[FreindButton] users have no friendship entry in DB",
+                        "[FriendButton] users have no friendship entry in DB",
                         error
                     );
                     console.log(
-                        "[FriendButton] error fetching freindship",
+                        "[FriendButton] error fetching friendship",
                         error
                     );
                 }
@@ -35,6 +33,10 @@ export default function FriendButton({ id }) {
     }, [id]);
 
     useEffect(() => {
+        if (!existing) {
+            setButtonText("Send request");
+            return;
+        }
         if (accepted) {
             setButtonText("Unfriend");
             return;
@@ -43,10 +45,7 @@ export default function FriendButton({ id }) {
             setButtonText("Accept request");
             return;
         }
-        if (existing && !incoming) {
-            setButtonText("Cancel request");
-            return;
-        }
+        setButtonText("Cancel request");
     }, [existing, accepted, incoming]);
 
     function onClick() {
@@ -55,7 +54,7 @@ export default function FriendButton({ id }) {
                 .post(`/friendships`, { recipient_id: id })
                 .then((response) => {
                     console.log(
-                        "[FriendButton] freindship created",
+                        "[FriendButton] friendship created",
                         response.data
                     );
                     setExisting(true);
@@ -67,7 +66,7 @@ export default function FriendButton({ id }) {
         if (!incoming) {
             //loggd user sent the request
             axios.delete(`/friendships/${id}`).then((response) => {
-                console.log("[FriendButton] freindship deleted", response.data);
+                console.log("[FriendButton] friendship deleted", response.data);
                 setExisting(false);
                 setAccepted(false);
                 setIncoming(false);
@@ -79,16 +78,18 @@ export default function FriendButton({ id }) {
             axios
                 .put(`/friendships/${id}`, { accepted: true })
                 .then((response) => {
-                    console.log(
-                        "[FriendButton] freindship updated PUT",
-                        response.data
-                    );
                     setExisting(true);
                     setAccepted(response.data.accepted);
-                    setIncoming(response.data.sender_id == id);
+                    setIncoming(false);
                 });
             return;
         }
+        axios.delete(`/friendships/${id}`).then((response) => {
+            console.log("[FriendButton] friendship deleted", response.data);
+            setExisting(false);
+            setAccepted(false);
+            setIncoming(false);
+        });
     }
     return <button onClick={onClick}>{buttonText}</button>;
 }
