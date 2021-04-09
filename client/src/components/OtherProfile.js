@@ -56,6 +56,7 @@ class OtherProfile extends Component {
             <section className="profile">
                 <h2>{firstName}</h2>
                 <h2>{lastName}</h2>
+                <h2>id: {this.props.id}</h2>
                 <p>
                     <img
                         src={profilePicURL || "/avatar.png"}

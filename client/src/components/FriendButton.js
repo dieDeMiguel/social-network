@@ -87,6 +87,7 @@ export default function FriendButton({ id }) {
                     setAccepted(response.data.accepted);
                     setIncoming(response.data.sender_id == id);
                 });
+            return;
         }
     }
     return <button onClick={onClick}>{buttonText}</button>;
