@@ -19,4 +19,12 @@ CREATE TABLE password_reset_codes (
     created_at      TIMESTAMP NOT NULL DEFAULT NOW()
 );
 
+CREATE TABLE friendships (
+    id SERIAL PRIMARY KEY,
+    sender_id INT REFERENCES users(id) NOT NULL,
+    recipient_id INT REFERENCES users(id) NOT NULL,
+    accepted BOOLEAN DEFAULT false,
+     created_at TIMESTAMP NOT NULL DEFAULT NOW()
+);
+
 
