@@ -18,6 +18,10 @@ const {
     updateUserBio,
     searchUsers,
     getMoreRecentUsers,
+    getFriendship,
+    createFriendship,
+    updateFriendship,
+    deleteFriendship,
 } = require("./db");
 const cryptoRandomString = require("crypto-random-string");
 const { s3upload, getURLFromFilename } = require("../s3");
@@ -106,6 +110,7 @@ app.post("/login", (request, response) => {
 app.post("/users", (request, response) => {
     createUser({ ...request.body })
         .then((createdUser) => {
+            console.log("server user created", createdUser);
             request.session.userId = createdUser;
             response.json({
                 createdUser,
@@ -146,7 +151,6 @@ app.get("/api/users/:user_id", function (request, response) {
             });
             return;
         }
-        console.log("[serialize en server]", serializeUser(user)[0]);
         response.json(serializeUser(user)[0]);
     });
 });
@@ -258,6 +262,79 @@ app.get("/users/search", (request, response) => {
     searchUsers(q).then((users_list) => {
         response.json(serializeUser(users_list));
     });
+});
+
+app.get("/friendships/:user_id", (request, response) => {
+    const first_id = request.params.user_id;
+    const second_id = request.session.userId;
+    getFriendship({ first_id, second_id }).then((friendship) => {
+        if (!friendship) {
+            response.statusCode = 404;
+            response.json({
+                message: `No friendship between ${first_id} and ${second_id}`,
+            });
+            return;
+        }
+        response.json(friendship);
+    });
+});
+
+app.put("/friendships/:sender_id", (request, response) => {
+    const sender_id = request.params.user_id;
+    const recipient_id = request.session.userId;
+    const accepted = request.body.accepted;
+    updateFriendship({ sender_id, recipient_id, accepted }).then(
+        (updatedFriendship) => {
+            if (!updatedFriendship) {
+                response.statusCode = 404;
+                response.json({
+                    message: `No friendship between ${sender_id} and ${recipient_id}`,
+                });
+                return;
+            }
+            response.json(updatedFriendship);
+        }
+    );
+});
+
+app.delete("/friendships/:recipient_id", (request, response) => {
+    const first_id = request.params.recipient_id;
+    const second_id = request.session.userId;
+    deleteFriendship({ first_id, second_id }).then(() =>
+        response.json({
+            message: `Friendship between ${first_id} and ${second_id} was deleted`,
+        })
+    );
+});
+
+app.post("/friendships", (request, response) => {
+    const recipient_id = request.body.userId;
+    const sender_id = request.session.userId;
+    getFriendship({ first_id: recipient_id, second_id: sender_id }).then(
+        (friendship) => {
+            if (friendship) {
+                response.statusCode = 404;
+                response.json({
+                    message: `Friendship between ${first_id} and ${second_id} already exists`,
+                });
+                return;
+            }
+            createFriendship({ sender_id, recipient_id })
+                .then((friendship) => {
+                    response.json(friendship);
+                })
+                .catch((error) => {
+                    console.log(
+                        `[Server.js POST/friendships] Error creating freindship ${recipient_id} and ${sender_id}: `,
+                        error
+                    );
+                    response.statusCode = 500;
+                    response.json({
+                        message: `[Server.js POST/friendships] Error creating freindship ${recipient_id} and ${sender_id}`,
+                    });
+                });
+        }
+    );
 });
 
 app.post("/logout", function (request, response) {

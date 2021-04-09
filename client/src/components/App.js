@@ -12,6 +12,7 @@ class App extends Component {
         super(props);
         this.state = {
             user: {
+                id: "",
                 firstName: "",
                 lastName: "",
                 profilePicURL: "",
@@ -32,6 +33,7 @@ class App extends Component {
             console.log("[App] componentDidMount", response.data);
             this.setState({
                 user: {
+                    id: response.data.id,
                     firstName: response.data.firstName,
                     lastName: response.data.lastName,
                     profilePicURL: response.data.profile_url,

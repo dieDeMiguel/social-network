@@ -1,6 +1,7 @@
 import axios from "axios";
 import { Component } from "react";
 import { BrowserRouter, Route, Link } from "react-router-dom";
+import FriendButton from "./FriendButton";
 
 class OtherProfile extends Component {
     constructor(props) {
@@ -21,9 +22,9 @@ class OtherProfile extends Component {
             .then((response) => {
                 return this.setState({
                     user: {
-                        firstName: response.data.first_name,
-                        lastName: response.data.firstName,
-                        bio: response.data.lastName,
+                        firstName: response.data.firstName,
+                        lastName: response.data.lastName,
+                        bio: response.data.bio,
                         profilePicURL: response.data.profile_url,
                     },
                 });
@@ -62,6 +63,7 @@ class OtherProfile extends Component {
                     />
                 </p>
                 <p>{bio}</p>
+                <FriendButton id={this.props.id}></FriendButton>
                 <p>
                     <Link to="/">Back to Homepage</Link>
                 </p>

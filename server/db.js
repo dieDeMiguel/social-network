@@ -30,9 +30,7 @@ function createUser({ firstName, lastName, email, password }) {
                 "INSERT INTO users(first_name, last_name, email, password_hash) VALUES ($1, $2, $3, $4) RETURNING id",
                 [firstName, lastName, email, password_hash]
             )
-            .then((result) => {
-                result.rows[0].id;
-            })
+            .then((result) => result.rows[0].id)
     );
 }
 
@@ -111,7 +109,45 @@ function searchUsers(query) {
         .then((results) => results.rows);
 }
 
+function getFriendship({ first_id, second_id }) {
+    return db
+        .query(
+            `SELECT * FROM friendships WHERE sender_id = $1 AND recipient_id = $2 OR sender_id = $2 AND recipient_id = $1`,
+            [first_id, second_id]
+        )
+        .then((results) => results.rows[0]);
+}
+
+function createFriendship({ sender_id, recipient_id }) {
+    return db
+        .query(
+            `INSERT INTO friendships (sender_id, recipient_id) VALUES ($1, $2) RETURNING *`,
+            [sender_id, recipient_id]
+        )
+        .then((results) => results.rows[0]);
+}
+
+function updateFriendship({ sender_id, recipient_id, accepted }) {
+    return db
+        .query(
+            `UPDATE friendships SET accepted = $1 WHERE sender_id = $2 recipient_id = $3 RETURNING *`,
+            [accepted, sender_id, recipient_id]
+        )
+        .then((results) => results.rows[0]);
+}
+
+function deleteFriendship({ first_id, second_id }) {
+    return db.query(
+        `DELETE * from friendships WHERE sender_id = $1 AND recipient_id = $2 OR sender_id = $2 AND recipient_id = $1`,
+        [first_id, second_id]
+    );
+}
+
 module.exports = {
+    getFriendship,
+    createFriendship,
+    updateFriendship,
+    deleteFriendship,
     searchUsers,
     getMoreRecentUsers,
     getUserByID,
