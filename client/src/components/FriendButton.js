@@ -2,6 +2,7 @@ import axios from "../axios";
 import { BrowserRouter, Route, Link } from "react-router-dom";
 import { useState, useEffect } from "react";
 import { AlexaForBusiness } from "aws-sdk";
+import { render } from "@testing-library/react";
 
 export default function FriendButton({ id }) {
     const [buttonText, setButtonText] = useState("Send request");
@@ -91,5 +92,6 @@ export default function FriendButton({ id }) {
             setIncoming(false);
         });
     }
+
     return <button onClick={onClick}>{buttonText}</button>;
 }

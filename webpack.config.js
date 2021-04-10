@@ -3,6 +3,11 @@ const path = require("path");
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 
 module.exports = () => ({
+    // resolve: {
+    //     fallback: {
+    //         util: require.resolve("util/"),
+    //     },
+    // },
     entry: [
         "@babel/polyfill",
         path.join(__dirname, "client", "style.css"),
@@ -33,7 +38,8 @@ module.exports = () => ({
             {
                 test: /\.js$/,
                 loader: "babel-loader",
-            }, {
+            },
+            {
                 test: /\.css$/i,
                 use: [
                     MiniCssExtractPlugin.loader,
@@ -47,7 +53,9 @@ module.exports = () => ({
             },
         ],
     },
-    plugins: [new MiniCssExtractPlugin({
-        filename: 'bundle.css',
-    })],
+    plugins: [
+        new MiniCssExtractPlugin({
+            filename: "bundle.css",
+        }),
+    ],
 });
