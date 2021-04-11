@@ -242,9 +242,12 @@ app.post(
 );
 
 app.get("/users/most-recent", (request, response) => {
-    getMoreRecentUsers().then((results) =>
-        response.json(serializeUser(results))
-    );
+    getMoreRecentUsers().then((results) => {
+        var filteredResults = results.filter(
+            (x) => x.id !== request.session.userId
+        );
+        response.json(serializeUser(filteredResults));
+    });
 });
 
 app.get("/users/search", (request, response) => {
@@ -257,7 +260,10 @@ app.get("/users/search", (request, response) => {
         return;
     }
     searchUsers(q).then((users_list) => {
-        response.json(serializeUser(users_list));
+        var filteredResults = users_list.filter(
+            (x) => x.id !== request.session.userId
+        );
+        response.json(serializeUser(filteredResults));
     });
 });
 
