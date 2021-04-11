@@ -1,25 +1,18 @@
 import TextEditor from "./BioEditor";
 import { BrowserRouter, Route, Link } from "react-router-dom";
 
-function Profile({ user, onTextSave }) {
+function Profile({ user, onTextSave, onProfilePictureClick }) {
     return (
         <section className="profile">
-            <p className="p-wrapper">
-                <img
-                    src={user.profilePicURL || "/avatar.png"}
-                    alt=""
-                    className="profile-img"
-                />
-            </p>
-            <div className="aside">
-                <h2>
-                    <strong>
-                        {user.firstName} {user.lastName} id: {user.id}
-                    </strong>
-                </h2>
-                <div className="bio-editor">
-                    <TextEditor text={user.bio} onTextSave={onTextSave} />
-                </div>
+            <div className="button-image">
+                <p className="p-wrapper">
+                    <img
+                        onClick={onProfilePictureClick}
+                        src={user.profilePicURL || "/avatar.png"}
+                        alt=""
+                        className="profile-img"
+                    />
+                </p>
                 <p className="link">
                     <Route>
                         <Link to="/users" id="search-others">
@@ -27,6 +20,17 @@ function Profile({ user, onTextSave }) {
                         </Link>
                     </Route>
                 </p>
+            </div>
+            <div className="aside">
+                <h2>
+                    <strong>
+                        {user.firstName} {user.lastName}
+                    </strong>
+                </h2>
+                id: {user.id}
+                <div className="bio-editor">
+                    <TextEditor text={user.bio} onTextSave={onTextSave} />
+                </div>
             </div>
         </section>
     );
