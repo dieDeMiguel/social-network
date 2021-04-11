@@ -33,12 +33,12 @@ export default function FindPeople() {
     }
 
     return (
-        <div className="main-profile">
-            <section className="find-people ">
-                <h2>Find people</h2>
-                <section>
+        <div className="main-profile main-find">
+            <section className="find-people">
+                <section className="find-wrapper">
+                    <h2>Find people</h2>
                     <h3>Who is new?</h3>
-                    <ul>
+                    <ul className="find-list" id="list-item">
                         {recentUsers.map((user) => (
                             <li key={user.id}>
                                 <Link to={"/user/" + user.id}>
@@ -48,7 +48,7 @@ export default function FindPeople() {
                         ))}
                     </ul>
                 </section>
-                <section>
+                <section className="search">
                     <h3>Looking for someone in particular?</h3>
                     <p>
                         <input
@@ -57,7 +57,7 @@ export default function FindPeople() {
                             onChange={onChange}
                         />
                     </p>
-                    <ul>
+                    <ul className="find-list" id="list-item">
                         {searchResults.map((user) => (
                             <li key={user.id}>
                                 <Link to={"/user/" + user.id}>

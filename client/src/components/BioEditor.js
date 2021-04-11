@@ -46,9 +46,7 @@ class BioEditor extends Component {
         const textContent = this.props.text ? this.props.text : "No bio yet";
         return (
             <>
-                <h2 className="profile-text">
-                    <strong>Your Profile:</strong>
-                </h2>
+                <p className="profile-text">Your Profile:</p>
                 <h1 className="bio-text">{textContent}</h1>
                 <button onClick={this.editBio} id="btn">
                     {buttonLabel}
