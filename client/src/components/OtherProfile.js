@@ -53,22 +53,41 @@ class OtherProfile extends Component {
         const { firstName, lastName, bio, profilePicURL } = this.state.user;
 
         return (
-            <section className="profile">
-                <h2>{firstName}</h2>
-                <h2>{lastName}</h2>
-                <h2>id: {this.props.id}</h2>
-                <p>
-                    <img
-                        src={profilePicURL || "/avatar.png"}
-                        alt={`${firstName} ${lastName}`}
-                    />
-                </p>
-                <p>{bio}</p>
-                <FriendButton id={this.props.id}></FriendButton>
-                <p>
-                    <Link to="/">Back to Homepage</Link>
-                </p>
-            </section>
+            <div className="main-profile">
+                <section className="profile">
+                    <div className="button-image">
+                        <p className="p-wrapper">
+                            <img
+                                className="profile-img"
+                                src={profilePicURL || "/avatar.png"}
+                                alt={`${firstName} ${lastName}`}
+                            />
+                        </p>
+                        <div className="bio-editor">
+                            <FriendButton id={this.props.id}></FriendButton>
+                        </div>
+                    </div>
+                    <div className="aside">
+                        <h2>
+                            <strong>
+                                {firstName} {lastName} id: {this.props.id}
+                            </strong>
+                        </h2>
+
+                        <div className="bio-editor">
+                            <h2 className="profile-text">
+                                <strong>{firstName}'s profile:</strong>
+                            </h2>
+                            <h1 className="bio-text">{bio}</h1>
+                        </div>
+                        <p>
+                            <Link to="/" id="search-others">
+                                Back to Homepage
+                            </Link>
+                        </p>
+                    </div>
+                </section>
+            </div>
         );
     }
 }

@@ -130,7 +130,6 @@ function createFriendship({ sender_id, recipient_id }) {
 }
 
 function updateFriendship({ sender_id, recipient_id, accepted }) {
-    console.log("[DB.js]", sender_id, recipient_id, accepted);
     return db
         .query(
             `UPDATE friendships SET accepted = $1 WHERE sender_id = $2 AND recipient_id = $3 RETURNING *`,

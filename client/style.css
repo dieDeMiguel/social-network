@@ -146,7 +146,8 @@ header span {
     font-size: 14px;
 }
 
-.btn {
+.btn,
+#btn {
     font-weight: bold;
     width: 200px;
     margin: 0 35px 20px;
@@ -164,6 +165,13 @@ header span {
 
 .btn-login {
     max-width: 200px;
+}
+
+#btn {
+    margin: 0;
+    width: 147px;
+    display: inline-block;
+    margin-top: 0.5em;
 }
 
 .signup {
@@ -227,4 +235,68 @@ footer {
 
 .bio-img {
     max-width: 20%;
+}
+
+/* Profile Section */
+
+.main-profile {
+    display: flex;
+    justify-content: center;
+}
+
+.profile {
+    margin: 5% auto 5%;
+    background-color: rgb(9, 9, 69);
+    border-radius: 15px;
+    width: 50%;
+    min-height: 40vh;
+    border: 2px solid red;
+    display: flex;
+    color: white;
+    justify-content: space-around;
+    align-items: center;
+}
+
+.profile-img {
+    max-height: 80%;
+    max-width: 80%;
+    border: 1px solid cornsilk;
+    border-radius: 8px;
+}
+
+.p-wrapper {
+    text-align: center;
+    width: 60%;
+}
+
+.aside {
+    width: 80%;
+    max-height: 90%;
+    padding: 1rem;
+    margin-top: 0;
+}
+
+#search-others {
+    color: yellow;
+    cursor: pointer;
+    margin-top: 5%;
+    border: 1px solid white;
+    padding: 0.25em;
+    border-radius: 4px;
+}
+
+.bio-editor {
+    max-height: 90%;
+}
+
+.button-image {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+
+.aside h2 {
+    margin: 0;
+    text-decoration: underline;
 }

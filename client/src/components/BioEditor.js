@@ -46,10 +46,13 @@ class BioEditor extends Component {
         const textContent = this.props.text ? this.props.text : "No bio yet";
         return (
             <>
-                <h1>
-                    <strong>Profile/Bio:</strong> {textContent}
-                </h1>
-                <button onClick={this.editBio}>{buttonLabel}</button>
+                <h2 className="profile-text">
+                    <strong>Your Profile:</strong>
+                </h2>
+                <h1 className="bio-text">{textContent}</h1>
+                <button onClick={this.editBio} id="btn">
+                    {buttonLabel}
+                </button>
             </>
         );
     }
@@ -64,7 +67,9 @@ class BioEditor extends Component {
                     defaultValue={this.props.text}
                     required
                 />
-                <button type="submit">Save Text</button>
+                <button type="submit" id="btn">
+                    Save Text
+                </button>
             </form>
         );
     }

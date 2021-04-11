@@ -1,8 +1,6 @@
 import axios from "../axios";
 import { BrowserRouter, Route, Link } from "react-router-dom";
 import { useState, useEffect } from "react";
-import { AlexaForBusiness } from "aws-sdk";
-import { render } from "@testing-library/react";
 
 export default function FriendButton({ id }) {
     const [buttonText, setButtonText] = useState("Send request");
@@ -93,5 +91,28 @@ export default function FriendButton({ id }) {
         });
     }
 
-    return <button onClick={onClick}>{buttonText}</button>;
+    function onRejectButton() {
+        axios.delete(`/friendships/${id}`).then((response) => {
+            console.log("[FriendButton] friendship rejected", response.data);
+            setExisting(false);
+            setAccepted(false);
+            setIncoming(false);
+        });
+    }
+
+    const showRejectButton = incoming && !accepted;
+
+    return (
+        <div>
+            <button onClick={onClick} id="btn">
+                {buttonText}
+            </button>
+            <br></br>
+            {showRejectButton && (
+                <button onClick={onRejectButton} id="btn">
+                    Reject request
+                </button>
+            )}
+        </div>
+    );
 }

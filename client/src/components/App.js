@@ -115,7 +115,7 @@ class App extends Component {
                     </header>
                     {this.renderModal()}
                     <Route path="/" exact>
-                        <div>
+                        <div className="main-profile">
                             <Profile
                                 user={this.state.user}
                                 onTextSave={this.onBioSave}

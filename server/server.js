@@ -26,7 +26,6 @@ const {
 const cryptoRandomString = require("crypto-random-string");
 const { s3upload, getURLFromFilename } = require("../s3");
 const { Bucket } = require("../config.json");
-const { response } = require("express");
 
 //Middlewares
 app.use(compression());
