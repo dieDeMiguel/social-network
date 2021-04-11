@@ -13,7 +13,9 @@ class OtherProfile extends Component {
                 bio: "",
                 profilePicURL: "",
             },
+            showBioText: false,
         };
+        this.showBio = this.showBio.bind(this);
     }
 
     componentDidMount() {
@@ -38,6 +40,11 @@ class OtherProfile extends Component {
                 }
             });
     }
+
+    showBio() {
+        this.setState({ showBioText: true });
+    }
+
     render() {
         if (!this.state.user) {
             return (
@@ -64,7 +71,10 @@ class OtherProfile extends Component {
                             />
                         </p>
                         <div className="bio-editor">
-                            <FriendButton id={this.props.id}></FriendButton>
+                            <FriendButton
+                                id={this.props.id}
+                                showBioProfile={this.showBio}
+                            ></FriendButton>
                         </div>
                     </div>
                     <div className="aside">
@@ -74,14 +84,16 @@ class OtherProfile extends Component {
                             </strong>
                         </h2>
                         id: {this.props.id}
-                        <div className="bio-editor">
-                            <p className="profile-text">
-                                {firstName}'s profile:
-                            </p>
-                            <h1 className="bio-text">
-                                {bio || "No bio text yet"}
-                            </h1>
-                        </div>
+                        {this.state.showBioText && (
+                            <div className="bio-editor">
+                                <p className="profile-text">
+                                    {firstName}'s profile:
+                                </p>
+                                <h1 className="bio-text">
+                                    {bio || "No bio text yet"}
+                                </h1>
+                            </div>
+                        )}
                         <p>
                             <Link to="/" id="search-others">
                                 Back to Homepage

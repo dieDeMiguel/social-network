@@ -2,7 +2,7 @@ import axios from "../axios";
 import { BrowserRouter, Route, Link } from "react-router-dom";
 import { useState, useEffect } from "react";
 
-export default function FriendButton({ id }) {
+export default function FriendButton({ id, showBioProfile }) {
     const [buttonText, setButtonText] = useState("Send request");
     const [existing, setExisting] = useState(false);
     const [accepted, setAccepted] = useState(false);
@@ -38,6 +38,7 @@ export default function FriendButton({ id }) {
         }
         if (accepted) {
             setButtonText("Unfriend");
+            showBioProfile();
             return;
         }
         if (incoming) {
