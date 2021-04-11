@@ -29,6 +29,7 @@ class ProfilePictureUploader extends Component {
             .then((response) => {
                 this.setState({ isLoading: false });
                 this.props.onUpload(response.data.profilePicURL);
+                this.props.onModalClose();
             });
     }
 
