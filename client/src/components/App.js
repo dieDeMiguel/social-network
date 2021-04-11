@@ -119,6 +119,9 @@ class App extends Component {
                             <Profile
                                 user={this.state.user}
                                 onTextSave={this.onBioSave}
+                                onProfilePictureClick={
+                                    this.onProfilePictureClick
+                                }
                             ></Profile>
                         </div>
                     </Route>
@@ -149,6 +152,7 @@ class App extends Component {
                 <ProfilePictureUploader
                     onUpload={this.onUpload}
                     onClose={this.onModalClose}
+                    onModalClose={this.onModalClose}
                 />
             );
         }
