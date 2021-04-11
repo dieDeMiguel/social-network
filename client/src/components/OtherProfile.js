@@ -70,15 +70,17 @@ class OtherProfile extends Component {
                     <div className="aside">
                         <h2>
                             <strong>
-                                {firstName} {lastName} id: {this.props.id}
+                                {firstName} {lastName}
                             </strong>
                         </h2>
-
+                        id: {this.props.id}
                         <div className="bio-editor">
-                            <h2 className="profile-text">
-                                <strong>{firstName}'s profile:</strong>
-                            </h2>
-                            <h1 className="bio-text">{bio}</h1>
+                            <p className="profile-text">
+                                {firstName}'s profile:
+                            </p>
+                            <h1 className="bio-text">
+                                {bio || "No bio text yet"}
+                            </h1>
                         </div>
                         <p>
                             <Link to="/" id="search-others">

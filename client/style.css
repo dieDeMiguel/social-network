@@ -239,11 +239,6 @@ footer {
 
 /* Profile Section */
 
-.main-profile {
-    display: flex;
-    justify-content: center;
-}
-
 .profile {
     margin: 5% auto 5%;
     background-color: rgb(9, 9, 69);
@@ -299,4 +294,34 @@ footer {
 .aside h2 {
     margin: 0;
     text-decoration: underline;
+}
+
+.find-list {
+    list-style: none;
+    padding-left: 0;
+}
+
+.main-find {
+    background-color: rgb(9, 9, 69);
+    border-radius: 15px;
+    margin: 5%;
+}
+
+.find-people {
+    margin: 5% auto 5%;
+    background-color: rgb(9, 9, 69);
+    border-radius: 15px;
+    min-height: 40vh;
+    display: flex;
+    color: white;
+    justify-content: space-around;
+    align-items: center;
+}
+
+.find-list {
+    color: wheat;
+}
+
+#list-item a {
+    color: wheat;
 }
