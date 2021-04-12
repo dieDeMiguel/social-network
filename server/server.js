@@ -24,7 +24,7 @@ const {
     deleteFriendship,
 } = require("./db");
 const cryptoRandomString = require("crypto-random-string");
-const { s3upload, getURLFromFilename } = require("../s3");
+const { s3upload, getURLFromFilename, ses } = require("../s3");
 const { Bucket } = require("../config.json");
 
 //Middlewares
@@ -175,6 +175,25 @@ function sendCode({ email, code }) {
         email,
         code
     );
+    ses.sendEmail({
+        Source: "<Diego de Miguel diedemiguel@gmail.com>",
+        Destination: {
+            ToAddresses: ["diedeMiguel87@hotmail.com"],
+        },
+        Message: {
+            Body: {
+                Text: {
+                    Data: `Your recovery password reset code is: ${code}`,
+                },
+            },
+            Subject: {
+                Data: "Recover your password @SuperHero Social-Network",
+            },
+        },
+    })
+        .promise()
+        .then(() => console.log("it worked!"))
+        .catch((err) => console.log(err));
 }
 
 app.post("/password/reset/start", (request, response) => {
