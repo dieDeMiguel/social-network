@@ -37,6 +37,7 @@ class ResetPassword extends Component {
     }
 
     onCodeSubmit(event) {
+        console.log("[ResetPassword] onCodeSubmit", event.target.value);
         event.preventDefault();
         axios
             .post("/password/reset/verify", {
@@ -54,12 +55,17 @@ class ResetPassword extends Component {
             });
     }
 
-    onInputChange(event, callback) {
+    onInputChange(event) {
         this.setState({
             [event.target.name]: event.target.value,
         });
 
-        console.log("[ResetPassword] onInputChange this.setState", this.state);
+        console.log(
+            "[ResetPassword] onInputChange this.setState",
+            this.state,
+            event.target.value,
+            event.target.name
+        );
     }
 
     renderError() {

@@ -1,4 +1,4 @@
-const { S3, aws } = require("aws-sdk");
+const { S3 } = require("aws-sdk");
 const fs = require("fs");
 const { Bucket } = require("./config.json");
 
@@ -56,14 +56,7 @@ function getURLFromFilename(fileName, Bucket) {
     return `https://s3.amazonaws.com/${Bucket}/${fileName}`;
 }
 
-const ses = new aws.SES({
-    accessKeyId: secrets.AWS_KEY,
-    secretAccessKey: secrets.AWS_SECRET,
-    region: "eu-west-1",
-});
-
 module.exports = {
     s3upload,
     getURLFromFilename,
-    ses,
 };
