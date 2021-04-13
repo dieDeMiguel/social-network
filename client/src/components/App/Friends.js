@@ -32,7 +32,7 @@ export default function Friends() {
                     <section className="incoming-list">
                         <h3>Incoming requests</h3>
                         {incoming.length ? (
-                            <FriendList user={incoming} onClick={onClick} />
+                            <FriendList users={incoming} onClick={onClick} />
                         ) : (
                             <p>No incoming requests</p>
                         )}

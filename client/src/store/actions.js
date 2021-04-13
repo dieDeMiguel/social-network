@@ -6,6 +6,7 @@ export const END_FRIENDSHIP = "END_FRIENDSHIP";
 
 export async function getFriendships() {
     const { data } = await axios.get("/api/friendships");
+    console.log("dentro de actions.js, data", data);
     return {
         type: GET_FRIENDSHIPS,
         friendships: data,
