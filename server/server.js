@@ -362,16 +362,10 @@ app.post("/friendships", (request, response) => {
     );
 });
 
-app.get("/friends", (request, response) => {
+app.get("/api/friendships", (request, response) => {
     getFriendships(request.session.userId)
         .then((results) => {
             console.log("server logged in user", request.session.userId);
-            if (results.length < 1) {
-                response.statusCode = 400;
-                response.json({
-                    message: "No freindships for the logged in user",
-                });
-            }
             response.json(results);
         })
         .catch((error) => {
