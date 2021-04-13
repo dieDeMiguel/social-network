@@ -18,7 +18,7 @@ function splitFriendships(friendships) {
     return [accepted, incoming];
 }
 
-export default function reducer(state = defaultState) {
+export default function reducer(state = defaultState, action) {
     let nextState = state;
     if (action.type === GET_FRIENDSHIPS) {
         const [accepted, incoming] = splitFriendships(action.friendships);
