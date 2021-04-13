@@ -1,5 +1,5 @@
 import { Component } from "react";
-import axios from "../axios";
+import axios from "../../axios";
 import ProfilePicture from "./ProfilePicture";
 import Profile from "./Profile";
 import { BrowserRouter, Route, Link } from "react-router-dom";
@@ -101,10 +101,10 @@ class App extends Component {
                 <section className="app">
                     <header>
                         <span className="logo">
-                            <a href="/">
+                            <Link to="/">
                                 {" "}
                                 <img src="/logo.jpeg"></img>
-                            </a>
+                            </Link>
                         </span>
                         <ProfilePicture
                             firstName={this.state.user.firstName}

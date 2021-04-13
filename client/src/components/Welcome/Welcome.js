@@ -2,7 +2,7 @@ import RegistrationForm from "./RegistrationForm";
 import LoginForm from "./LoginForm";
 import ResetPassword from "./ResetPassword";
 import { HashRouter, Route, Link } from "react-router-dom";
-import ProfilePicture from "./ProfilePicture";
+import ProfilePicture from "../App/ProfilePicture";
 
 export default function Welcome() {
     function onSuccess() {

@@ -1,4 +1,4 @@
-import axios from "../axios";
+import axios from "../../axios";
 import { BrowserRouter, Route, Link } from "react-router-dom";
 import { useState, useEffect } from "react";
 
@@ -42,7 +42,20 @@ export default function FindPeople() {
                         {recentUsers.map((user) => (
                             <li key={user.id}>
                                 <Link to={"/user/" + user.id}>
-                                    {user.firstName} {user.lastName}
+                                    <div className="list-image">
+                                        <p>
+                                            <img
+                                                className="profile-picture"
+                                                src={
+                                                    user.profile_url ||
+                                                    "/avatar.png"
+                                                }
+                                            />
+                                        </p>
+                                        <p>
+                                            {user.firstName} {user.lastName}
+                                        </p>
+                                    </div>
                                 </Link>
                             </li>
                         ))}
@@ -61,7 +74,17 @@ export default function FindPeople() {
                         {searchResults.map((user) => (
                             <li key={user.id}>
                                 <Link to={"/user/" + user.id}>
-                                    {user.firstName} {user.lastName}
+                                    <div className="list-image">
+                                        <p>
+                                            <img
+                                                className="profile-picture"
+                                                src={user.profile_url}
+                                            />
+                                        </p>
+                                        <p>
+                                            {user.firstName} {user.lastName}
+                                        </p>
+                                    </div>
                                 </Link>
                             </li>
                         ))}

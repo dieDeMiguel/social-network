@@ -1,4 +1,4 @@
-import axios from "axios";
+import axios from "../../axios";
 import { Component } from "react";
 import { BrowserRouter, Route, Link } from "react-router-dom";
 import FriendButton from "./FriendButton";

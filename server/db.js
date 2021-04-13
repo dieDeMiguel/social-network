@@ -145,7 +145,39 @@ function deleteFriendship({ first_id, second_id }) {
     );
 }
 
+function getFriendships(userId) {
+    return db
+        .query(
+            `SELECT users.id, first_name, last_name, profile_url, accepted, sender_id, recipient_id 
+        FROM friendships 
+        JOIN users
+        ON (accepted = false AND recipient_id = $1 AND sender_id = users.id)
+        OR (accepted = true AND recipient_id = $1 AND sender_id = users.id)
+        OR (accepted = true AND sender_id = $1 AND recipient_id = users.id)`,
+            [userId]
+        )
+        .then((result) => {
+            //console.log(result.rows);
+            return result.rows.map(
+                ({ id, first_name, last_name, profile_url, ...rest }) => {
+                    return {
+                        ...rest,
+                        user: {
+                            id,
+                            first_name,
+                            last_name,
+                            profile_url,
+                        },
+                    };
+                }
+            );
+        });
+}
+
+getFriendships(201);
+
 module.exports = {
+    getFriendships,
     getFriendship,
     createFriendship,
     updateFriendship,

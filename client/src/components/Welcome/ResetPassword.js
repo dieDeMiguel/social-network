@@ -1,7 +1,7 @@
 import { Component } from "react";
-import axios from "../axios";
+import axios from "../../axios";
 import { Link } from "react-router-dom";
-import ProfilePicture from "./ProfilePicture";
+import ProfilePicture from "../App/ProfilePicture";
 
 class ResetPassword extends Component {
     constructor(props) {
