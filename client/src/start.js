@@ -3,7 +3,8 @@ import Welcome from "./components/Welcome/Welcome";
 import App from "./components/App/App";
 import { createStore, applyMiddleware } from "redux";
 import reduxPromise from "redux-promise";
-import { reducer } from "./components/store/reducer";
+import reducer from "./store/reducer";
+import Provider from "react-redux";
 
 const store = createStore(reducer, applyMiddleware(reduxPromise));
 

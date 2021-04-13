@@ -6,6 +6,7 @@ import { BrowserRouter, Route, Link } from "react-router-dom";
 import FindPeople from "./FindPeople";
 import ProfilePictureUploader from "./ProfilePictureUploader";
 import OtherProfile from "./OtherProfile";
+import Friends from "./Friends";
 
 class App extends Component {
     constructor(props) {
@@ -135,6 +136,7 @@ class App extends Component {
                         )}
                     />
                     <Route path="/users" render={() => <FindPeople />} />
+                    <Route path="/friends" render={() => <Friends />} />
                     <footer>
                         <form onSubmit={this.onLogout}>
                             <button type="submit" className="btn-logout">

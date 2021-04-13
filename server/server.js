@@ -362,6 +362,26 @@ app.post("/friendships", (request, response) => {
     );
 });
 
+app.get("/friends", (request, response) => {
+    getFriendships(request.session.userId)
+        .then((results) => {
+            console.log("server logged in user", request.session.userId);
+            if (results.length < 1) {
+                response.statusCode = 400;
+                response.json({
+                    message: "No freindships for the logged in user",
+                });
+            }
+            response.json(results);
+        })
+        .catch((error) => {
+            console.log(
+                '[Server.js] error in GET route to "/friendships"',
+                error
+            );
+        });
+});
+
 app.post("/logout", function (request, response) {
     request.session.userId = null;
     response.json({ message: "logged out" });
