@@ -365,7 +365,6 @@ app.post("/friendships", (request, response) => {
 app.get("/api/friendships", (request, response) => {
     getFriendships(request.session.userId)
         .then((results) => {
-            console.log("server logged in user", request.session.userId);
             response.json(results);
         })
         .catch((error) => {

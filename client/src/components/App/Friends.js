@@ -4,6 +4,7 @@ import {
     getFriendships,
     acceptFriendship,
     endFriendship,
+    rejectFriendship,
 } from "../../store/actions";
 import FriendList from "./FriendList";
 
@@ -14,12 +15,20 @@ export default function Friends() {
     useEffect(() => dispatch(getFriendships()), []);
 
     function onClick(accepted, user) {
+        const id = user.id;
         if (accepted) {
             dispatch(endFriendship(user.id));
             return;
         }
-        dispatch(acceptFriendship(user));
+        dispatch(acceptFriendship({ user }));
     }
+
+    function onRejectClick(user) {
+        const id = user.id;
+        console.log("[Dentro de onClick]", user);
+        dispatch(rejectFriendship(id));
+    }
+
     const noActivity = !accepted.length && !incoming.length;
 
     return (
@@ -32,7 +41,11 @@ export default function Friends() {
                     <section className="incoming-list">
                         <h3>Incoming requests</h3>
                         {incoming.length ? (
-                            <FriendList users={incoming} onClick={onClick} />
+                            <FriendList
+                                users={incoming}
+                                onClick={onClick}
+                                onRejectClick={onRejectClick}
+                            />
                         ) : (
                             <p>No incoming requests</p>
                         )}

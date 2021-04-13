@@ -1,7 +1,7 @@
 import ProfilePicture from "./ProfilePicture";
 import { Link } from "react-router-dom";
 
-export default function FriendList({ users, onClick }) {
+export default function FriendList({ users, onClick, onRejectClick }) {
     console.log("dentro de FriendList", users);
     return (
         <ul>
@@ -16,12 +16,29 @@ export default function FriendList({ users, onClick }) {
                         <Link to={`/user/${user.id}`}>
                             {user.firstName} {user.lastName}
                         </Link>
-                        <button
-                            className="action mini"
-                            onClick={() => onClick(accepted, user)}
-                        >
-                            {accepted ? "Unfriend" : "Accept Request"}
-                        </button>
+                        {accepted ? (
+                            <button
+                                className="action mini"
+                                onClick={() => onClick(accepted, user)}
+                            >
+                                "Unfriend"
+                            </button>
+                        ) : (
+                            <>
+                                <button
+                                    className="action mini"
+                                    onClick={() => onClick(accepted, user)}
+                                >
+                                    "Accept Request"
+                                </button>
+                                <button
+                                    className="action mini"
+                                    onClick={() => onRejectClick(user)}
+                                >
+                                    "Reject Request"
+                                </button>
+                            </>
+                        )}
                     </div>
                 </li>
             ))}

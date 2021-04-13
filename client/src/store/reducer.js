@@ -1,4 +1,9 @@
-import { GET_FRIENDSHIPS, ACCEPT_FRIENDSHIP, END_FRIENDSHIP } from "./actions";
+import {
+    GET_FRIENDSHIPS,
+    ACCEPT_FRIENDSHIP,
+    END_FRIENDSHIP,
+    REJECT_FRIENDSHIP,
+} from "./actions";
 
 const defaultState = {
     accepted: [],
@@ -41,6 +46,14 @@ export default function reducer(state = defaultState, action) {
         nextState = {
             ...state,
             accepted: state.accepted.filter(
+                (x) => x.user.id !== action.user_id
+            ),
+        };
+    }
+    if (action.type === REJECT_FRIENDSHIP) {
+        nextState = {
+            ...state,
+            incoming: state.incoming.filter(
                 (x) => x.user.id !== action.user_id
             ),
         };
