@@ -365,7 +365,8 @@ app.post("/friendships", (request, response) => {
 app.get("/api/friendships", (request, response) => {
     getFriendships(request.session.userId)
         .then((results) => {
-            response.json(results);
+            const userId = request.session.userId;
+            response.json({ data: results, userId });
         })
         .catch((error) => {
             console.log(

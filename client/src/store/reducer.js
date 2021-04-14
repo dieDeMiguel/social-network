@@ -3,6 +3,7 @@ import {
     ACCEPT_FRIENDSHIP,
     END_FRIENDSHIP,
     REJECT_FRIENDSHIP,
+    CANCEL_FRIENDSHIP,
 } from "./actions";
 
 const defaultState = {
@@ -10,27 +11,38 @@ const defaultState = {
     incoming: [],
 };
 
-function splitFriendships(friendships) {
+function splitFriendships(friendships, userId) {
     const accepted = [];
     const incoming = [];
+    const outgoing = [];
     friendships.forEach((x) => {
+        console.log("dentro de forEach del reducer", x.accepted);
         if (x.accepted) {
             accepted.push(x);
             return;
         }
+        if (x.sender_id === userId) {
+            outgoing.push(x);
+            return;
+        }
         incoming.push(x);
     });
-    return [accepted, incoming];
+    return [accepted, incoming, outgoing];
 }
 
 export default function reducer(state = defaultState, action) {
     let nextState = state;
     if (action.type === GET_FRIENDSHIPS) {
-        const [accepted, incoming] = splitFriendships(action.friendships);
+        const [accepted, incoming, outgoing] = splitFriendships(
+            action.friendships.data,
+            action.friendships.userId
+        );
+        console.log("dentro de reducer outgoing", incoming);
         nextState = {
             ...state,
             accepted,
             incoming,
+            outgoing,
         };
     }
     if (action.type === ACCEPT_FRIENDSHIP) {
@@ -54,6 +66,15 @@ export default function reducer(state = defaultState, action) {
         nextState = {
             ...state,
             incoming: state.incoming.filter(
+                (x) => x.user.id !== action.user_id
+            ),
+        };
+    }
+
+    if (action.type === CANCEL_FRIENDSHIP) {
+        nextState = {
+            ...state,
+            outgoing: state.incoming.filter(
                 (x) => x.user.id !== action.user_id
             ),
         };

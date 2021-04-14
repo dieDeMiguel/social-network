@@ -336,3 +336,11 @@ footer {
     max-width: 100px;
     max-height: 100px;
 }
+
+.current-list .profile-picture {
+    max-width: 30%;
+    list-style: none;
+}
+.incoming-list img {
+    max-width: 30%;
+}
