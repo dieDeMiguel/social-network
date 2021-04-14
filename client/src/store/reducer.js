@@ -9,6 +9,7 @@ import {
 const defaultState = {
     accepted: [],
     incoming: [],
+    outgoing: [],
 };
 
 function splitFriendships(friendships, userId) {

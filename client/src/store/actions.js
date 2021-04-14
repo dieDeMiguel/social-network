@@ -14,7 +14,7 @@ export async function getFriendships() {
     };
 }
 
-export async function acceptFriendship({ user }) {
+export async function acceptFriendship(user) {
     const { data } = await axios.put(`/friendships/${user.id}`, {
         accepted: true,
     });
