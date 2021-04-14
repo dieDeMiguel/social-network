@@ -1,5 +1,6 @@
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import { Link } from "react-router-dom";
 import {
     getFriendships,
     acceptFriendship,
@@ -20,7 +21,7 @@ export default function Friends() {
             dispatch(endFriendship(user.id));
             return;
         }
-        dispatch(acceptFriendship({ user }));
+        dispatch(acceptFriendship(user));
     }
 
     function onRejectClick(user) {
@@ -34,7 +35,7 @@ export default function Friends() {
         dispatch(cancelFriendshipRequest(user.id));
     }
 
-    const noActivity = !accepted.length && !incoming.length;
+    const noActivity = !accepted.length && !incoming.length && !outgoing.length;
 
     return (
         <section className="friends">
