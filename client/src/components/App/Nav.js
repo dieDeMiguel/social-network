@@ -1,18 +1,7 @@
 import axios from "../../axios";
-import { useState, useEffect } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { getLoggedUser } from "../../store/actions";
-import { BrowserRouter, Route, Link } from "react-router-dom";
+import { Link } from "react-router-dom";
 
-export default function Navigation() {
-    const dispatch = useDispatch();
-    const { user } = useSelector((state) => state);
-
-    useEffect(() => dispatch(getLoggedUser()), []);
-
-    console.log("[Dentro de Nav.js] user", user);
-
-    const isLogged = user;
+export default function Navigation({ isLogged }) {
     return (
         <>
             {isLogged ? (
@@ -39,7 +28,7 @@ export default function Navigation() {
                             <Link to="/">Home</Link>
                         </li>
                         <li>
-                            <Link to="/login">/login</Link>
+                            <Link to="/login">Login</Link>
                         </li>
                     </ul>
                 </nav>
