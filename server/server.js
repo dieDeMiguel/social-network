@@ -23,6 +23,8 @@ const {
     updateFriendship,
     deleteFriendship,
     getFriendships,
+    getMessages,
+    createMessage,
 } = require("./db");
 const cryptoRandomString = require("crypto-random-string");
 const { s3upload, getURLFromFilename } = require("../s3");

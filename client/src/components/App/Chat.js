@@ -40,6 +40,78 @@ export default function Chat() {
                         <li>
                             This is a dummy message to display on the screen{" "}
                         </li>
+                        <li>
+                            This is a dummy message to display on the screen{" "}
+                        </li>
+                        <li>
+                            This is a dummy message to display on the screen{" "}
+                        </li>
+                        <li>
+                            This is a dummy message to display on the screen{" "}
+                        </li>
+                        <li>
+                            This is a dummy message to display on the screen{" "}
+                        </li>
+                        <li>
+                            This is a dummy message to display on the screen{" "}
+                        </li>
+                        <li>
+                            This is a dummy message to display on the screen{" "}
+                        </li>
+                        <li>
+                            This is a dummy message to display on the screen{" "}
+                        </li>
+                        <li>
+                            This is a dummy message to display on the screen{" "}
+                        </li>
+                        <li>
+                            This is a dummy message to display on the screen{" "}
+                        </li>
+                        <li>
+                            This is a dummy message to display on the screen{" "}
+                        </li>
+                        <li>
+                            This is a dummy message to display on the screen{" "}
+                        </li>
+                        <li>
+                            This is a dummy message to display on the screen{" "}
+                        </li>
+                        <li>
+                            This is a dummy message to display on the screen{" "}
+                        </li>
+                        <li>
+                            This is a dummy message to display on the screen{" "}
+                        </li>
+                        <li>
+                            This is a dummy message to display on the screen{" "}
+                        </li>
+                        <li>
+                            This is a dummy message to display on the screen{" "}
+                        </li>
+                        <li>
+                            This is a dummy message to display on the screen{" "}
+                        </li>
+                        <li>
+                            This is a dummy message to display on the screen{" "}
+                        </li>
+                        <li>
+                            This is a dummy message to display on the screen{" "}
+                        </li>
+                        <li>
+                            This is a dummy message to display on the screen{" "}
+                        </li>
+                        <li>
+                            This is a dummy message to display on the screen{" "}
+                        </li>
+                        <li>
+                            This is a dummy message to display on the screen{" "}
+                        </li>
+                        <li>
+                            This is a dummy message to display on the screen{" "}
+                        </li>
+                        <li>
+                            This is a dummy message to display on the screen{" "}
+                        </li>
                     </ul>
                 </div>
                 <form className="chat-form">

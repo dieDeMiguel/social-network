@@ -348,7 +348,7 @@ footer {
 .chat-wrapper {
     display: flex;
     position: fixed;
-    top: 50px;
+    top: 20px;
     left: 0;
     width: 100%;
     height: 100%;
@@ -357,16 +357,24 @@ footer {
 }
 
 .centered-chat {
-    height: 70vh;
+    height: 60vh;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
     border: 1px solid black;
+    border-radius: 15px;
 }
 
-.centered-chat ul {
+.message-list {
     list-style: none;
     padding-left: 0;
+    padding: 1rem;
+    margin: 1em;
+    overflow-y: scroll;
+}
+
+.message-list li {
+    margin-top: 0.5em;
 }
 
 .chat {
@@ -375,8 +383,21 @@ footer {
     display: flex;
     flex-direction: column;
     justify-content: flex-end;
+    max-width: 800px;
 }
 
 .chat-form {
-    border: 1px solid blue;
+    display: flex;
+    border-radius: 15px;
+}
+
+.chat-form textarea {
+    width: 80%;
+    height: 70px;
+    border-radius: 15px;
+}
+
+.chat-form button {
+    width: 30%;
+    border-radius: 15px;
 }

@@ -158,7 +158,6 @@ function getFriendships(userId) {
             [userId]
         )
         .then((result) => {
-            //console.log(result.rows);
             return result.rows.map(
                 ({ id, first_name, last_name, profile_url, ...rest }) => {
                     return {
@@ -175,9 +174,17 @@ function getFriendships(userId) {
         });
 }
 
-getFriendships(201);
+function getMessages() {
+    db.query("");
+}
+
+function createMessage(userId, text) {
+    db.query("");
+}
 
 module.exports = {
+    getMessages,
+    createMessage,
     getFriendships,
     getFriendship,
     createFriendship,
