@@ -5,6 +5,7 @@ export const ACCEPT_FRIENDSHIP = "ACCEPT_FRIENDSHIP";
 export const END_FRIENDSHIP = "END_FRIENDSHIP";
 export const REJECT_FRIENDSHIP = "REJECT_FRIENDSHIP";
 export const CANCEL_FRIENDSHIP = "CANCEL_FRIENDSHIP";
+export const GET_USER = "GET_USER";
 
 export async function getFriendships() {
     const { data } = await axios.get("/api/friendships");
@@ -47,5 +48,13 @@ export async function rejectFriendship(user_id) {
     return {
         type: REJECT_FRIENDSHIP,
         user_id,
+    };
+}
+
+export async function getLoggedUser(user_id) {
+    const { data } = await axios.get(`/user`);
+    return {
+        type: GET_USER,
+        user: data.user,
     };
 }
