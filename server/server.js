@@ -240,6 +240,10 @@ app.post("/password/reset/verify", (request, response) => {
 
 app.get("/user", (request, response) => {
     const { userId } = request.session;
+    if (!userId) {
+        response.statusCode = 401;
+        response.json({ message: "No user logged In" });
+    }
     getUserByID({ userId }).then((user) => {
         response.json(serializeUser(user)[0]);
     });
