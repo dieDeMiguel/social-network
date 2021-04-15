@@ -35,7 +35,6 @@ export async function endFriendship(user_id) {
 }
 
 export async function cancelFriendshipRequest(user_id) {
-    console.log("dentro de action: ", user_id);
     await axios.delete(`/friendships/${user_id}`);
     return {
         type: CANCEL_FRIENDSHIP,

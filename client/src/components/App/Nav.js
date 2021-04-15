@@ -15,7 +15,7 @@ export default function Navigation() {
     const isLogged = user;
     return (
         <>
-            {user ? (
+            {isLogged ? (
                 <nav>
                     <ul>
                         <li>
