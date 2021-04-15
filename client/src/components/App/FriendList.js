@@ -8,7 +8,6 @@ export default function FriendList({
     onCancelClick,
     outgoing,
 }) {
-    console.log("dentro de FriendList", users);
     return !outgoing ? (
         <ul>
             {users.map(({ accepted, user }) => (

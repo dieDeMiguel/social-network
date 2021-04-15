@@ -1,5 +1,4 @@
 import axios from "../../axios";
-import { BrowserRouter, Route, Link } from "react-router-dom";
 import { useState, useEffect } from "react";
 
 export default function FriendButton({ id, showBioProfile }) {

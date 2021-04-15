@@ -26,7 +26,6 @@ export default function Friends() {
 
     function onRejectClick(user) {
         const id = user.id;
-        //console.log("[Dentro de onRejectClick]", user);
         dispatch(rejectFriendship(id));
     }
 
