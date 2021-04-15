@@ -3,6 +3,7 @@ import LoginForm from "./LoginForm";
 import ResetPassword from "./ResetPassword";
 import { HashRouter, Route, Link } from "react-router-dom";
 import ProfilePicture from "../App/ProfilePicture";
+import Nav from "../App/Nav";
 
 export default function Welcome() {
     function onSuccess() {
@@ -19,6 +20,7 @@ export default function Welcome() {
                                 <img src="/logo.jpeg"></img>
                             </Link>
                         </span>
+                        <Nav />
                         <ProfilePicture
                             firstName=""
                             lastName=""

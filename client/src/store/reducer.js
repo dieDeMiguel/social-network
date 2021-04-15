@@ -5,13 +5,21 @@ import {
     REJECT_FRIENDSHIP,
     CANCEL_FRIENDSHIP,
     GET_USER,
+    GET_MESSAGES,
+    CREATE_MESSAGE,
 } from "./actions";
 
 const defaultState = {
     accepted: [],
     incoming: [],
     outgoing: [],
-    user: {},
+    user: {
+        firstName: "",
+        lastName: "",
+        profiel_url: "",
+        bio: "",
+    },
+    chatMessages: [],
 };
 
 function splitFriendships(friendships, userId) {
@@ -84,9 +92,10 @@ export default function reducer(state = defaultState, action) {
     }
 
     if (action.type === GET_USER) {
+        console.log("[dentro de reducer] action.user", action.user);
         nextState = {
             ...state,
-            user: action.user.data,
+            user: action.user,
         };
     }
     console.log("[redux-reducer] incoming action: ", {

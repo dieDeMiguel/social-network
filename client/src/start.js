@@ -9,7 +9,12 @@ import { Provider } from "react-redux";
 const store = createStore(reducer, applyMiddleware(reduxPromise));
 
 if (window.location.pathname === "/welcome") {
-    ReactDOM.render(<Welcome />, document.querySelector("main"));
+    let elem = (
+        <Provider store={store}>
+            <Welcome />
+        </Provider>
+    );
+    ReactDOM.render(elem, document.querySelector("main"));
 } else {
     let elem = (
         <Provider store={store}>

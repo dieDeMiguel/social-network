@@ -1,6 +1,8 @@
 import axios from "../../axios";
 import { useState, useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import { getLoggedUser } from "../../store/actions";
+import { BrowserRouter, Route, Link } from "react-router-dom";
 
 export default function Navigation() {
     const dispatch = useDispatch();
@@ -8,19 +10,40 @@ export default function Navigation() {
 
     useEffect(() => dispatch(getLoggedUser()), []);
 
-    const showRejectButton = incoming && !accepted;
+    console.log("[Dentro de Nav.js] user", user);
 
+    const isLogged = user;
     return (
-        <div>
-            <button onClick={onClick} id="btn">
-                {buttonText}
-            </button>
-            <br></br>
-            {showRejectButton && (
-                <button onClick={onRejectButton} id="btn">
-                    Reject request
-                </button>
+        <>
+            {user ? (
+                <nav>
+                    <ul>
+                        <li>
+                            <Link to="/">Home</Link>
+                        </li>
+                        <li>
+                            <Link to="/friends">Friends</Link>
+                        </li>
+                        <li>
+                            <Link to="/users">Find People</Link>
+                        </li>
+                        <li>
+                            <Link to="/chat">Chat</Link>
+                        </li>
+                    </ul>
+                </nav>
+            ) : (
+                <nav>
+                    <ul>
+                        <li>
+                            <Link to="/">Home</Link>
+                        </li>
+                        <li>
+                            <Link to="/login">/login</Link>
+                        </li>
+                    </ul>
+                </nav>
             )}
-        </div>
+        </>
     );
 }

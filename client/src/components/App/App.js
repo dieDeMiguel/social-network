@@ -6,6 +6,7 @@ import { BrowserRouter, Route, Link } from "react-router-dom";
 import FindPeople from "./FindPeople";
 import ProfilePictureUploader from "./ProfilePictureUploader";
 import OtherProfile from "./OtherProfile";
+import Nav from "./Nav";
 import Friends from "./Friends";
 
 class App extends Component {
@@ -107,6 +108,7 @@ class App extends Component {
                                 <img src="/logo.jpeg"></img>
                             </Link>
                         </span>
+                        <Nav />
                         <ProfilePicture
                             firstName={this.state.user.firstName}
                             lastName={this.state.user.lastName}

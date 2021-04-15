@@ -51,10 +51,11 @@ export async function rejectFriendship(user_id) {
     };
 }
 
-export async function getLoggedUser(user_id) {
+export async function getLoggedUser() {
     const { data } = await axios.get(`/user`);
+    console.log("[Dentro de actions] data", data);
     return {
         type: GET_USER,
-        user: data.user,
+        user: data,
     };
 }
