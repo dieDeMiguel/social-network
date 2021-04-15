@@ -20,7 +20,7 @@ export default function Welcome() {
                                 <img src="/logo.jpeg"></img>
                             </Link>
                         </span>
-                        <Nav />
+                        <Nav isLogged={false} />
                         <ProfilePicture
                             firstName=""
                             lastName=""

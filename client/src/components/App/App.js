@@ -8,6 +8,7 @@ import ProfilePictureUploader from "./ProfilePictureUploader";
 import OtherProfile from "./OtherProfile";
 import Nav from "./Nav";
 import Friends from "./Friends";
+import Chat from "./Chat";
 
 class App extends Component {
     constructor(props) {
@@ -108,7 +109,7 @@ class App extends Component {
                                 <img src="/logo.jpeg"></img>
                             </Link>
                         </span>
-                        <Nav />
+                        <Nav isLogged={true} />
                         <ProfilePicture
                             firstName={this.state.user.firstName}
                             lastName={this.state.user.lastName}
@@ -139,6 +140,7 @@ class App extends Component {
                     />
                     <Route path="/users" render={() => <FindPeople />} />
                     <Route path="/friends" render={() => <Friends />} />
+                    <Route path="/chat" render={() => <Chat />} />
                     <footer>
                         <form onSubmit={this.onLogout}>
                             <button type="submit" className="btn-logout">
