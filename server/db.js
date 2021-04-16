@@ -174,17 +174,36 @@ function getFriendships(userId) {
         });
 }
 
-function getMessages() {
-    db.query("");
+function getChatMessages(limit = 10) {
+    db.query(
+        `SELECT users.id AS user_id, chat_messages.id AS message_id, message, first_name AS firstName, last_name AS lastName, profile_url
+        FROM chat_messages 
+        JOIN users
+        ON user.id = chat_messages.sender_id
+        ORDER BY chat_messages.created_at DESC`,
+        [limit]
+    ).then((results) =>
+        results.rows
+            .reverse()
+            .map(({ firstname, lastname, profile_url, ...rest }) => ({
+                firstName: firstname,
+                lastName: lastname,
+                profilePicURL: profile_url,
+                ...rest,
+            }))
+    );
 }
 
-function createMessage(userId, text) {
-    db.query("");
+function savedChatMessage({ message, sender_id }) {
+    db.query(
+        `INSERT INTO chat_messages (message, sender_id) VALUES ($1, $2) RETURNING *`,
+        [message, sender_id]
+    ).then((result) => result.rows[0]);
 }
 
 module.exports = {
-    getMessages,
-    createMessage,
+    getChatMessages,
+    savedChatMessage,
     getFriendships,
     getFriendship,
     createFriendship,

@@ -7,6 +7,12 @@ const csurf = require("csurf");
 const { compare } = require("bcryptjs");
 const cookieSession = require("cookie-session");
 const { uploader } = require("./upload");
+const server = require("http").Server(app);
+const io = require("socket.io")(server, {
+    allowRequest: (req, callback) =>
+        callback(null, req.headers.referer.startsWith("http://localhost:3000")),
+});
+
 const {
     getUserByID,
     createUser,
@@ -23,8 +29,8 @@ const {
     updateFriendship,
     deleteFriendship,
     getFriendships,
-    getMessages,
-    createMessage,
+    getChatMessages,
+    incomingMessages,
 } = require("./db");
 const cryptoRandomString = require("crypto-random-string");
 const { s3upload, getURLFromFilename } = require("../s3");
@@ -41,6 +47,10 @@ app.use(
         maxAge: 1000 * 60 * 60 * 24 * 14,
     })
 );
+
+io.use(function (socket, next) {
+    cookieSessionMiddleware(socket.request, socket.request.res, next);
+});
 
 app.use(csurf());
 app.use(function (req, res, next) {
@@ -68,6 +78,18 @@ function serializeUser(usersList) {
         };
     });
     return _result;
+}
+
+function serializeChatMessage(message, user) {
+    return {
+        user_id: user.id,
+        firstName: user.firstName,
+        lastName: user.lastName,
+        profilePicURL: user.profile_url,
+        message_id: message.id,
+        message: message.message,
+        created_at: message_created_at,
+    };
 }
 
 //Routing
@@ -403,7 +425,28 @@ app.get("*", function (request, response) {
     response.sendFile(path.join(__dirname, "..", "client", "index.html"));
 });
 
-//Listener
-app.listen(process.env.PORT || 3001, function () {
-    console.log("I'm listening.");
+io.on("connection", async (socket) => {
+    console.log("[social:socket] incoming socket connection", socket.id);
+    if (!socket.request.session.user.id) {
+        socket.disconnect(true);
+        return;
+    }
+    const { user_id } = request.session.userId;
+    const messages = await getChatMessages();
+
+    socket.emit("chatMessages", messages);
+    socket.on("newChatMessage", async (newMessage) => {
+        const savedMessage = await savedChatMessage({
+            message: newMessage,
+            sender_id: user_id,
+        });
+        const user = getUserByID(user_id);
+        const messageToSend = serializeChatMessage(savedMessage, user);
+        io.socket.emit("chatMessage", messageToSend);
+    });
 });
+
+//Listener
+server.listen(process.env.PORT || 3001, () =>
+    console.log("[social:express] I'm listening.")
+);

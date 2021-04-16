@@ -6,6 +6,8 @@ export const END_FRIENDSHIP = "END_FRIENDSHIP";
 export const REJECT_FRIENDSHIP = "REJECT_FRIENDSHIP";
 export const CANCEL_FRIENDSHIP = "CANCEL_FRIENDSHIP";
 export const GET_USER = "GET_USER";
+export const GET_CHAT_MESSAGES = "GET_CHAT_MESSAGES";
+export const INCOMING_CHAT_MESSAGE = "INCOMING_CHAT_MESSAGE";
 
 export async function getFriendships() {
     const { data } = await axios.get("/api/friendships");
@@ -56,5 +58,19 @@ export async function getLoggedUser() {
     return {
         type: GET_USER,
         user: data,
+    };
+}
+
+export async function getChatMessages() {
+    return {
+        type: GET_CHAT_MESSAGES,
+        messages,
+    };
+}
+
+export async function incomingMessages() {
+    return {
+        type: INCOMING_CHAT_MESSAGE,
+        message,
     };
 }
