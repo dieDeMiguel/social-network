@@ -6,7 +6,7 @@ import { socket } from "../../socket";
 export default function Chat() {
     const [inputText, setInputText] = useState("");
     const { chatMessages } = useSelector((state) => state);
-    console.log("chat.js inputText mesaaaaaageees", chatMessages);
+    //console.log("chat.js inputText mesaaaaaageees", chatMessages[0]);
     function onInput(event) {
         setInputText(event.target.value);
     }
@@ -22,8 +22,11 @@ export default function Chat() {
             <div className="centered-chat">
                 <div className="chat">
                     <ul className="message-list">
-                        {chatMessages.map((user) => {
-                            <ChatMessage key={user.id} user={user} />;
+                        {chatMessages.map((userMessage) => {
+                            <ChatMessage
+                                key={userMessage.id}
+                                user={userMessage}
+                            />;
                         })}
                     </ul>
                 </div>

@@ -33,7 +33,6 @@ class App extends Component {
 
     componentDidMount() {
         axios.get("/user").then((response) => {
-            console.log("[App] componentDidMount", response.data);
             this.setState({
                 user: {
                     id: response.data.id,

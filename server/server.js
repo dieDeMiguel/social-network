@@ -434,7 +434,7 @@ io.on("connection", async (socket) => {
     }
     // const { userId } = socket.request.session.userId
     const messages = await getChatMessages();
-    //console.log("server.js messages", messages);
+    console.log("server.js messages", messages);
 
     socket.emit("chatMessages", messages);
 
