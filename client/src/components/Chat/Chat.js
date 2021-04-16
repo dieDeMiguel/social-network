@@ -6,7 +6,9 @@ import { socket } from "../../socket";
 export default function Chat() {
     const [inputText, setInputText] = useState("");
     const { chatMessages } = useSelector((state) => state);
-    //console.log("chat.js inputText mesaaaaaageees", chatMessages[0]);
+    chatMessages.map((message) =>
+        console.log("dentro de chat.js", message.firstName)
+    );
     function onInput(event) {
         setInputText(event.target.value);
     }
@@ -24,7 +26,7 @@ export default function Chat() {
                     <ul className="message-list">
                         {chatMessages.map((userMessage) => {
                             <ChatMessage
-                                key={userMessage.id}
+                                key={userMessage.user_id}
                                 user={userMessage}
                             />;
                         })}
