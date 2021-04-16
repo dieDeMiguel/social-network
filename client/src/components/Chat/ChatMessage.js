@@ -1,3 +1,3 @@
-export default function Chat({}) {
-    return <li></li>;
+export default function Chat({ user }) {
+    return <li>{user.firstName}</li>;
 }

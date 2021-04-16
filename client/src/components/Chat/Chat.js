@@ -1,12 +1,12 @@
 import ChatMessage from "./ChatMessage";
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { Link } from "react-router-dom";
+import { socket } from "../../socket";
 
 export default function Chat() {
     const [inputText, setInputText] = useState("");
     const { chatMessages } = useSelector((state) => state);
-    console.log("chat.js chatMessages", chatMessages);
+    console.log("chat.js inputText mesaaaaaageees", chatMessages);
     function onInput(event) {
         setInputText(event.target.value);
     }
@@ -15,14 +15,16 @@ export default function Chat() {
         event.preventDefault();
         socket.emit("newChatMessage");
         setInputText("");
-        setTextareaText("");
     }
+
     return (
         <div className="chat-wrapper">
             <div className="centered-chat">
                 <div className="chat">
                     <ul className="message-list">
-                        {chatMessages.map((user) => {})}
+                        {chatMessages.map((user) => {
+                            <ChatMessage key={user.id} user={user} />;
+                        })}
                     </ul>
                 </div>
                 <form onSubmit={onSubmit} className="chat-form">
