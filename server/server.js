@@ -30,7 +30,7 @@ const {
     deleteFriendship,
     getFriendships,
     getChatMessages,
-    incomingMessages,
+    savedChatMessage,
 } = require("./db");
 const cryptoRandomString = require("crypto-random-string");
 const { s3upload, getURLFromFilename } = require("../s3");
@@ -432,21 +432,21 @@ io.on("connection", async (socket) => {
         socket.disconnect(true);
         return;
     }
-    // const { userId } = socket.request.session.userId
+    const { userId } = socket.request.session.userId;
     const messages = await getChatMessages();
-    console.log("server.js messages", messages);
 
     socket.emit("chatMessages", messages);
 
-    // socket.on("newChatMessage", async (newMessage) => {
-    //     const savedMessage = await incomingMessages({
-    //         message: newMessage,
-    //         sender_id: userId,
-    //     });
-    //     const user = getUserByID(user_id);
-    //     const messageToSend = serializeChatMessage(savedMessage, user);
-    //     io.socket.emit("chatMessage", messageToSend);
-    // });
+    socket.on("newChatMessage", async (newMessage) => {
+        console.log("newMessage", newMessage);
+        const savedMessage = await savedChatMessage({
+            message: newMessage,
+            sender_id: userId,
+        });
+        const user = getUserByID(user_id);
+        const messageToSend = serializeChatMessage(savedMessage, user);
+        io.socket.emit("chatMessage", messageToSend);
+    });
 });
 
 //Listener

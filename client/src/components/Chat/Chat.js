@@ -6,9 +6,7 @@ import { socket } from "../../socket";
 export default function Chat() {
     const [inputText, setInputText] = useState("");
     const { chatMessages } = useSelector((state) => state);
-    chatMessages.map((message) =>
-        console.log("dentro de chat.js", message.firstName)
-    );
+
     function onInput(event) {
         setInputText(event.target.value);
     }
@@ -23,14 +21,20 @@ export default function Chat() {
         <div className="chat-wrapper">
             <div className="centered-chat">
                 <div className="chat">
-                    <ul className="message-list">
-                        {chatMessages.map((userMessage) => {
-                            <ChatMessage
-                                key={userMessage.user_id}
-                                user={userMessage}
-                            />;
-                        })}
-                    </ul>
+                    {chatMessages ? (
+                        <ul className="message-list">
+                            {chatMessages.map((userMessage) => {
+                                return (
+                                    <ChatMessage
+                                        key={userMessage.user_id}
+                                        {...userMessage}
+                                    />
+                                );
+                            })}
+                        </ul>
+                    ) : (
+                        <p>no messages yet</p>
+                    )}
                 </div>
                 <form onSubmit={onSubmit} className="chat-form">
                     <textarea
