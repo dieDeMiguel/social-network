@@ -110,7 +110,7 @@ export default function reducer(state = defaultState, action) {
     if (action.type === INCOMING_CHAT_MESSAGE) {
         nextState = {
             ...state,
-            incomingMessage: action,
+            incomingMessage: action.message,
         };
     }
     console.log("[redux-reducer] incoming action: ", {

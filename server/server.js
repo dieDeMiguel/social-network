@@ -436,7 +436,7 @@ io.on("connection", async (socket) => {
 
     socket.emit("chatMessages", messages);
     socket.on("newChatMessage", async (newMessage) => {
-        const savedMessage = await savedChatMessage({
+        const savedMessage = await incomingMessages({
             message: newMessage,
             sender_id: user_id,
         });
