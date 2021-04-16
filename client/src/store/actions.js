@@ -68,7 +68,7 @@ export async function getChatMessages(messages) {
     };
 }
 
-export async function incomingMessage(messages) {
+export async function incomingMessage(message) {
     return {
         type: INCOMING_CHAT_MESSAGE,
         message,
