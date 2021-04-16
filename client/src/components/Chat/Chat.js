@@ -13,7 +13,7 @@ export default function Chat() {
 
     function onSubmit(event) {
         event.preventDefault();
-        socket.emit("newChatMessage");
+        socket.emit("newChatMessage", inputText);
         setInputText("");
     }
 

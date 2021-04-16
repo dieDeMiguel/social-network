@@ -89,7 +89,7 @@ function serializeChatMessage(message, user) {
         profilePicURL: user.profile_url,
         message_id: message.id,
         message: message.message,
-        created_at: message_created_at,
+        created_at: message.created_at,
     };
 }
 
@@ -432,18 +432,18 @@ io.on("connection", async (socket) => {
         socket.disconnect(true);
         return;
     }
-    const { userId } = socket.request.session.userId;
+    const userId = socket.request.session.userId;
     const messages = await getChatMessages();
 
     socket.emit("chatMessages", messages);
 
     socket.on("newChatMessage", async (newMessage) => {
-        console.log("newMessage", newMessage);
+        console.log("socket.request.session.userId", userId);
         const savedMessage = await savedChatMessage({
             message: newMessage,
             sender_id: userId,
         });
-        const user = getUserByID(user_id);
+        const user = getUserByID(userId);
         const messageToSend = serializeChatMessage(savedMessage, user);
         io.socket.emit("chatMessage", messageToSend);
     });
