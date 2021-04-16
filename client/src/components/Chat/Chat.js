@@ -26,7 +26,7 @@ export default function Chat() {
                             {chatMessages.map((userMessage) => {
                                 return (
                                     <ChatMessage
-                                        key={userMessage.user_id}
+                                        key={userMessage.message_id}
                                         {...userMessage}
                                     />
                                 );

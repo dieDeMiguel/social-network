@@ -82,6 +82,7 @@ function serializeUser(usersList) {
 }
 
 function serializeChatMessage(message, user) {
+    console.log("message en server.js", message);
     return {
         user_id: user.id,
         firstName: user.firstName,
