@@ -61,14 +61,14 @@ export async function getLoggedUser() {
     };
 }
 
-export async function getChatMessages() {
+export async function getChatMessages(messages) {
     return {
         type: GET_CHAT_MESSAGES,
         messages,
     };
 }
 
-export async function incomingMessages() {
+export async function incomingMessage(messages) {
     return {
         type: INCOMING_CHAT_MESSAGE,
         message,

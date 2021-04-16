@@ -6,7 +6,6 @@ import {
     CANCEL_FRIENDSHIP,
     GET_USER,
     GET_CHAT_MESSAGES,
-    INCOMING_CHAT_MESSAGE,
 } from "./actions";
 
 const defaultState = {
@@ -20,7 +19,6 @@ const defaultState = {
         bio: "",
     },
     chatMessages: [],
-    incomingMessage: "",
 };
 
 function splitFriendships(friendships, userId) {
@@ -107,12 +105,6 @@ export default function reducer(state = defaultState, action) {
         };
     }
 
-    if (action.type === INCOMING_CHAT_MESSAGE) {
-        nextState = {
-            ...state,
-            incomingMessage: action.message,
-        };
-    }
     console.log("[redux-reducer] incoming action: ", {
         action,
         previousState: state,

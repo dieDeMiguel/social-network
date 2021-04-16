@@ -8,7 +8,7 @@ import ProfilePictureUploader from "./ProfilePictureUploader";
 import OtherProfile from "./OtherProfile";
 import Nav from "./Nav";
 import Friends from "./Friends";
-import Chat from "./Chat";
+import Chat from "../Chat/Chat";
 
 class App extends Component {
     constructor(props) {

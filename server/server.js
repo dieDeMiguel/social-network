@@ -41,12 +41,13 @@ const { ses } = require("../email");
 app.use(compression());
 app.use(express.static(path.join(__dirname, "..", "client", "public")));
 app.use(express.json());
-app.use(
-    cookieSession({
-        secret: "Life is bad",
-        maxAge: 1000 * 60 * 60 * 24 * 14,
-    })
-);
+
+const cookieSessionMiddleware = cookieSession({
+    secret: "Life is bad",
+    maxAge: 1000 * 60 * 60 * 24 * 90,
+});
+
+app.use(cookieSessionMiddleware);
 
 io.use(function (socket, next) {
     cookieSessionMiddleware(socket.request, socket.request.res, next);
@@ -427,23 +428,25 @@ app.get("*", function (request, response) {
 
 io.on("connection", async (socket) => {
     console.log("[social:socket] incoming socket connection", socket.id);
-    if (!socket.request.session.user.id) {
+    if (!socket.request.session.userId) {
         socket.disconnect(true);
         return;
     }
-    const { user_id } = request.session.userId;
+    // const { userId } = socket.request.session.userId
     const messages = await getChatMessages();
+    //console.log("server.js messages", messages);
 
     socket.emit("chatMessages", messages);
-    socket.on("newChatMessage", async (newMessage) => {
-        const savedMessage = await incomingMessages({
-            message: newMessage,
-            sender_id: user_id,
-        });
-        const user = getUserByID(user_id);
-        const messageToSend = serializeChatMessage(savedMessage, user);
-        io.socket.emit("chatMessage", messageToSend);
-    });
+
+    // socket.on("newChatMessage", async (newMessage) => {
+    //     const savedMessage = await incomingMessages({
+    //         message: newMessage,
+    //         sender_id: userId,
+    //     });
+    //     const user = getUserByID(user_id);
+    //     const messageToSend = serializeChatMessage(savedMessage, user);
+    //     io.socket.emit("chatMessage", messageToSend);
+    // });
 });
 
 //Listener
