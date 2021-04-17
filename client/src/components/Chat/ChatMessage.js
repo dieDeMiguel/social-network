@@ -1,7 +1,7 @@
-export default function ChatMessage({ firstName, lastName }) {
+export default function ChatMessage({ firstName, lastName, message }) {
     return (
         <li>
-            {firstName} {lastName}
+            {firstName} {lastName} {message}
         </li>
     );
 }

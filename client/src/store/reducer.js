@@ -6,6 +6,7 @@ import {
     CANCEL_FRIENDSHIP,
     GET_USER,
     GET_CHAT_MESSAGES,
+    INCOMING_CHAT_MESSAGE,
 } from "./actions";
 
 const defaultState = {
@@ -102,6 +103,13 @@ export default function reducer(state = defaultState, action) {
         nextState = {
             ...state,
             chatMessages: action.messages,
+        };
+    }
+
+    if (action.type === INCOMING_CHAT_MESSAGE) {
+        nextState = {
+            ...state,
+            chatMessages: [...state.chatMessages, action.message],
         };
     }
 

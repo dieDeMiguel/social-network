@@ -82,11 +82,10 @@ function serializeUser(usersList) {
 }
 
 function serializeChatMessage(message, user) {
-    console.log("message en server.js", message);
     return {
         user_id: user.id,
-        firstName: user.firstName,
-        lastName: user.lastName,
+        firstName: user.first_name,
+        lastName: user.last_name,
         profilePicURL: user.profile_url,
         message_id: message.id,
         message: message.message,
@@ -439,14 +438,13 @@ io.on("connection", async (socket) => {
     socket.emit("chatMessages", messages);
 
     socket.on("newChatMessage", async (newMessage) => {
-        console.log("socket.request.session.userId", userId);
         const savedMessage = await savedChatMessage({
             message: newMessage,
             sender_id: userId,
         });
-        const user = getUserByID(userId);
+        const user = await getUserByID({ userId });
         const messageToSend = serializeChatMessage(savedMessage, user);
-        io.socket.emit("chatMessage", messageToSend);
+        io.sockets.emit("chatMessage", messageToSend);
     });
 });
 
