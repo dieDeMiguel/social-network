@@ -47,10 +47,9 @@ export default function Friends() {
             ) : (
                 <>
                     <section className="incoming-list">
-                        <h3>Pending requests</h3>
                         {incoming.length ? (
                             <>
-                                <h4>Incoming Requests</h4>
+                                <h3>Incoming Requests</h3>
                                 <FriendList
                                     users={incoming}
                                     onClick={onClick}
@@ -64,7 +63,7 @@ export default function Friends() {
                     <section className="outgoing-list">
                         {outgoing.length ? (
                             <>
-                                <h4>Outgoing Requests</h4>
+                                <h3>Outgoing Requests</h3>
                                 <FriendList
                                     users={outgoing}
                                     outgoing={true}

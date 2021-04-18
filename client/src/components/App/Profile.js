@@ -18,6 +18,7 @@ function Profile({ user, onTextSave, onProfilePictureClick }) {
             <div className="button-image">
                 <p className="p-wrapper">
                     <img
+                        id="profile-img"
                         onClick={onProfilePictureClick}
                         src={user.profilePicURL || "/avatar.png"}
                         alt=""

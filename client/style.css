@@ -107,6 +107,7 @@ header span {
     background-color: rgb(9, 9, 69);
     border-radius: 15px;
     max-width: 30%;
+    min-width: 280px;
 }
 
 @media (min-width: 1200px) {
@@ -241,10 +242,8 @@ footer {
 .profile {
     margin: 5% auto 5%;
     background-color: rgb(9, 9, 69);
-
     width: 50%;
     min-height: 50vh;
-    border: 2px solid red;
     display: flex;
     color: white;
     justify-content: space-around;
@@ -356,7 +355,7 @@ footer {
     display: flex;
     flex-direction: column;
     justify-content: space-between;
-    border: 1px solid black;
+    border: 1px solid white;
     border-radius: 15px;
 }
 
@@ -370,6 +369,7 @@ footer {
 
 .message-list li {
     margin-top: 0.5em;
+    font-size: 1.5em;
 }
 
 .chat {
@@ -379,6 +379,7 @@ footer {
     flex-direction: column;
     justify-content: flex-end;
     max-width: 800px;
+    color: white;
 }
 
 .chat-form {
@@ -389,7 +390,6 @@ footer {
 .chat-form textarea {
     width: 80%;
     height: 70px;
-    border-radius: 15px;
 }
 
 .chat-form button {
@@ -411,12 +411,13 @@ header li {
 
 /* "Friends" component styling mobile first: */
 
-.app header {
+.app header,
+.welcome header {
     background: red;
     width: 100%;
     margin: 0 auto;
     display: grid;
-    grid-gap: 1em;
+
     grid-auto-rows: 80px;
     grid-auto-flow: column;
     grid-auto-columns: 0.5fr;
@@ -438,12 +439,14 @@ header span img {
 }
 
 /* Nav in Header */
-.header-nav {
+.header-nav,
+header nav {
     grid-column: 2 / span 1;
     grid-row: 2 / span 1;
 }
 
-.header-nav ul {
+.header-nav ul,
+header nav ul {
     display: flex;
     flex-direction: column;
 }
@@ -485,6 +488,15 @@ header span img {
     font-size: 1.5em;
 }
 
+footer {
+    color: white;
+}
+
+footer a,
+header a {
+    color: yellow;
+}
+
 footer button {
     font-size: 0.75em;
     color: royalblue;
@@ -493,6 +505,9 @@ footer button {
 
 .p-wrapper img {
     width: 85%;
+}
+#profile-img {
+    max-width: 300px;
 }
 
 @media (min-width: 500px) {
@@ -504,7 +519,8 @@ footer button {
         font-size: 3em;
     }
 
-    .app header {
+    .app header,
+    .welcome header {
         grid-template-columns: repeat(3, 1fr);
         grid-template-rows: 1fr;
         justify-items: center;
@@ -536,7 +552,7 @@ footer button {
     }
 }
 
-/* Freinds */
+/* Friends */
 .friends {
     display: grid;
     color: white;
@@ -547,8 +563,46 @@ footer button {
 
 .friends li {
     list-style: none;
+    margin-top: 4%;
 }
 
 .friends .btn {
     margin: 1%;
+}
+
+@media (min-width: 500px) {
+    .friends {
+        grid-template-columns: 1fr;
+    }
+    .incoming-list,
+    .outgoing-list,
+    .current-list {
+        display: grid;
+        grid-template-rows: 70px 1fr;
+        grid-template-columns: repeat(3, 1fr);
+    }
+    .incoming-list h3,
+    .outgoing-list h3,
+    .current-list h3 {
+        grid-column: 2;
+        margin-bottom: 0;
+    }
+    .incoming-list ul,
+    .outgoing-list ul,
+    .current-list ul {
+        grid-column: 1 / -1;
+        margin-top: 0;
+    }
+}
+
+/* Find people mobike */
+
+@media (max-width: 500px) {
+    .find-people {
+        display: grid;
+        text-align: center;
+    }
+    .find-people input {
+        font-size: 1.125em;
+    }
 }

@@ -89,6 +89,7 @@ class OtherProfile extends Component {
                         <p className="p-wrapper">
                             <img
                                 className="profile-img"
+                                id="profile-img"
                                 src={profilePicURL || "/avatar.png"}
                                 alt={`${firstName} ${lastName}`}
                             />

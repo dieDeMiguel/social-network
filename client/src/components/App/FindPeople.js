@@ -62,7 +62,7 @@ export default function FindPeople() {
                     </ul>
                 </section>
                 <section className="search">
-                    <h3>Looking for someone in particular?</h3>
+                    <h3>Find someone by name</h3>
                     <p>
                         <input
                             type="text"
