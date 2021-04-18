@@ -21,6 +21,10 @@ function getDatabaseURL() {
     return `postgres:${username}:${password}@localhost:5432/${database}`;
 }
 
+function dateFormatter(created_at) {
+    return created_at.toDateString();
+}
+
 const db = spicedPg(getDatabaseURL());
 
 function createUser({ firstName, lastName, email, password }) {
@@ -177,23 +181,24 @@ function getFriendships(userId) {
 function getChatMessages(limit = 10) {
     return db
         .query(
-            `SELECT users.id AS user_id, chat_messages.id AS message_id, message, first_name AS firstName, last_name AS lastName, profile_url
+            `SELECT users.id AS user_id, chat_messages.id AS message_id, message, 
+            first_name AS firstName, last_name AS lastName, profile_url, chat_messages.created_at
         FROM chat_messages 
         JOIN users
         ON users.id = chat_messages.sender_id
         ORDER BY chat_messages.created_at DESC LIMIT $1`,
             [limit]
         )
-        .then((results) =>
-            results.rows
+        .then((results) => {
+            return results.rows
                 .reverse()
                 .map(({ firstname, lastname, profile_url, ...rest }) => ({
                     firstName: firstname,
                     lastName: lastname,
                     profilePicURL: profile_url,
                     ...rest,
-                }))
-        );
+                }));
+        });
 }
 
 function savedChatMessage({ message, sender_id }) {
