@@ -62,21 +62,6 @@ class OtherProfile extends Component {
         return (
             <div className="main-profile">
                 <section className="profile">
-                    <div className="button-image">
-                        <p className="p-wrapper">
-                            <img
-                                className="profile-img"
-                                src={profilePicURL || "/avatar.png"}
-                                alt={`${firstName} ${lastName}`}
-                            />
-                        </p>
-                        <div className="bio-editor">
-                            <FriendButton
-                                id={this.props.id}
-                                showBioProfile={this.showBio}
-                            ></FriendButton>
-                        </div>
-                    </div>
                     <div className="aside">
                         <h2>
                             <strong>
@@ -99,6 +84,21 @@ class OtherProfile extends Component {
                                 Back to Homepage
                             </Link>
                         </p>
+                    </div>
+                    <div className="button-image">
+                        <p className="p-wrapper">
+                            <img
+                                className="profile-img"
+                                src={profilePicURL || "/avatar.png"}
+                                alt={`${firstName} ${lastName}`}
+                            />
+                        </p>
+                        <div className="bio-editor">
+                            <FriendButton
+                                id={this.props.id}
+                                showBioProfile={this.showBio}
+                            ></FriendButton>
+                        </div>
                     </div>
                 </section>
             </div>
