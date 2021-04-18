@@ -60,7 +60,7 @@ class BioEditor extends Component {
             <form onSubmit={this.onSubmit}>
                 <textarea
                     rows={5}
-                    cols={30}
+                    cols={40}
                     onInput={this.onTextAreaInput}
                     defaultValue={this.props.text}
                     required

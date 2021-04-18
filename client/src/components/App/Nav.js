@@ -5,7 +5,7 @@ export default function Navigation({ isLogged }) {
     return (
         <>
             {isLogged ? (
-                <nav>
+                <nav className="header-nav">
                     <ul>
                         <li>
                             <Link to="/">Home</Link>

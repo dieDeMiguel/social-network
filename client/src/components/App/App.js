@@ -102,7 +102,7 @@ class App extends Component {
             <BrowserRouter>
                 <section className="app">
                     <header>
-                        <span className="logo">
+                        <span className="logo" id="header-logo">
                             <Link to="/">
                                 {" "}
                                 <img src="/logo.jpeg"></img>

@@ -38,9 +38,12 @@ export default function Friends() {
 
     return (
         <section className="friends">
-            <h2>Friends</h2>
+            <h2>Your friendship activity:</h2>
             {noActivity ? (
-                <p>No Activity yet</p>
+                <p>
+                    No incoming/outgoing friendships requests and no current
+                    friendships yet.
+                </p>
             ) : (
                 <>
                     <section className="incoming-list">

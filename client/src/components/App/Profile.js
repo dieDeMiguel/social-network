@@ -4,6 +4,17 @@ import { BrowserRouter, Route, Link } from "react-router-dom";
 function Profile({ user, onTextSave, onProfilePictureClick }) {
     return (
         <section className="profile">
+            <div className="aside">
+                <h2>
+                    <strong>
+                        {user.firstName} {user.lastName}
+                    </strong>
+                </h2>
+                id: {user.id}
+                <div className="bio-editor">
+                    <TextEditor text={user.bio} onTextSave={onTextSave} />
+                </div>
+            </div>
             <div className="button-image">
                 <p className="p-wrapper">
                     <img
@@ -20,17 +31,6 @@ function Profile({ user, onTextSave, onProfilePictureClick }) {
                         </Link>
                     </Route>
                 </p>
-            </div>
-            <div className="aside">
-                <h2>
-                    <strong>
-                        {user.firstName} {user.lastName}
-                    </strong>
-                </h2>
-                id: {user.id}
-                <div className="bio-editor">
-                    <TextEditor text={user.bio} onTextSave={onTextSave} />
-                </div>
             </div>
         </section>
     );
