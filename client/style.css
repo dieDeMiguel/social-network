@@ -307,7 +307,6 @@ footer {
 
 .find-people {
     background-color: rgb(9, 9, 69);
-    border-radius: 15px;
     min-height: 40vh;
     display: flex;
     color: white;
@@ -335,11 +334,11 @@ footer {
 }
 
 .current-list .profile-picture {
-    max-width: 30%;
+    max-width: 50%;
     list-style: none;
 }
 .incoming-list img {
-    max-width: 30%;
+    max-width: 50%;
 }
 
 .chat-wrapper {
@@ -532,4 +531,24 @@ footer button {
     .search input {
         font-size: 1.25em;
     }
+    .list-image p {
+        margin: 0 0.25em;
+    }
+}
+
+/* Freinds */
+.friends {
+    display: grid;
+    color: white;
+    grid-template-columns: minmax(180px, 450px);
+    grid-auto-rows: min-content;
+    text-align: center;
+}
+
+.friends li {
+    list-style: none;
+}
+
+.friends .btn {
+    margin: 1%;
 }

@@ -23,7 +23,7 @@ export default function FriendList({
                         </Link>
                         {accepted ? (
                             <button
-                                className="action mini"
+                                className="btn"
                                 onClick={() => onClick(accepted, user)}
                             >
                                 Unfriend
@@ -31,13 +31,13 @@ export default function FriendList({
                         ) : (
                             <>
                                 <button
-                                    className="action mini"
+                                    className="btn"
                                     onClick={() => onClick(accepted, user)}
                                 >
                                     Accept Request
                                 </button>
                                 <button
-                                    className="action mini"
+                                    className="btn"
                                     onClick={() => onRejectClick(user)}
                                 >
                                     Reject Request
@@ -63,7 +63,7 @@ export default function FriendList({
                         </Link>
 
                         <button
-                            className="action mini"
+                            className="btn"
                             onClick={() => onCancelClick(user)}
                         >
                             Cancel Request
