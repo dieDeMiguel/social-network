@@ -216,7 +216,6 @@ footer {
     border: none;
     padding: 0 !important;
     color: #069;
-    text-decoration: underline;
     cursor: pointer;
 }
 
@@ -466,8 +465,29 @@ header span img {
 
 .aside {
     transform: translateX(0);
+    text-align: center;
 }
 
 .button-image {
     max-width: 100%;
+}
+
+.button-image p,
+.button-image a {
+    padding: 1.5em;
+}
+
+.bio-editor {
+    text-align: center;
+}
+
+.app footer {
+    background: red;
+    font-size: 1.5em;
+}
+
+footer button {
+    font-size: 0.75em;
+    color: royalblue;
+    text-decoration: none;
 }
