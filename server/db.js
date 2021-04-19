@@ -190,6 +190,7 @@ function getChatMessages(limit = 10) {
             [limit]
         )
         .then((results) => {
+            //console.log("dentro de db.jssssssssss", results.rows[0].created_at);
             return results.rows
                 .reverse()
                 .map(({ firstname, lastname, profile_url, ...rest }) => ({

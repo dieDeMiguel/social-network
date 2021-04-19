@@ -348,6 +348,7 @@ footer {
     height: 100%;
     align-items: center;
     justify-content: center;
+    margin-bottom: 8%;
 }
 
 .centered-chat {
@@ -395,6 +396,30 @@ footer {
 .chat-form button {
     width: 30%;
     border-radius: 15px;
+}
+
+.message {
+    display: flex;
+    align-items: center;
+}
+
+.message-image img {
+    margin-top: 2%;
+}
+
+.message a {
+    color: yellow;
+}
+
+.message-image img {
+    width: 110px;
+    height: 110px;
+    object-fit: cover;
+    margin-right: 0.5em;
+}
+
+.message-date {
+    margin-left: 0.5em;
 }
 
 /* Header Nav */
@@ -559,6 +584,21 @@ footer button {
     grid-template-columns: minmax(180px, 450px);
     grid-auto-rows: min-content;
     text-align: center;
+}
+
+.current-list p,
+.app h1,
+.App a {
+    text-align: center;
+    color: white;
+}
+.App ul {
+    text-align: center;
+    margin: 0 auto;
+}
+
+.App li {
+    color: yellow;
 }
 
 .friends li {

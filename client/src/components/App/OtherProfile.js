@@ -112,10 +112,18 @@ export default function App() {
         <BrowserRouter>
             <div className="App">
                 <Route path="/" exact>
-                    <h1>Welcome to SPICED Social Network</h1>
+                    <h1>Welcome to SuperHero Social Network</h1>
                     <ul>
                         <li>
-                            <Link to="/users">Users</Link>
+                            <Link to="/">Your profile</Link>
+                        </li>
+                        <li>
+                            {" "}
+                            <Link to="/friends">Your Friends</Link>
+                        </li>
+                        <li>
+                            {" "}
+                            <Link to="/users">Find People</Link>
                         </li>
                     </ul>
                 </Route>
