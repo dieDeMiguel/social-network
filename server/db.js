@@ -190,7 +190,6 @@ function getChatMessages(limit = 10) {
             [limit]
         )
         .then((results) => {
-            //console.log("dentro de db.jssssssssss", results.rows[0].created_at);
             return results.rows
                 .reverse()
                 .map(({ firstname, lastname, profile_url, ...rest }) => ({
@@ -202,7 +201,7 @@ function getChatMessages(limit = 10) {
         });
 }
 
-function savedChatMessage({ message, sender_id }) {
+function saveChatMessage({ message, sender_id }) {
     return db
         .query(
             `INSERT INTO chat_messages (message, sender_id) VALUES ($1, $2) RETURNING *`,
@@ -211,9 +210,29 @@ function savedChatMessage({ message, sender_id }) {
         .then((result) => result.rows[0]);
 }
 
+function deleteFriendshipsByUserId({ userId }) {
+    return db.query(
+        `DELETE FROM friendships WHERE sender_id = $1 OR recipient_id = $1`,
+        [userId]
+    );
+}
+
+function deleteChatMessagesByUserId({ userId }) {
+    return db.query(`DELETE FROM chat_messages WHERE sender_id = $1`, [userId]);
+}
+
+function deleteUser({ userId }) {
+    return db
+        .query(`DELETE FROM users WHERE id = $1 RETURNING *`, [userId])
+        .then((result) => result.rows[0]);
+}
+
 module.exports = {
+    deleteChatMessagesByUserId,
+    deleteUser,
+    deleteFriendshipsByUserId,
     getChatMessages,
-    savedChatMessage,
+    saveChatMessage,
     getFriendships,
     getFriendship,
     createFriendship,

@@ -30,7 +30,10 @@ const {
     deleteFriendship,
     getFriendships,
     getChatMessages,
-    savedChatMessage,
+    saveChatMessage,
+    deleteFriendshipsByUserId,
+    deleteUser,
+    deleteChatMessagesByUserId,
 } = require("./db");
 const cryptoRandomString = require("crypto-random-string");
 const { s3upload, getURLFromFilename } = require("../s3");
@@ -410,6 +413,23 @@ app.post("/logout", function (request, response) {
     response.json({ message: "logged out" });
 });
 
+app.delete("/user", async (request, response) => {
+    const userId = request.session.userId;
+    try {
+        await deleteFriendshipsByUserId({ userId });
+        await deleteChatMessagesByUserId({ userId });
+        await deleteUser({ userId });
+    } catch (error) {
+        console.log("deleted user error", error);
+        response.json({
+            message: "Error while deleting user on the server side",
+        });
+    }
+    request.session.userId = null;
+    response.statusCode = 202;
+    response.json({ message: "Erfolg!" });
+});
+
 app.get("/welcome", function (request, response) {
     if (request.session.userId) {
         response.redirect("/");
@@ -434,11 +454,10 @@ io.on("connection", async (socket) => {
     }
     const userId = socket.request.session.userId;
     const messages = await getChatMessages();
-    console.log("userMessage", messages[0].created_at);
     socket.emit("chatMessages", messages);
 
     socket.on("newChatMessage", async (newMessage) => {
-        const savedMessage = await savedChatMessage({
+        const savedMessage = await saveChatMessage({
             message: newMessage,
             sender_id: userId,
         });
@@ -449,6 +468,6 @@ io.on("connection", async (socket) => {
 });
 
 //Listener
-server.listen(process.env.PORT || 3001, () =>
+server.listen(process.env.PORT || 3000, () =>
     console.log("[social:express] I'm listening.")
 );
