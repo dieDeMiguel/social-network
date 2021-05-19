@@ -1,6 +1,7 @@
 import RegistrationForm from "./RegistrationForm";
 import LoginForm from "./LoginForm";
 import ResetPassword from "./ResetPassword";
+import Header from "../Partials/Header";
 import { HashRouter, Route, Link } from "react-router-dom";
 import ProfilePicture from "../App/ProfilePicture";
 import Nav from "../App/Nav";
@@ -14,19 +15,8 @@ export default function Welcome() {
         <section className="welcome">
             <HashRouter>
                 <Route exact path="/">
-                    <header>
-                        <span className="logo" id="header-logo">
-                            <Link to="/">
-                                <img src="/logo.jpeg"></img>
-                            </Link>
-                        </span>
-                        <Nav isLogged={false} />
-                        <ProfilePicture
-                            firstName=""
-                            lastName=""
-                            profilePicURL=""
-                        />
-                    </header>
+                    <Header />
+
                     <RegistrationForm onSuccess={onSuccess}></RegistrationForm>
                     <div className="padding-welcome"></div>
                     <footer>
