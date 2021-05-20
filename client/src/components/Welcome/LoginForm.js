@@ -52,11 +52,15 @@ class LoginForm extends Component {
     render() {
         return (
             <>
-                <div className="login-form c2 c2-login">
+                <div
+                    className="login-form c2 c2-login"
+                    style={{ marginTop: "5rem" }}
+                >
                     {this.renderError()}
                     <form
                         onSubmit={this.onFormSubmit}
                         className="signup signup-login"
+                        style={{ width: "80%" }}
                     >
                         <h1 className="signup1">Login</h1>
                         <input

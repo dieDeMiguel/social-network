@@ -207,7 +207,6 @@ a {
 footer {
     display: flex;
     justify-content: center;
-    border: 2px solid blue;
     padding-top: 15px;
     padding-bottom: 15px;
 }

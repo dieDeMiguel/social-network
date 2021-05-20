@@ -1,11 +1,13 @@
 import { Component } from "react";
 import axios from "../../axios";
 import ProfilePicture from "./ProfilePicture";
+import Header from "../Partials/Header";
 import Profile from "./Profile";
 import { BrowserRouter, Route, Link } from "react-router-dom";
 import FindPeople from "./FindPeople";
 import ProfilePictureUploader from "./ProfilePictureUploader";
 import OtherProfile from "./OtherProfile";
+import Footer from "../Partials/Footer";
 import Nav from "./Nav";
 import Friends from "./Friends";
 import Chat from "../Chat/Chat";
@@ -27,7 +29,7 @@ class App extends Component {
         this.onProfilePictureClick = this.onProfilePictureClick.bind(this);
         this.onUpload = this.onUpload.bind(this);
         this.onModalClose = this.onModalClose.bind(this);
-        this.onLogout = this.onLogout.bind(this);
+        this.logOut = this.logOut.bind(this);
         this.onBioSave = this.onBioSave.bind(this);
     }
 
@@ -72,7 +74,7 @@ class App extends Component {
         });
     }
 
-    onLogout(event) {
+    logOut(event) {
         event.preventDefault();
         axios.post("/logout").then((response) => {
             console.log("[App]:", response.data.message);
@@ -100,33 +102,16 @@ class App extends Component {
     render() {
         return (
             <BrowserRouter>
-                <section className="app">
-                    <header>
-                        <span className="logo" id="header-logo">
-                            <Link to="/">
-                                {" "}
-                                <img src="/logo.jpeg"></img>
-                            </Link>
-                        </span>
-                        <Nav isLogged={true} />
-                        <ProfilePicture
-                            firstName={this.state.user.firstName}
-                            lastName={this.state.user.lastName}
-                            profilePicURL={this.state.user.profilePicURL}
-                            onClick={this.onProfilePictureClick}
-                        />
-                    </header>
+                <>
+                    <Header user={this.state.user}></Header>
+
                     {this.renderModal()}
                     <Route path="/" exact>
-                        <div className="main-profile">
-                            <Profile
-                                user={this.state.user}
-                                onTextSave={this.onBioSave}
-                                onProfilePictureClick={
-                                    this.onProfilePictureClick
-                                }
-                            ></Profile>
-                        </div>
+                        <Profile
+                            user={this.state.user}
+                            onTextSave={this.onBioSave}
+                            onProfilePictureClick={this.onProfilePictureClick}
+                        ></Profile>
                     </Route>
                     <Route
                         path="/user/:id"
@@ -140,14 +125,11 @@ class App extends Component {
                     <Route path="/users" render={() => <FindPeople />} />
                     <Route path="/friends" render={() => <Friends />} />
                     <Route path="/chat" render={() => <Chat />} />
-                    <footer>
-                        <form onSubmit={this.onLogout}>
-                            <button type="submit" className="btn-logout">
-                                Logout
-                            </button>
-                        </form>
-                    </footer>
-                </section>
+                    <Footer
+                        user={this.state.user}
+                        onLogout={() => this.logOut()}
+                    />
+                </>
             </BrowserRouter>
         );
     }

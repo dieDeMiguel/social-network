@@ -63,7 +63,11 @@ class RegistrationForm extends Component {
         return (
             <div className="registration-form c2">
                 {this.renderError()}
-                <form onSubmit={this.onFormSubmit} className="signup">
+                <form
+                    onSubmit={this.onFormSubmit}
+                    className="signup"
+                    style={{ minWidth: "16rem" }}
+                >
                     <h1 className="signup1">SIGN UP</h1>
 
                     <input
@@ -98,7 +102,11 @@ class RegistrationForm extends Component {
                         required
                         className="username"
                     />
-                    <button type="submit" className="btn">
+                    <button
+                        type="submit"
+                        className="btn"
+                        style={{ marginTop: "2rem" }}
+                    >
                         Register
                     </button>
                 </form>

@@ -14,13 +14,20 @@ function Header({ user }) {
                 className="navbar"
                 role="navigation"
                 aria-label="main navigation"
+                style={{ minHeight: "6.25rem" }}
             >
                 <div className="navbar-brand">
-                    <a className="navbar-item" href="https://bulma.io">
+                    <a className="navbar-item" href="/">
                         <img
-                            src="https://bulma.io/images/bulma-logo.png"
+                            src="/logo.jpeg"
                             width="112"
                             height="28"
+                            style={{
+                                maxWidth: "5rem",
+                                maxHeight: "5rem",
+                                borderRadius: "50%",
+                                border: "2px solid rgb(106, 180, 72) ",
+                            }}
                         />
                     </a>
 
@@ -35,6 +42,7 @@ function Header({ user }) {
                         aria-label="menu"
                         aria-expanded="false"
                         data-target="navbarBasicExample"
+                        style={{ alignSelf: "center" }}
                     >
                         <span aria-hidden="true"></span>
                         <span aria-hidden="true"></span>
@@ -45,10 +53,12 @@ function Header({ user }) {
                 <div
                     id="navbarBasicExample"
                     className={
-                        isActive ? "navbar-menu is-active" : "navbar-menu"
+                        isActive
+                            ? "navbar-menu is-active"
+                            : "navbar-menu is-justify-content-flex-end"
                     }
                 >
-                    <div className="navbar-start">
+                    <div className="navbar-start mr-3">
                         {user ? (
                             <>
                                 <Link to="/" className="navbar-item">
@@ -61,6 +71,10 @@ function Header({ user }) {
 
                                 <Link to="/friends" className="navbar-item">
                                     Your Friends
+                                </Link>
+
+                                <Link to="/caht" className="navbar-item">
+                                    Chat
                                 </Link>
                             </>
                         ) : (
@@ -81,29 +95,6 @@ function Header({ user }) {
                                 </Link>
                             </>
                         )}
-
-                        <div className="navbar-item has-dropdown is-hoverable">
-                            <a className="navbar-link">More</a>
-
-                            <div className="navbar-dropdown">
-                                <a className="navbar-item">About</a>
-                                <a className="navbar-item">Jobs</a>
-                                <a className="navbar-item">Contact</a>
-                                <hr className="navbar-divider" />
-                                <a className="navbar-item">Report an issue</a>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div className="navbar-end">
-                        <div className="navbar-item">
-                            <div className="buttons">
-                                <a className="button is-primary">
-                                    <strong>Sign up</strong>
-                                </a>
-                                <a className="button is-light">Log in</a>
-                            </div>
-                        </div>
                     </div>
                 </div>
             </nav>

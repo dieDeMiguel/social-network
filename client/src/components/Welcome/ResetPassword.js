@@ -15,9 +15,8 @@ class ResetPassword extends Component {
         };
 
         this.onInputChange = this.onInputChange.bind(this);
-        this.onSendVerificationSubmit = this.onSendVerificationSubmit.bind(
-            this
-        );
+        this.onSendVerificationSubmit =
+            this.onSendVerificationSubmit.bind(this);
         this.onCodeSubmit = this.onCodeSubmit.bind(this);
     }
     onSendVerificationSubmit(event) {
@@ -78,7 +77,7 @@ class ResetPassword extends Component {
         switch (this.state.step) {
             case 1:
                 return (
-                    <div className="form c2 c2-login">
+                    <div className="form c2 c2-login shadow-lg">
                         <h1 className="signup1">Step 1: Enter your email</h1>
                         {this.renderError()}
                         <form
@@ -94,7 +93,7 @@ class ResetPassword extends Component {
                                 className="username"
                             />
                             <button type="submit" className="btn">
-                                Send Verification Code
+                                Send Verification
                             </button>
                         </form>
                     </div>
@@ -108,12 +107,12 @@ class ResetPassword extends Component {
                             className="signup signup-login step-2"
                         >
                             <h1 className="signup1">
-                                Step 2: Enter the code we sent you via email
+                                Step 2: Enter here the code
                             </h1>
                             <input
                                 type="text"
                                 name="code"
-                                placeholder="Please paste here the copy you received by email"
+                                placeholder="Paste the code here"
                                 onChange={this.onInputChange}
                                 required
                                 className="username"
@@ -121,7 +120,7 @@ class ResetPassword extends Component {
                             <input
                                 type="password"
                                 name="password"
-                                placeholder="Please type here your new password"
+                                placeholder="New password"
                                 onChange={this.onInputChange}
                                 required
                                 className="username"
@@ -137,9 +136,8 @@ class ResetPassword extends Component {
                     <div className="form c2 c2-login step-2">
                         <form className="signup signup-login step-2">
                             <h1 className="signup1">
-                                Password changed: Now you can{" "}
-                                <Link to="/login">login</Link> with your new
-                                password!
+                                Password changed: <Link to="/login">login</Link>{" "}
+                                with your new password!
                             </h1>
                         </form>
                     </div>
@@ -147,9 +145,10 @@ class ResetPassword extends Component {
             default:
                 return (
                     <p>
-                        "something went wrong, go back to"{" "}
+                        "something went wrong"{" "}
                         <Link to="/register">Register</Link>
                     </p>
+                    // eslint-disable-next-line indent
                 );
         }
     }
