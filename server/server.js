@@ -79,6 +79,8 @@ function serializeUser(usersList) {
             lastName: user.last_name,
             profile_url: user.profile_url,
             bio: user.bio,
+            created_at: user.created_at,
+            email: user.email,
         };
     });
     return _result;

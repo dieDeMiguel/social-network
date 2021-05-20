@@ -17,40 +17,76 @@ function Profile({ user, onTextSave, onProfilePictureClick }) {
             );
     }
     return (
-        <section className="profile">
-            <div className="aside">
-                <h2>
-                    <strong>
-                        {user.firstName} {user.lastName}
-                    </strong>
-                </h2>
-                id: {user.id}
-                <div className="bio-editor">
-                    <TextEditor text={user.bio} onTextSave={onTextSave} />
+        <>
+            <div className="min-h-screen flex items-center justify-center px-4">
+                <div className="max-w-4xl  bg-white w-full rounded-lg shadow-xl">
+                    <div className="p-4 border-b">
+                        <h2 className="text-2xl ">Superhero Profile</h2>
+                        <p className="text-sm text-gray-500">
+                            Superhero #: {user.id}
+                        </p>
+                    </div>
+                    <div>
+                        <div className="md:grid md:grid-cols-2 hover:bg-gray-50 md:space-y-0 space-y-1 p-4 border-b">
+                            <p className="text-gray-600">Full name</p>
+                            <p>
+                                {user.firstName} {user.lastName}
+                            </p>
+                        </div>
+                        <div className="md:grid md:grid-cols-2 hover:bg-gray-50 md:space-y-0 space-y-1 p-4 border-b">
+                            <p className="text-gray-600">Member since</p>
+                            <p>{user.created_at}</p>
+                        </div>
+                        <div className="md:grid md:grid-cols-2 hover:bg-gray-50 md:space-y-0 space-y-1 p-4 border-b">
+                            <p className="text-gray-600">Email Address</p>
+                            <p>{user.email}</p>
+                        </div>
+                        <div className="md:grid md:grid-cols-2 hover:bg-gray-50 md:space-y-0 space-y-1 p-4 border-b">
+                            <p className="text-gray-600">Bio</p>
+                            <TextEditor
+                                text={user.bio}
+                                onTextSave={onTextSave}
+                            />
+                        </div>
+                        <div className="md:grid md:grid-cols-2 hover:bg-gray-50 md:space-y-0 space-y-1 p-4">
+                            <p className="text-gray-600">Attachments</p>
+                            <div className="space-y-2">
+                                <div className="border-2 flex items-center p-2 rounded justify-between space-x-2">
+                                    <div className="space-x-2 truncate">
+                                        <p className="p-wrapper">
+                                            <img
+                                                id="profile-img"
+                                                onClick={onProfilePictureClick}
+                                                src={
+                                                    user.profilePicURL ||
+                                                    "/avatar.png"
+                                                }
+                                                alt=""
+                                                className="profile-img"
+                                            />
+                                        </p>
+                                    </div>
+                                    <button
+                                        onClick={onDeleteClick}
+                                        className="btn"
+                                    >
+                                        Delete Account
+                                    </button>
+                                    <Route>
+                                        <Link
+                                            to="/users"
+                                            className="text-purple-700 hover:underline"
+                                        >
+                                            Search other users
+                                        </Link>
+                                    </Route>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
-                <button onClick={onDeleteClick} className="btn">
-                    Delete Account
-                </button>
             </div>
-            <div className="button-image">
-                <p className="p-wrapper">
-                    <img
-                        id="profile-img"
-                        onClick={onProfilePictureClick}
-                        src={user.profilePicURL || "/avatar.png"}
-                        alt=""
-                        className="profile-img"
-                    />
-                </p>
-                <p className="link">
-                    <Route>
-                        <Link to="/users" id="search-others">
-                            Search other users
-                        </Link>
-                    </Route>
-                </p>
-            </div>
-        </section>
+        </>
     );
 }
 
