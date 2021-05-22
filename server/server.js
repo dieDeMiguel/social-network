@@ -449,26 +449,26 @@ app.get("*", function (request, response) {
     response.sendFile(path.join(__dirname, "..", "client", "index.html"));
 });
 
-io.on("connection", async (socket) => {
-    console.log("[social:socket] incoming socket connection", socket.id);
-    if (!socket.request.session.userId) {
-        socket.disconnect(true);
-        return;
-    }
-    const userId = socket.request.session.userId;
-    const messages = await getChatMessages();
-    socket.emit("chatMessages", messages);
+// io.on("connection", async (socket) => {
+//     console.log("[social:socket] incoming socket connection", socket.id);
+//     if (!socket.request.session.userId) {
+//         socket.disconnect(true);
+//         return;
+//     }
+//     const userId = socket.request.session.userId;
+//     const messages = await getChatMessages();
+//     socket.emit("chatMessages", messages);
 
-    socket.on("newChatMessage", async (newMessage) => {
-        const savedMessage = await saveChatMessage({
-            message: newMessage,
-            sender_id: userId,
-        });
-        const user = await getUserByID({ userId });
-        const messageToSend = serializeChatMessage(savedMessage, user);
-        io.sockets.emit("chatMessage", messageToSend);
-    });
-});
+//     socket.on("newChatMessage", async (newMessage) => {
+//         const savedMessage = await saveChatMessage({
+//             message: newMessage,
+//             sender_id: userId,
+//         });
+//         const user = await getUserByID({ userId });
+//         const messageToSend = serializeChatMessage(savedMessage, user);
+//         io.sockets.emit("chatMessage", messageToSend);
+//     });
+// });
 
 //Listener
 server.listen(process.env.PORT || 3001, () =>
