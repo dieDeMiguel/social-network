@@ -1,7 +1,7 @@
-export default function Search(onChange) {
+export default function Search(onSearchFieldChange) {
     return (
         <div>
-            <form onChange={onChange} className="m-4 flex">
+            <form onChange={onSearchFieldChange} className="m-4 flex">
                 <input
                     className="rounded-l-lg p-4 border-t mr-0 border-b border-l text-gray-800 border-gray-200 bg-white"
                     placeholder="Search for other users..."
