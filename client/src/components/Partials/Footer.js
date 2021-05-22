@@ -8,28 +8,26 @@ function Footer({ user, onLogOut }) {
                     <div className="row">
                         <div className="col l6 s12">
                             <h5 className="white-text">Super Hero</h5>
-                            <p className="grey-text text-lighten-4">
-                                {user ? (
-                                    <form onSubmit={() => onLogOut()}>
-                                        <button
-                                            type="submit"
-                                            classNameName="btn-logout"
-                                        >
-                                            Logout
-                                        </button>
-                                    </form>
-                                ) : (
-                                    <>
-                                        New here? <Link to="/">Register</Link>
-                                        <br></br>
-                                        Forgot your password?
-                                        <Link to="/password-reset">
-                                            {" "}
-                                            Password reset
-                                        </Link>
-                                    </>
-                                )}
-                            </p>
+                            {user ? (
+                                <form onSubmit={() => onLogOut()}>
+                                    <button
+                                        type="submit"
+                                        className="btn-logout"
+                                    >
+                                        Logout
+                                    </button>
+                                </form>
+                            ) : (
+                                <>
+                                    New here? <Link to="/">Register</Link>
+                                    <br></br>
+                                    Forgot your password?
+                                    <Link to="/password-reset">
+                                        {" "}
+                                        Password reset
+                                    </Link>
+                                </>
+                            )}
                         </div>
                     </div>
                 </div>

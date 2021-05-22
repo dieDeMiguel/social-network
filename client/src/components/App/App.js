@@ -1,6 +1,5 @@
 import { Component } from "react";
 import axios from "../../axios";
-import ProfilePicture from "./ProfilePicture";
 import Header from "../Partials/Header";
 import Profile from "./Profile";
 import { BrowserRouter, Route, Link } from "react-router-dom";
@@ -8,7 +7,6 @@ import FindPeople from "./FindPeople";
 import ProfilePictureUploader from "./ProfilePictureUploader";
 import OtherProfile from "./OtherProfile";
 import Footer from "../Partials/Footer";
-import Nav from "./Nav";
 import Friends from "./Friends";
 import Chat from "../Chat/Chat";
 
@@ -22,6 +20,8 @@ class App extends Component {
                 lastName: "",
                 profilePicURL: "",
                 bio: "",
+                email: "",
+                created_at: "",
             },
             showModal: false,
         };
@@ -35,6 +35,9 @@ class App extends Component {
 
     componentDidMount() {
         axios.get("/user").then((response) => {
+            let time = Date.now(response.data.created_at);
+            time = new Date(time).toLocaleString();
+            time = time.split(",")[0];
             this.setState({
                 user: {
                     id: response.data.id,
@@ -42,6 +45,8 @@ class App extends Component {
                     lastName: response.data.lastName,
                     profilePicURL: response.data.profile_url,
                     bio: response.data.bio,
+                    email: response.data.email,
+                    created_at: time,
                 },
             });
         });
