@@ -110,10 +110,18 @@ header span {
     min-width: 280px;
 }
 
+.friends-list {
+    flex-direction: column !important;
+}
+
 @media (min-width: 1200px) {
     .c2,
     .c2-login {
         max-width: 23%;
+    }
+
+    .friends-list {
+        flex-direction: row !important;
     }
 }
 
