@@ -182,7 +182,6 @@ app.get("/api/users/:user_id", function (request, response) {
             });
             return;
         }
-        console.log("dentro de server", user);
         response.json(serializeUser(user)[0]);
     });
 });

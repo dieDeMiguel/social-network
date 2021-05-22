@@ -37,8 +37,8 @@ export default function Friends() {
     const noActivity = !accepted.length && !incoming.length && !outgoing.length;
 
     return (
-        <section className="friends">
-            <h2>Your friendship activity:</h2>
+        <section className="friends" style={{ color: "black" }}>
+            <h3>Your friendship activity:</h3>
             {noActivity ? (
                 <p>
                     No incoming/outgoing friendships requests and no current
@@ -46,7 +46,7 @@ export default function Friends() {
                 </p>
             ) : (
                 <>
-                    <section className="incoming-list">
+                    <section className="">
                         {incoming.length ? (
                             <>
                                 <h3>Incoming Requests</h3>
@@ -57,13 +57,17 @@ export default function Friends() {
                                 />
                             </>
                         ) : (
-                            <p>No incoming requests</p>
+                            <p style={{ gridColumnStart: "2" }}>
+                                No incoming requests
+                            </p>
                         )}
                     </section>
-                    <section className="outgoing-list">
+                    <section className="">
                         {outgoing.length ? (
                             <>
-                                <h3>Outgoing Requests</h3>
+                                <h5 style={{ gridColumnStart: "2" }}>
+                                    Outgoing Requests
+                                </h5>
                                 <FriendList
                                     users={outgoing}
                                     outgoing={true}
@@ -73,14 +77,14 @@ export default function Friends() {
                             </>
                         ) : null}
                     </section>
-                    <section className="current-list">
-                        <h3>Current Friends</h3>
+                    <section className="">
+                        <h5>Current Friends</h5>
                         {accepted.length ? (
                             <FriendList users={accepted} onClick={onClick} />
                         ) : (
                             <p>
                                 No friends yet.
-                                <Link to={"/users"}>Look for more users</Link>
+                                <Link to={"/users"}> Look for more users</Link>
                             </p>
                         )}
                     </section>

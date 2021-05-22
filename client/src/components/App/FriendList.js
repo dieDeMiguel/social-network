@@ -9,7 +9,7 @@ export default function FriendList({
     outgoing,
 }) {
     return !outgoing ? (
-        <ul>
+        <ul style={{ display: "flex", justifyContent: "center" }}>
             {users.map(({ accepted, user }) => (
                 <li key={user.id}>
                     <ProfilePicture
@@ -49,15 +49,15 @@ export default function FriendList({
             ))}
         </ul>
     ) : (
-        <ul>
-            {users.map(({ accepted, user }) => (
+        <ul style={{ display: "flex", justifyContent: "center" }}>
+            {users.map(({ user }) => (
                 <li key={user.id}>
                     <ProfilePicture
                         firstName={user.first_name}
                         lastName={user.last_name}
                         profilePicURL={user.profile_url}
                     />
-                    <div className="content">
+                    <div className="content" style={{ gridColumnStart: "2" }}>
                         <Link to={`/user/${user.id}`}>
                             {user.firstName} {user.lastName}
                         </Link>

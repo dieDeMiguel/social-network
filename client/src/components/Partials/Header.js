@@ -73,9 +73,9 @@ function Header({ user }) {
                                     Your Friends
                                 </Link>
 
-                                <Link to="/caht" className="navbar-item">
+                                {/* <Link to="/caht" className="navbar-item">
                                     Chat
-                                </Link>
+                                </Link> */}
                             </>
                         ) : (
                             <>

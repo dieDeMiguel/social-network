@@ -643,7 +643,7 @@ footer button {
     .incoming-list ul,
     .outgoing-list ul,
     .current-list ul {
-        grid-column: 1 / -1;
+        grid-column: 2 / -1;
         margin-top: 0;
     }
 }

@@ -2,7 +2,7 @@ import { Component } from "react";
 import axios from "../../axios";
 import Header from "../Partials/Header";
 import Profile from "./Profile";
-import { BrowserRouter, Route, Link } from "react-router-dom";
+import { BrowserRouter, Route } from "react-router-dom";
 import FindPeople from "./FindPeople";
 import ProfilePictureUploader from "./ProfilePictureUploader";
 import OtherProfile from "./OtherProfile";
