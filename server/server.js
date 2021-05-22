@@ -253,7 +253,7 @@ app.post("/password/reset/verify", (request, response) => {
     const { email, code, password } = request.body;
     getPasswordResetCodeByEmailAndCode({ email, code }).then((storedCode) => {
         if (!storedCode) {
-            respons.statusCode = 400;
+            response.statusCode = 400;
             response.json({
                 message: "The code is incorrect",
             });
