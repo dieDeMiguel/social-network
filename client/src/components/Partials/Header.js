@@ -26,8 +26,8 @@ function Header({ user }) {
                                 maxWidth: "5rem",
                                 maxHeight: "5rem",
                                 borderRadius: "50%",
-                                border: "2px solid rgb(106, 180, 72) ",
                             }}
+                            className="shadow-xl"
                         />
                     </a>
 

@@ -298,7 +298,7 @@ app.post(
 );
 
 app.get("/users/most-recent", (request, response) => {
-    getMoreRecentUsers().then((results) => {
+    getMoreRecentUsers(10).then((results) => {
         var filteredResults = results.filter(
             (x) => x.id !== request.session.userId
         );
