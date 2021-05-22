@@ -1,12 +1,13 @@
 const { S3 } = require("aws-sdk");
 const fs = require("fs");
-const { Bucket } = require("./config.json");
+//const { Bucket } = require("./config.json");
+const { Bucket } = process.env.Bucket;
 
 let secrets;
 if (process.env.NODE_ENV) {
     secrets = process.env;
 } else {
-    secrets = require("./config.json");
+    //secrets = require("./config.json");
 }
 
 // require the secrets the way you want

@@ -17,8 +17,8 @@ function getDatabaseURL() {
     if (process.env.DATABASE_URL) {
         return process.env.DATABASE_URL;
     }
-    const { username, password, database } = require("../secrets.json");
-    return `postgres:${username}:${password}@localhost:5432/${database}`;
+    //const { username, password, database } = require("../secrets.json");
+    //return `postgres:${username}:${password}@localhost:5432/${database}`;
 }
 
 function dateFormatter(created_at) {

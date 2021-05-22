@@ -37,7 +37,8 @@ const {
 } = require("./db");
 const cryptoRandomString = require("crypto-random-string");
 const { s3upload, getURLFromFilename } = require("../s3");
-const { Bucket } = require("../config.json");
+//const { Bucket } = require("../config.json");
+const { Bucket } = process.env.Bucket;
 const { ses } = require("../email");
 
 //Middlewares

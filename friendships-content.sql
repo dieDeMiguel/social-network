@@ -26,7 +26,6 @@ CREATE TABLE "public"."friendships" (
 );
 
 INSERT INTO "public"."friendships" ("id", "sender_id", "recipient_id", "accepted", "created_at") VALUES
-(3, 34, 33, 'f', '2021-04-18 19:41:41.289258'),
 (5, 151, 34, 't', '2021-04-18 21:11:27.817685'),
 (6, 131, 34, 't', '2021-04-18 21:17:57.554645'),
 (9, 201, 34, 't', '2021-04-19 17:15:19.543853'),

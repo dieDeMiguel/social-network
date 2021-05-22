@@ -4,7 +4,7 @@ let secrets;
 if (process.env.NODE_ENV) {
     secrets = process.env;
 } else {
-    secrets = require("./config.json");
+    //secrets = require("./config.json");
 }
 
 const ses = new aws.SES({
