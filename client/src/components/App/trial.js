@@ -1,96 +1,142 @@
 import axios from "../../axios";
-import { Link } from "react-router-dom";
-import { useState, useEffect } from "react";
+import { Component } from "react";
+import { BrowserRouter, Route, Link } from "react-router-dom";
+import FriendButton from "./FriendButton";
 
-export default function FindPeople() {
-    const [recentUsers, setRecentUsers] = useState([]);
-    const [searchTerm, setSearchTerm] = useState("");
-    const [searchResults, setSearchResults] = useState([]);
-
-    useEffect(() => {
-        axios.get("/users/most-recent").then((response) => {
-            setRecentUsers(response.data);
-        });
-    }, []);
-
-    useEffect(() => {
-        if (searchTerm.length <= 2) {
-            return;
-        }
-        axios
-            .get("/users/search", {
-                params: {
-                    q: searchTerm,
-                },
-            })
-            .then((response) => {
-                setSearchResults(response.data);
-            });
-    }, [searchTerm]);
-
-    function onChange(event) {
-        setSearchTerm(event.target.value);
+class OtherProfile extends Component {
+    constructor(props) {
+        super(props);
+        this.state = {
+            user: {
+                firstName: "",
+                lastName: "",
+                bio: "",
+                profilePicURL: "",
+                creates_at: "",
+            },
+            showBioText: false,
+        };
+        this.showBio = this.showBio.bind(this);
     }
 
-    return (
-        <div className="main-profile main-find">
-            <section className="find-people">
-                <section className="find-wrapper">
-                    <h2>Find people</h2>
-                    <h3>Who is new?</h3>
-                    <ul className="find-list" id="list-item">
-                        {recentUsers.map((user) => (
-                            <li key={user.id}>
-                                <Link to={"/user/" + user.id}>
-                                    <div className="list-image">
-                                        <p>
-                                            <img
-                                                className="profile-picture"
-                                                src={
-                                                    user.profile_url ||
-                                                    "/avatar.png"
-                                                }
-                                            />
-                                        </p>
-                                        <p>
-                                            {user.firstName} {user.lastName}
-                                        </p>
-                                    </div>
-                                </Link>
-                            </li>
-                        ))}
-                    </ul>
-                </section>
-                <section className="search">
-                    <h3>Find someone by name</h3>
+    componentDidMount() {
+        axios
+            .get(`/api/users/${this.props.id}`)
+            .then((response) => {
+                return this.setState({
+                    user: {
+                        firstName: response.data.firstName,
+                        lastName: response.data.lastName,
+                        bio: response.data.bio,
+                        profilePicURL: response.data.profile_url,
+                        creates_at: response.data.creates_at,
+                    },
+                });
+            })
+            .catch((error) => {
+                if (
+                    error.response.status >= 400 &&
+                    error.response.status < 500
+                ) {
+                    this.props.history.push("/");
+                }
+            });
+    }
+
+    showBio() {
+        this.setState({ showBioText: true });
+    }
+
+    render() {
+        if (!this.state.user) {
+            return (
+                <section className="profile">
+                    <h2>User not found!</h2>
                     <p>
-                        <input
-                            type="text"
-                            placeholder="Type some text"
-                            onChange={onChange}
-                        />
+                        <Link to="/">Back to Homepage</Link>
                     </p>
-                    <ul className="find-list" id="list-item">
-                        {searchResults.map((user) => (
-                            <li key={user.id}>
-                                <Link to={"/user/" + user.id}>
-                                    <div className="list-image">
-                                        <p>
-                                            <img
-                                                className="profile-picture"
-                                                src={user.profile_url}
-                                            />
-                                        </p>
-                                        <p>
-                                            {user.firstName} {user.lastName}
-                                        </p>
-                                    </div>
-                                </Link>
-                            </li>
-                        ))}
-                    </ul>
                 </section>
-            </section>
-        </div>
+            );
+        }
+
+        const { firstName, lastName, bio, profilePicURL } = this.state.user;
+
+        return (
+            <div className="main-profile">
+                <section className="profile">
+                    <div className="aside">
+                        <h2>
+                            <strong>
+                                {firstName} {lastName}
+                            </strong>
+                        </h2>
+                        id: {this.props.id}
+                        {this.state.showBioText && (
+                            <div className="bio-editor">
+                                <p className="profile-text">
+                                    {firstName}'s profile:
+                                </p>
+                                <h1 className="bio-text">
+                                    {bio || "No bio text yet"}
+                                </h1>
+                            </div>
+                        )}
+                        <p>
+                            <Link to="/" id="search-others">
+                                Back to Homepage
+                            </Link>
+                        </p>
+                    </div>
+                    <div className="button-image">
+                        <p className="p-wrapper">
+                            <img
+                                className="profile-img"
+                                id="profile-img"
+                                src={profilePicURL || "/avatar.png"}
+                                alt={`${firstName} ${lastName}`}
+                            />
+                        </p>
+                        <div className="bio-editor">
+                            <FriendButton
+                                id={this.props.id}
+                                showBioProfile={this.showBio}
+                            ></FriendButton>
+                        </div>
+                    </div>
+                </section>
+            </div>
+        );
+    }
+}
+
+export default function App() {
+    return (
+        <BrowserRouter>
+            <div className="App">
+                <Route path="/" exact>
+                    <h1>Welcome to SuperHero Social Network</h1>
+                    <ul>
+                        <li>
+                            <Link to="/">Your profile</Link>
+                        </li>
+                        <li>
+                            {" "}
+                            <Link to="/friends">Your Friends</Link>
+                        </li>
+                        <li>
+                            {" "}
+                            <Link to="/users">Find People</Link>
+                        </li>
+                    </ul>
+                </Route>
+                {/* the /user/:id route renders the single user profile */}
+                <Route
+                    path="/user/:id"
+                    render={(props) => (
+                        <OtherProfile id={props.match.params.id} />
+                    )}
+                />
+            </div>
+        </BrowserRouter>
     );
 }

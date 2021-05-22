@@ -1,7 +1,3 @@
-body {
-    background-color: rgb(9, 9, 69);
-}
-
 * {
     box-sizing: border-box;
 }
@@ -112,6 +108,7 @@ header span {
 
 .friends-list {
     flex-direction: column !important;
+    align-items: center !important;
 }
 
 @media (min-width: 1200px) {

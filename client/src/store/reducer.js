@@ -113,10 +113,5 @@ export default function reducer(state = defaultState, action) {
         };
     }
 
-    console.log("[redux-reducer] incoming action: ", {
-        action,
-        previousState: state,
-        nextState,
-    });
     return nextState;
 }

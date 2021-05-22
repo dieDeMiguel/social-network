@@ -22,10 +22,6 @@ export default function FriendButton({ id, showBioProfile }) {
                         "[FriendButton] users have no friendship entry in DB",
                         error
                     );
-                    console.log(
-                        "[FriendButton] error fetching friendship",
-                        error
-                    );
                 }
             });
     }, [id]);

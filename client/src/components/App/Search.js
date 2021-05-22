@@ -29,7 +29,7 @@ export default function Search() {
             <div>
                 <form
                     onChange={onChange}
-                    className="flex border border-black rounded-lg mt-12 ml-6"
+                    className="flex border border-black rounded-lg ml-6"
                 >
                     <input
                         className="rounded-l-lg p-4 border-t mr-0 border-b border-l text-gray-800 border-gray-200 bg-white text-xs p-4"
