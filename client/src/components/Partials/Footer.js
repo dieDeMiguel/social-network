@@ -3,7 +3,12 @@ import { Link } from "react-router-dom";
 function Footer({ user, onLogOut }) {
     return (
         <>
-            <footer className="page-footer teal lighten-2">
+            <footer
+                className="page-footer teal lighten-2"
+                style={{
+                    backgroundColor: "rgba(120, 53, 15, var(--tw-bg-opacity))",
+                }}
+            >
                 <div className="container">
                     <div className="row">
                         <div className="col l6 s12">

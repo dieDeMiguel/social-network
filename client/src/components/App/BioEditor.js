@@ -14,7 +14,6 @@ class BioEditor extends Component {
     }
 
     onTextAreaInput(event) {
-        console.log("[TextEditor] onTextChange", event.target.value);
         this.setState({
             draftText: event.target.value,
         });
@@ -22,7 +21,6 @@ class BioEditor extends Component {
 
     onSubmit(event) {
         event.preventDefault();
-        console.log("[TextEditor] onSubmit", this.state.draftText);
         this.props.onTextSave(this.state.draftText);
         this.setState({ isEditing: false });
     }
@@ -46,10 +44,9 @@ class BioEditor extends Component {
         const textContent = this.props.text ? this.props.text : "No bio yet";
         return (
             <>
-                <p className="profile-text">Your Profile:</p>
-                <h1 className="bio-text">{textContent}</h1>
+                <h1 style={{ fontSize: "1rem" }}>{textContent}</h1>
                 <button onClick={this.editBio} id="btn">
-                    {buttonLabel}
+                    <p style={{ fontSize: "1rem" }}>{buttonLabel}</p>
                 </button>
             </>
         );
@@ -57,12 +54,13 @@ class BioEditor extends Component {
 
     renderEditingMode() {
         return (
-            <form onSubmit={this.onSubmit}>
+            <form onSubmit={this.onSubmit} style={{display: "flex", flexDirection: "column", alignItems: "center"}}>
                 <textarea
                     rows={5}
                     cols={40}
                     onInput={this.onTextAreaInput}
                     defaultValue={this.props.text}
+                    style={{ border: "1px solid black" }}
                     required
                 />
                 <button type="submit" id="btn">

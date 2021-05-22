@@ -42,7 +42,7 @@ class ProfilePictureUploader extends Component {
     }
     render() {
         return (
-            <div className="profile-picture-uploader modal">
+            <div className="profile-picture-uploader">
                 <div className="modal-content form">
                     <button className="close" onClick={this.onCloseButtonClick}>
                         x
@@ -55,7 +55,16 @@ class ProfilePictureUploader extends Component {
                             required
                             onChange={this.onChange}
                         />
-                        <button type="submit">Upload</button>
+                        <button
+                            type="submit"
+                            style={{
+                                border: "1px solid black",
+                                padding: "5px",
+                                borderRadius: "5px",
+                            }}
+                        >
+                            Upload
+                        </button>
                     </form>
                 </div>
             </div>

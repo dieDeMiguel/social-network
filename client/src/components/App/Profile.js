@@ -9,7 +9,7 @@ function Profile({ user, onTextSave, onProfilePictureClick }) {
         }
         axios
             .delete(`/user`)
-            .then((result) => {
+            .then(() => {
                 window.location.href = "/";
             })
             .catch((error) =>
@@ -18,40 +18,54 @@ function Profile({ user, onTextSave, onProfilePictureClick }) {
     }
     return (
         <>
-            <div className="min-h-screen flex items-center justify-center px-4">
-                <div className="max-w-4xl  bg-white w-full rounded-lg shadow-xl">
+            <div className="min-h-screen flex items-center justify-center px-4 bg-yellow-50">
+                <div className="max-w-4xl  bg-white w-full rounded-lg shadow-xl my-12">
                     <div className="p-4 border-b">
-                        <h2 className="text-2xl ">Superhero Profile</h2>
-                        <p className="text-sm text-gray-500">
-                            Superhero #: {user.id}
-                        </p>
+                        <h2 className="text-2xl h1-profile">
+                            Superhero Profile
+                        </h2>
+                        <p className="text-sm text-gray-500"></p>
                     </div>
                     <div>
                         <div className="md:grid md:grid-cols-2 hover:bg-gray-50 md:space-y-0 space-y-1 p-4 border-b">
-                            <p className="text-gray-600">Full name</p>
-                            <p>
+                            <p className="text-gray-600">Full name:</p>
+                            <p className="profile-text">
                                 {user.firstName} {user.lastName}
                             </p>
                         </div>
                         <div className="md:grid md:grid-cols-2 hover:bg-gray-50 md:space-y-0 space-y-1 p-4 border-b">
-                            <p className="text-gray-600">Member since</p>
-                            <p>{user.created_at}</p>
+                            <p className="text-gray-600"> Superhero ID:</p>
+                            <p className="profile-text">{user.id}</p>
                         </div>
                         <div className="md:grid md:grid-cols-2 hover:bg-gray-50 md:space-y-0 space-y-1 p-4 border-b">
-                            <p className="text-gray-600">Email Address</p>
-                            <p>{user.email}</p>
+                            <p className="text-gray-600">Member since:</p>
+                            <p className="profile-text">{user.created_at}</p>
                         </div>
                         <div className="md:grid md:grid-cols-2 hover:bg-gray-50 md:space-y-0 space-y-1 p-4 border-b">
-                            <p className="text-gray-600">Bio</p>
+                            <p className="text-gray-600">Email Address:</p>
+                            <p className="profile-text">{user.email}</p>
+                        </div>
+                        <div
+                            className="md:grid md:grid-cols-2 hover:bg-gray-50 md:space-y-0 space-y-1 p-4 border-b"
+                            style={{
+                                display: "flex",
+                                justifyContent: "center",
+                            }}
+                        >
                             <TextEditor
                                 text={user.bio}
                                 onTextSave={onTextSave}
                             />
                         </div>
-                        <div className="md:grid md:grid-cols-2 hover:bg-gray-50 md:space-y-0 space-y-1 p-4">
-                            <p className="text-gray-600">Attachments</p>
+                        <div
+                            className="md:grid md:grid-cols-2 hover:bg-gray-50 md:space-y-0 space-y-1 p-4"
+                            style={{
+                                display: "flex",
+                                justifyContent: "center",
+                            }}
+                        >
                             <div className="space-y-2">
-                                <div className="border-2 flex items-center p-2 rounded justify-between space-x-2">
+                                <div className="flex items-center p-2 rounded justify-between space-x-2">
                                     <div className="space-x-2 truncate">
                                         <p className="p-wrapper">
                                             <img
@@ -72,14 +86,6 @@ function Profile({ user, onTextSave, onProfilePictureClick }) {
                                     >
                                         Delete Account
                                     </button>
-                                    <Route>
-                                        <Link
-                                            to="/users"
-                                            className="text-purple-700 hover:underline"
-                                        >
-                                            Search other users
-                                        </Link>
-                                    </Route>
                                 </div>
                             </div>
                         </div>

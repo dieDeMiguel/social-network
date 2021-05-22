@@ -11,7 +11,7 @@ function Header({ user }) {
     return (
         <>
             <nav
-                className="navbar"
+                className="navbar px-12"
                 role="navigation"
                 aria-label="main navigation"
                 style={{ minHeight: "6.25rem" }}

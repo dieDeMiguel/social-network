@@ -139,6 +139,7 @@ class App extends Component {
         );
     }
     renderModal() {
+        console.log("render modal", this.state.showModal);
         if (this.state.showModal) {
             return (
                 <ProfilePictureUploader
