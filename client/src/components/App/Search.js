@@ -48,7 +48,7 @@ export default function Search() {
                                 className="border-gray-400 flex flex-row"
                                 key={user.id}
                             >
-                                <div className="select-none mb-4 flex flex-1 items-center p-4 transition duration-500 ease-in-out transform hover:-translate-y-2 rounded-2xl border-2 hover:shadow-2xl border-red-400">
+                                <div className="select-none mb-4 flex flex-1 items-center p-4 transition duration-500 ease-in-out transform hover:-translate-y-2 rounded-2xl border-2 hover:shadow-2xl border-green-400">
                                     <div className="flex-1 pl-1">
                                         <div className="font-medium">
                                             <p
