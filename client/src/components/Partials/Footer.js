@@ -1,6 +1,15 @@
 import { Link } from "react-router-dom";
+import axios from "../../axios";
 
-function Footer({ user, onLogOut }) {
+function Footer({ user }) {
+    function onlogOut(event) {
+        event.preventDefault();
+        axios.post("/logout").then((response) => {
+            console.log("[App]:", response.data.message);
+            window.location.href = "/welcome";
+        });
+    }
+
     return (
         <>
             <footer
@@ -14,7 +23,7 @@ function Footer({ user, onLogOut }) {
                         <div className="col l6 s12">
                             <h5 className="white-text">Super Hero</h5>
                             {user ? (
-                                <form onSubmit={() => onLogOut()}>
+                                <form onSubmit={onlogOut}>
                                     <button
                                         type="submit"
                                         className="btn-logout"
