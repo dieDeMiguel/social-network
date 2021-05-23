@@ -29,7 +29,6 @@ class App extends Component {
         this.onProfilePictureClick = this.onProfilePictureClick.bind(this);
         this.onUpload = this.onUpload.bind(this);
         this.onModalClose = this.onModalClose.bind(this);
-        this.logOut = this.logOut.bind(this);
         this.onBioSave = this.onBioSave.bind(this);
     }
 
@@ -79,14 +78,6 @@ class App extends Component {
         });
     }
 
-    logOut(event) {
-        event.preventDefault();
-        axios.post("/logout").then((response) => {
-            console.log("[App]:", response.data.message);
-            window.location.href = "/welcome";
-        });
-    }
-
     onBioSave(newText) {
         axios
             .put("/user", { bioText: newText })
@@ -130,10 +121,7 @@ class App extends Component {
                     <Route path="/users" render={() => <FindPeople />} />
                     <Route path="/friends" render={() => <Friends />} />
                     <Route path="/chat" render={() => <Chat />} />
-                    <Footer
-                        user={this.state.user}
-                        onLogout={() => this.logOut()}
-                    />
+                    <Footer user={this.state.user} />
                 </>
             </BrowserRouter>
         );
